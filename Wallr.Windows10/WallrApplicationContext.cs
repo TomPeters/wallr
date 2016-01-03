@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using Wallr.Common;
 
 namespace Wallr.Windows10
 {
@@ -10,15 +12,11 @@ namespace Wallr.Windows10
     {
         private NotifyIcon _notifyIcon;
 
-        public WallrApplicationContext()
-        {
-            InitializeNotifyIcon();
-        }
-
-        private void InitializeNotifyIcon()
+        public void InitializeNotifyIcon(IEnumerable<ToolStripItem> systemTrayOptions)
         {
             var components = new Container();
             ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
+            systemTrayOptions.ForEach(o => contextMenuStrip.Items.Add(o));
             contextMenuStrip.Items.Add(new ToolStripButton("Exit", null, exitItem_Click));
             _notifyIcon = new NotifyIcon(components)
             {

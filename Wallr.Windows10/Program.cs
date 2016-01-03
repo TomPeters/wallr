@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Wallr.Core;
 
 namespace Wallr.Windows10
 {
@@ -7,8 +6,9 @@ namespace Wallr.Windows10
     {
         static void Main(string[] args)
         {
-            WallrApplicationContext applicationContext = new WallrApplicationContext();
-            Application.Run(applicationContext);
+            Windows10Platform windows10Platform = new Windows10Platform(new WallrApplicationContext());
+            new WallrApplication().Setup(windows10Platform);
+            windows10Platform.Start();
         }
     }
 }
