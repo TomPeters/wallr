@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Wallr.Windows10
 {
@@ -10,6 +7,8 @@ namespace Wallr.Windows10
     {
         static void Main(string[] args)
         {
+            WallrApplicationContext applicationContext = new WallrApplicationContext();
+            Application.Run(applicationContext);
         }
     }
 }
