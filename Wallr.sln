@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.Windows10", "Wallr.Windows10\Wallr.Windows10.csproj", "{C576D860-37D1-4E03-8CDB-B69B01FFD5B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.Core", "Wallr.Core\Wallr.Core.csproj", "{94AF8898-F909-4BE3-899D-204F7D097A7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageSource", "Wallr.ImageSource\Wallr.ImageSource.csproj", "{390BDCB5-BA59-4C7E-AA2D-042B735FC805}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageSource.Subreddit", "Wallr.ImageSource.Subreddit\Wallr.ImageSource.Subreddit.csproj", "{93390EE0-0CB2-4573-9F28-60F91047F898}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C576D860-37D1-4E03-8CDB-B69B01FFD5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C576D860-37D1-4E03-8CDB-B69B01FFD5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C576D860-37D1-4E03-8CDB-B69B01FFD5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C576D860-37D1-4E03-8CDB-B69B01FFD5B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94AF8898-F909-4BE3-899D-204F7D097A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AF8898-F909-4BE3-899D-204F7D097A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94AF8898-F909-4BE3-899D-204F7D097A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AF8898-F909-4BE3-899D-204F7D097A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{390BDCB5-BA59-4C7E-AA2D-042B735FC805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{390BDCB5-BA59-4C7E-AA2D-042B735FC805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{390BDCB5-BA59-4C7E-AA2D-042B735FC805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{390BDCB5-BA59-4C7E-AA2D-042B735FC805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93390EE0-0CB2-4573-9F28-60F91047F898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93390EE0-0CB2-4573-9F28-60F91047F898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93390EE0-0CB2-4573-9F28-60F91047F898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93390EE0-0CB2-4573-9F28-60F91047F898}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
