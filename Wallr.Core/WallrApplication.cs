@@ -18,7 +18,7 @@ namespace Wallr.Core
                 .WriteTo.File(Path.Combine(platform.ApplicationDataFolderPath, "log.txt"))
                 .CreateLogger();
             platform.SetupQuickUseControl(new List<IQuickUseOption>());
-            new WallpaperCoordinator(new ImageUpdateEvents(Log.Logger), new WallpaperSetter(platform, Log.Logger), new SubredditImageSource());
+            new WallpaperCoordinator(new ImageUpdateEvents(Log.Logger), new WallpaperSetter(platform, Log.Logger), new SubredditImageSource(Log.Logger)).Start();
         }
     }
 }
