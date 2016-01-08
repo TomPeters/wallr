@@ -2,6 +2,9 @@
 {
     public class SubredditImageSource : IImageSource
     {
-         
+        public IImage FetchLatestImage()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

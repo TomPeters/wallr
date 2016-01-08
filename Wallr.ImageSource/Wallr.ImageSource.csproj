@@ -47,10 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IImageSource.cs" />
+    <Compile Include="ImageId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
+      <Project>{CCE4F6D1-B6F5-45D1-9AD8-83CC3DED258C}</Project>
+      <Name>Wallr.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
