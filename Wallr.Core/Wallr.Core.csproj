@@ -74,11 +74,27 @@
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ImageUpdateEvents.cs" />
+    <Compile Include="WallpaperCoordinator.cs" />
+    <Compile Include="WallpaperSetter.cs" />
     <Compile Include="WallrApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
+      <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
+      <Name>Wallr.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImageSource.Subreddit\Wallr.ImageSource.Subreddit.csproj">
+      <Project>{93390ee0-0cb2-4573-9f28-60f91047f898}</Project>
+      <Name>Wallr.ImageSource.Subreddit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
+      <Project>{390BDCB5-BA59-4C7E-AA2D-042B735FC805}</Project>
+      <Name>Wallr.ImageSource</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

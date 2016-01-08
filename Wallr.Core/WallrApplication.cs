@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Serilog;
 using Wallr.Core.QuickUse;
+using Wallr.ImageSource.Subreddit;
 
 namespace Wallr.Core
 {
@@ -17,6 +18,7 @@ namespace Wallr.Core
                 .WriteTo.File(Path.Combine(platform.ApplicationDataFolderPath, "log.txt"))
                 .CreateLogger();
             platform.SetupQuickUseControl(new List<IQuickUseOption>());
+            new WallpaperCoordinator(new ImageUpdateEvents(Log.Logger), new WallpaperSetter(platform, Log.Logger), new SubredditImageSource());
         }
     }
 }

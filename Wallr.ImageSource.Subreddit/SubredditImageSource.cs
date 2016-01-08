@@ -4,6 +4,7 @@
     {
         public IImage FetchLatestImage()
         {
+            // NoCommit
             throw new System.NotImplementedException();
         }
     }

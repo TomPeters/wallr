@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Wallr.Core;
@@ -25,6 +26,17 @@ namespace Wallr.Windows10
         public string ApplicationDataFolderPath
         {
             get { return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData); }
+        }
+
+        public void SetWallpaper(string imagePath)
+        {
+            WindowsWallpapers.SetWallpaper(imagePath);
+        }
+
+        public void SaveWallpaper(Stream fileStream, string filePath)
+        {
+            //NOCOMMIT
+            throw new NotImplementedException();
         }
 
         public void Start()
