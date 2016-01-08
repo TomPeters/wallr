@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Wallr.Core;
@@ -19,6 +20,11 @@ namespace Wallr.Windows10
         {
             IEnumerable<ToolStripItem> systemTrayOptions = quickUseOptions.Select(o => new ToolStripButton(o.Label, null, (sender, args) => o.SelectOption()));
             _applicationContext.InitializeNotifyIcon(systemTrayOptions);
+        }
+
+        public string ApplicationDataFolderPath
+        {
+            get { return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData); }
         }
 
         public void Start()

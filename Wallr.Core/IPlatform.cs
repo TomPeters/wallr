@@ -6,5 +6,6 @@ namespace Wallr.Core
     public interface IPlatform
     {
         void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
+        string ApplicationDataFolderPath { get; }
     }
 }
