@@ -16,7 +16,7 @@ namespace Wallr.Core
         public ImageUpdateEvents(ILogger logger)
         {
             _logger = logger;
-            UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 0, 20)).Publish().RefCount();
+            UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 0, 10)).Publish().RefCount();
             UpdateImageRequested.Subscribe(l => _logger.Information("Image update requested at {Timestamp}", DateTime.UtcNow));
         }
 
