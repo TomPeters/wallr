@@ -1,14 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Serilog;
+using Serilog.Configuration;
 using Wallr.Core.QuickUse;
+using Wallr.ImageSource;
 
 namespace Wallr.Core
 {
     public interface IPlatform
     {
         void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
-        string ApplicationDataFolderPath { get; } // FIXME: Ideally we should not need to expose this, look for ways to avoid it.
-        void SetWallpaper(string imagePath);
-        void SaveWallpaper(Stream fileStream, string filePath);
+        void SetWallpaper(StreamImageId imageId);
+        void SaveWallpaper(Stream fileStream, StreamImageId imageId);
+        IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks { get; }
     }
 }

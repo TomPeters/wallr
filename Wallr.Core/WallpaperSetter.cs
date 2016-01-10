@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Serilog;
 using Wallr.ImageSource;
 
 namespace Wallr.Core
@@ -12,31 +11,23 @@ namespace Wallr.Core
     public class WallpaperSetter : IWallpaperSetter
     {
         private readonly IPlatform _platform;
-        private readonly ILogger _logger;
 
-        public WallpaperSetter(IPlatform platform, ILogger logger)
+        public WallpaperSetter(IPlatform platform)
         {
             _platform = platform;
-            _logger = logger;
         }
 
         public void SetWallpaper(IImage image)
         {
-            var logger = _logger.ForContext("ImageId", image.Id);
-            string path = SaveWallpaper(image, logger);
-            logger.Information("Image saved at {FilePath}", path);
-            _platform.SetWallpaper(path);
-            logger.Information("Wallpaper set for {FileName}", image.FileName);
+            SaveWallpaper(image);
+            _platform.SetWallpaper(image.StreamImageId);
         }
 
-        private string SaveWallpaper(IImage image, ILogger logger)
+        private void SaveWallpaper(IImage image)
         {
-            logger.Information("Saving image {FileName}", image.FileName);
             using (Stream stream = image.FileStream)
             {
-                var filePath = Path.Combine(_platform.ApplicationDataFolderPath, image.FileName);
-                _platform.SaveWallpaper(stream, filePath);
-                return filePath;
+                _platform.SaveWallpaper(stream, image.StreamImageId);
             }
         }
     }

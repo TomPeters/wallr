@@ -45,7 +45,7 @@ namespace Wallr.ImageSource.Subreddit
                 return new ImageDownloadResult
                 {
                     IsSuccessful = true,
-                    Image = new RemoteImage(url)
+                    Image = new RemoteImage(url, _subreddit)
                 };
             }
             return new ImageDownloadResult
@@ -64,13 +64,15 @@ namespace Wallr.ImageSource.Subreddit
     public class RemoteImage : IImage
     {
         private readonly string _url;
+        private readonly string _subredditName;
 
-        public RemoteImage(string url)
+        public RemoteImage(string url, string subredditName)
         {
             _url = url;
+            _subredditName = subredditName;
         }
 
-        public ImageId Id => new ImageId(_url);
+        public StreamImageId StreamImageId => new StreamImageId(new ImageId(FileName), new SubredditImageSourceId(_subredditName));
         public string FileName => _url.Split('/').Last();
         public Stream FileStream => new WebClient().OpenRead(new Uri(_url));
     }

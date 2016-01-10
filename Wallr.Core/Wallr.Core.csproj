@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IImageStream.cs" />
     <Compile Include="IPlatform.cs" />
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

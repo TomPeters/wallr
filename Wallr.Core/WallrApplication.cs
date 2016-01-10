@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using Serilog;
 using Wallr.Core.QuickUse;
 using Wallr.ImageSource.Subreddit;
@@ -11,14 +11,15 @@ namespace Wallr.Core
     {
         public void Setup(IPlatform platform)
         {
-            Log.Logger = new LoggerConfiguration()
+            LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
                 .Enrich.WithProperty("InstanceId", Guid.NewGuid())
-                .MinimumLevel.Debug()
-                .WriteTo.ColoredConsole()
-                .WriteTo.File(Path.Combine(platform.ApplicationDataFolderPath, "log.txt"))
+                .MinimumLevel.Debug();
+            Log.Logger = platform.LoggerSinks
+                .Aggregate(loggerConfiguration, (current, sinkConfiguration) => sinkConfiguration(current.WriteTo))
                 .CreateLogger();
+
             platform.SetupQuickUseControl(new List<IQuickUseOption>());
-            new WallpaperCoordinator(new ImageUpdateEvents(Log.Logger), new WallpaperSetter(platform, Log.Logger), new SubredditImageSource("wallpapers", Log.Logger)).Start();
+            new WallpaperCoordinator(new ImageUpdateEvents(Log.Logger), new WallpaperSetter(platform), new SubredditImageSource("wallpapers", Log.Logger)).Start();
         }
     }
 }

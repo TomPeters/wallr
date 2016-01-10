@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 using Serilog;
 
@@ -16,7 +17,8 @@ namespace Wallr.Core
         public ImageUpdateEvents(ILogger logger)
         {
             _logger = logger;
-            UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 0, 10)).Publish().RefCount();
+            // TODO: This won't cut it because the stream should not be interupted by restarting the application
+            UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 30, 00)).Publish().RefCount();
             UpdateImageRequested.Subscribe(l => _logger.Information("Image update requested at {Timestamp}", DateTime.UtcNow));
         }
 

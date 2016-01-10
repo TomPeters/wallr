@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace Wallr.ImageSource
 {
@@ -10,8 +9,7 @@ namespace Wallr.ImageSource
 
     public interface IImage
     {
-        ImageId Id { get; }
-        string FileName { get; }
+        StreamImageId StreamImageId { get; }
         Stream FileStream { get; }
     }
 }

@@ -4,8 +4,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Serilog;
+using Serilog.Configuration;
 using Wallr.Core;
 using Wallr.Core.QuickUse;
+using Wallr.ImageSource;
 
 namespace Wallr.Windows10
 {
@@ -24,20 +27,39 @@ namespace Wallr.Windows10
             _applicationContext.InitializeNotifyIcon(systemTrayOptions);
         }
 
-        public string ApplicationDataFolderPath
+        private string ApplicationDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallr");
+
+        public void SetWallpaper(StreamImageId imageId)
         {
-            get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallr"); }
+            WindowsWallpapers.SetWallpaper(GetPathFromId(imageId));
+            Log.Logger.ForContext("ImageId", imageId)
+                .Information("Wallpaper set for {FileName}", imageId.ImageId.Value);
         }
 
-        public void SetWallpaper(string imagePath)
+        public void SaveWallpaper(Stream fileStream, StreamImageId imageId)
         {
-            WindowsWallpapers.SetWallpaper(imagePath);
-        }
+            var logger = Log.Logger.ForContext("ImageId", imageId);
+            logger.Information("Saving image {FileName}", imageId.ImageId.Value);
 
-        public void SaveWallpaper(Stream fileStream, string filePath)
-        {
             Image img = Image.FromStream(fileStream);
-            img.Save(filePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+            string path = GetPathFromId(imageId);
+            img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            logger.Information("Image saved at {FilePath}", path);
+        }
+
+        public IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks
+        {
+            get
+            {
+                yield return writeTo => writeTo.ColoredConsole();
+                yield return writeTo => writeTo.File(Path.Combine(ApplicationDataFolderPath, "log.txt"));
+            }
+        }
+
+        private string GetPathFromId(StreamImageId imageId)
+        {
+            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, imageId.ImageSourceId.Value);
         }
 
         public void Start()
