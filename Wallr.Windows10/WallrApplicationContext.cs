@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using Serilog;
 using Wallr.Common;
 
 namespace Wallr.Windows10
@@ -34,6 +35,7 @@ namespace Wallr.Windows10
 
         protected override void ExitThreadCore()
         {
+            Log.Logger.Information("Application exiting");
             _notifyIcon.Visible = false;
             base.ExitThreadCore();
         }

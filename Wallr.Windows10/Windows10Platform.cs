@@ -43,6 +43,8 @@ namespace Wallr.Windows10
 
             Image img = Image.FromStream(fileStream);
             string path = GetPathFromId(imageId);
+            string directoryName = Path.GetDirectoryName(path);
+            Directory.CreateDirectory(directoryName);
             img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
 
             logger.Information("Image saved at {FilePath}", path);
@@ -59,7 +61,7 @@ namespace Wallr.Windows10
 
         private string GetPathFromId(StreamImageId imageId)
         {
-            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, imageId.ImageSourceId.Value);
+            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, imageId.ImageId.Value);
         }
 
         public void Start()

@@ -2,7 +2,7 @@
 {
     public class SubredditImageSourceId : ImageSourceId
     {
-        public SubredditImageSourceId(string subredditName) : base($"Subreddit:{subredditName}")
+        public SubredditImageSourceId(string subredditName) : base($"Subreddit-{subredditName}")
         {
         }
     }
