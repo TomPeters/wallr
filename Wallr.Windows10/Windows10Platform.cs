@@ -61,7 +61,7 @@ namespace Wallr.Windows10
 
         private string GetPathFromId(StreamImageId imageId)
         {
-            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, imageId.ImageId.Value);
+            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, $"{imageId.ImageId.Value}.jpg");
         }
 
         public void Start()

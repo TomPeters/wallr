@@ -2,6 +2,9 @@ using Wallr.Common;
 
 namespace Wallr.ImageSource
 {
+    // Used for the filename on disk. 
+    // Should correspond closely to the actual file name if possible (minus the extension). 
+    // Can have things like timestamps if required for uniqueness
     public class ImageId : TypedString<ImageId>
     {
         public ImageId(string value) : base(value)
