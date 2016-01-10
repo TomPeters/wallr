@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Security.Policy;
 using Newtonsoft.Json.Linq;
 using Serilog;
 
@@ -21,21 +21,24 @@ namespace Wallr.ImageSource.Subreddit
 
         private Uri Uri => new Uri($"http://www.reddit.com/r/{_subreddit}/hot/.json");
 
-        public IImage FetchLatestImage()
+        public IEnumerable<IImage> Images
         {
-            _logger.Information("Fetching latest image from subreddit");
-            using (var client = new WebClient())
+            get
             {
-                var jsonResponse = client.DownloadString(Uri);
-                _logger.Information("Received response from reddit");
-                var jObject = JObject.Parse(jsonResponse);
-                return jObject["data"]["children"].Value<JArray>().Select(j => j["data"]).Skip(RandomSkip).Select(TryDownloadImage).First(d => d.IsSuccessful).Image;
+                _logger.Information("Fetching latest image from subreddit");
+                using (var client = new WebClient())
+                {
+                    var jsonResponse = client.DownloadString(Uri);
+                    _logger.Information("Received response from reddit");
+                    var jObject = JObject.Parse(jsonResponse);
+                    var images = jObject["data"]["children"].Value<JArray>().Select(j => j["data"]).Select(TryDownloadImage).Where(i => i.IsSuccessful).Select(i => i.Image);
+                    foreach (IImage image in images)
+                        yield return image;
+                }
             }
         }
 
-        // FIXME: Random to prove that it works, this should be removed
-        private readonly Random _random = new Random();
-        private int RandomSkip => _random.Next(0, 5);
+        public ImageSourceId ImageSourceId => new SubredditImageSourceId(_subreddit);
 
         private ImageDownloadResult TryDownloadImage(JToken postJson)
         {

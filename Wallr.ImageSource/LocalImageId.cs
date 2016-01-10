@@ -1,3 +1,4 @@
+using System;
 using Wallr.Common;
 
 namespace Wallr.ImageSource
@@ -20,7 +21,7 @@ namespace Wallr.ImageSource
         }
     }
 
-    public class ImageId
+    public class ImageId : IEquatable<ImageId>
     {
         public ImageId(LocalImageId localImageId, ImageSourceId imageSourceId)
         {
@@ -30,5 +31,20 @@ namespace Wallr.ImageSource
 
         public LocalImageId LocalImageId { get;}
         public ImageSourceId ImageSourceId { get; }
+
+        public bool Equals(ImageId other)
+        {
+            return other.LocalImageId.Equals(LocalImageId) && other.ImageSourceId.Equals(ImageSourceId);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ImageId && Equals((ImageId) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return LocalImageId.GetHashCode() ^ ImageSourceId.GetHashCode();
+        }
     }
 }

@@ -1,11 +1,10 @@
-﻿using System.IO;
-using Wallr.ImageSource;
+﻿using Wallr.ImageSource;
 
 namespace Wallr.Core
 {
     public interface IWallpaperSetter
     {
-        void SetWallpaper(IImage image);
+        void SetWallpaper(ImageId imageId);
     }
 
     public class WallpaperSetter : IWallpaperSetter
@@ -17,18 +16,9 @@ namespace Wallr.Core
             _platform = platform;
         }
 
-        public void SetWallpaper(IImage image)
+        public void SetWallpaper(ImageId imageId)
         {
-            SaveWallpaper(image);
-            _platform.SetWallpaper(image.ImageId);
-        }
-
-        private void SaveWallpaper(IImage image)
-        {
-            using (Stream stream = image.FileStream)
-            {
-                _platform.SaveWallpaper(stream, image.ImageId);
-            }
+            _platform.SetWallpaper(imageId);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Wallr.Core
         public void Setup(IPlatform platform)
         {
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
+                .Enrich.WithProperty("Product", "Wallr")
                 .Enrich.WithProperty("InstanceId", Guid.NewGuid())
                 .MinimumLevel.Debug();
             Log.Logger = platform.LoggerSinks
@@ -19,7 +20,11 @@ namespace Wallr.Core
                 .CreateLogger();
 
             platform.SetupQuickUseControl(new List<IQuickUseOption>());
-            new WallpaperCoordinator(new ImageUpdateEvents(Log.Logger), new WallpaperSetter(platform), new SubredditImageSource("wallpapers", Log.Logger)).Start();
+            ImageStream imageStream = new ImageStream(platform, Log.Logger);
+            var subredditImageSource = new SubredditImageSource("wallpapers", Log.Logger);
+            var populator = new ImageStreamPopulator(subredditImageSource, Log.Logger);
+            new ImageStreamCoordinator(populator, new ImageStreamUpdateEvents(Log.Logger), imageStream).Start();
+            new WallpaperCoordinator(new WallpaperUpdateEvents(Log.Logger), new WallpaperSetter(platform), imageStream).Start();
         }
     }
 }

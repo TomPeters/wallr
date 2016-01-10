@@ -1,27 +1,25 @@
 ﻿using System.Reactive.Linq;
-using Wallr.ImageSource;
-using Console = System.Console;
 using System;
 
 namespace Wallr.Core
 {
     public class WallpaperCoordinator
     {
-        private readonly IImageUpdateEvents _imageUpdateEvents;
+        private readonly IWallpaperUpdateEvents _wallpaperUpdateEvents;
         private readonly IWallpaperSetter _wallpaperSetter;
-        private readonly IImageSource _imageSource;
+        private readonly IImageStream _imageStream;
 
-        public WallpaperCoordinator(IImageUpdateEvents imageUpdateEvents, IWallpaperSetter wallpaperSetter, IImageSource imageSource)
+        public WallpaperCoordinator(IWallpaperUpdateEvents wallpaperUpdateEvents, IWallpaperSetter wallpaperSetter, IImageStream imageStream)
         {
-            _imageUpdateEvents = imageUpdateEvents;
+            _wallpaperUpdateEvents = wallpaperUpdateEvents;
             _wallpaperSetter = wallpaperSetter;
-            _imageSource = imageSource;
+            _imageStream = imageStream;
         }
 
         public void Start()
         {
-            _imageUpdateEvents.UpdateImageRequested
-                .Select(i => _imageSource.FetchLatestImage())
+            _wallpaperUpdateEvents.UpdateImageRequested
+                .Select(i => _imageStream.PopNextImageId)
                 .Subscribe(_wallpaperSetter.SetWallpaper);
         } 
     }

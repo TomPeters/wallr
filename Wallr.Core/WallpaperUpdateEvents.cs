@@ -5,16 +5,16 @@ using Serilog;
 
 namespace Wallr.Core
 {
-    public interface IImageUpdateEvents
+    public interface IWallpaperUpdateEvents
     {
         IObservable<long> UpdateImageRequested { get; }
     }
 
-    public class ImageUpdateEvents : IImageUpdateEvents
+    public class WallpaperUpdateEvents : IWallpaperUpdateEvents
     {
         private readonly ILogger _logger;
 
-        public ImageUpdateEvents(ILogger logger)
+        public WallpaperUpdateEvents(ILogger logger)
         {
             _logger = logger;
             // TODO: This won't cut it because the stream should not be interupted by restarting the application

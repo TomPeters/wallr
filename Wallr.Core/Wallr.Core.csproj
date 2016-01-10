@@ -71,10 +71,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IImageStream.cs" />
+    <Compile Include="ImageStreamCoordinator.cs" />
+    <Compile Include="ImageStreamPopulator.cs" />
+    <Compile Include="ImageStreamUpdateEvents.cs" />
     <Compile Include="IPlatform.cs" />
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImageUpdateEvents.cs" />
+    <Compile Include="WallpaperUpdateEvents.cs" />
     <Compile Include="WallpaperCoordinator.cs" />
     <Compile Include="WallpaperSetter.cs" />
     <Compile Include="WallrApplication.cs" />

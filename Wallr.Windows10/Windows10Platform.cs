@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Serilog;
 using Serilog.Configuration;
+using Serilog.Events;
 using Wallr.Core;
 using Wallr.Core.QuickUse;
 using Wallr.ImageSource;
@@ -36,16 +37,19 @@ namespace Wallr.Windows10
                 .Information("Wallpaper set for {FileName}", imageId.LocalImageId.Value);
         }
 
-        public void SaveWallpaper(Stream fileStream, ImageId imageId)
+        public void SaveWallpaper(IImage image)
         {
-            var logger = Log.Logger.ForContext("LocalImageId", imageId);
-            logger.Information("Saving image {FileName}", imageId.LocalImageId.Value);
+            var logger = Log.Logger.ForContext("LocalImageId", image.ImageId);
+            logger.Information("Saving image {FileName}", image.ImageId.LocalImageId.Value);
 
-            Image img = Image.FromStream(fileStream);
-            string path = GetPathFromId(imageId);
+            string path = GetPathFromId(image.ImageId);
             string directoryName = Path.GetDirectoryName(path);
             Directory.CreateDirectory(directoryName);
-            img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+            using (Stream stream = image.FileStream)
+            {
+                Image img = Image.FromStream(stream);
+                img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
 
             logger.Information("Image saved at {FilePath}", path);
         }
@@ -56,6 +60,7 @@ namespace Wallr.Windows10
             {
                 yield return writeTo => writeTo.ColoredConsole();
                 yield return writeTo => writeTo.File(Path.Combine(ApplicationDataFolderPath, "log.txt"));
+                yield return writeTo => writeTo.Seq("http://localhost:5341/");
             }
         }
 
