@@ -7,9 +7,14 @@ namespace Wallr.ImageSource
         IImage FetchLatestImage(); // Should ideally return a stream of images
     }
 
+    //public interface IImage
+    //{
+    //    IImage 
+    //}
+
     public interface IImage
     {
-        StreamImageId StreamImageId { get; }
+        ImageId ImageId { get; }
         Stream FileStream { get; }
     }
 }

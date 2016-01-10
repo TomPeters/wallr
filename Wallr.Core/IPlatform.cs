@@ -11,8 +11,8 @@ namespace Wallr.Core
     public interface IPlatform
     {
         void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
-        void SetWallpaper(StreamImageId imageId);
-        void SaveWallpaper(Stream fileStream, StreamImageId imageId);
+        void SetWallpaper(ImageId imageId);
+        void SaveWallpaper(Stream fileStream, ImageId imageId);
         IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks { get; }
     }
 }

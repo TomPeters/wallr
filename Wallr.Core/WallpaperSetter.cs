@@ -20,14 +20,14 @@ namespace Wallr.Core
         public void SetWallpaper(IImage image)
         {
             SaveWallpaper(image);
-            _platform.SetWallpaper(image.StreamImageId);
+            _platform.SetWallpaper(image.ImageId);
         }
 
         private void SaveWallpaper(IImage image)
         {
             using (Stream stream = image.FileStream)
             {
-                _platform.SaveWallpaper(stream, image.StreamImageId);
+                _platform.SaveWallpaper(stream, image.ImageId);
             }
         }
     }

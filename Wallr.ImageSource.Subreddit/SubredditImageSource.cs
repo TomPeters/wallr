@@ -72,7 +72,7 @@ namespace Wallr.ImageSource.Subreddit
             _subredditName = subredditName;
         }
 
-        public StreamImageId StreamImageId => new StreamImageId(new ImageId(FileName), new SubredditImageSourceId(_subredditName));
+        public ImageId ImageId => new ImageId(new LocalImageId(FileName), new SubredditImageSourceId(_subredditName));
         private string FileName => _url.Split('/').Last().Split('.').First();
         public Stream FileStream => new WebClient().OpenRead(new Uri(_url));
     }

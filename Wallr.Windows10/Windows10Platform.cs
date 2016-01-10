@@ -29,17 +29,17 @@ namespace Wallr.Windows10
 
         private string ApplicationDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallr");
 
-        public void SetWallpaper(StreamImageId imageId)
+        public void SetWallpaper(ImageId imageId)
         {
             WindowsWallpapers.SetWallpaper(GetPathFromId(imageId));
-            Log.Logger.ForContext("ImageId", imageId)
-                .Information("Wallpaper set for {FileName}", imageId.ImageId.Value);
+            Log.Logger.ForContext("LocalImageId", imageId)
+                .Information("Wallpaper set for {FileName}", imageId.LocalImageId.Value);
         }
 
-        public void SaveWallpaper(Stream fileStream, StreamImageId imageId)
+        public void SaveWallpaper(Stream fileStream, ImageId imageId)
         {
-            var logger = Log.Logger.ForContext("ImageId", imageId);
-            logger.Information("Saving image {FileName}", imageId.ImageId.Value);
+            var logger = Log.Logger.ForContext("LocalImageId", imageId);
+            logger.Information("Saving image {FileName}", imageId.LocalImageId.Value);
 
             Image img = Image.FromStream(fileStream);
             string path = GetPathFromId(imageId);
@@ -59,9 +59,9 @@ namespace Wallr.Windows10
             }
         }
 
-        private string GetPathFromId(StreamImageId imageId)
+        private string GetPathFromId(ImageId imageId)
         {
-            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, $"{imageId.ImageId.Value}.jpg");
+            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, $"{imageId.LocalImageId.Value}.jpg");
         }
 
         public void Start()

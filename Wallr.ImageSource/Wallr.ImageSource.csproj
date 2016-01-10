@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IImageSource.cs" />
-    <Compile Include="ImageId.cs" />
+    <Compile Include="LocalImageId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

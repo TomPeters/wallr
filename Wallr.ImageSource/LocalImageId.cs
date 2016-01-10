@@ -5,9 +5,10 @@ namespace Wallr.ImageSource
     // Used for the filename on disk. 
     // Should correspond closely to the actual file name if possible (minus the extension). 
     // Can have things like timestamps if required for uniqueness
-    public class ImageId : TypedString<ImageId>
+    // Only needs to be unique within the scope of an image source
+    public class LocalImageId : TypedString<LocalImageId>
     {
-        public ImageId(string value) : base(value)
+        public LocalImageId(string value) : base(value)
         {
         }
     }
@@ -19,15 +20,15 @@ namespace Wallr.ImageSource
         }
     }
 
-    public class StreamImageId
+    public class ImageId
     {
-        public StreamImageId(ImageId imageId, ImageSourceId imageSourceId)
+        public ImageId(LocalImageId localImageId, ImageSourceId imageSourceId)
         {
-            ImageId = imageId;
+            LocalImageId = localImageId;
             ImageSourceId = imageSourceId;
         }
 
-        public ImageId ImageId { get;}
+        public LocalImageId LocalImageId { get;}
         public ImageSourceId ImageSourceId { get; }
     }
 }
