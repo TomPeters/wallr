@@ -18,7 +18,7 @@ namespace Wallr.Core
         {
             _logger = logger;
             // TODO: This won't cut it because the stream should not be interupted by restarting the application
-            UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 0, 20)).Publish().RefCount();
+            UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 30, 0)).Publish().RefCount();
             UpdateImageRequested.Subscribe(l => _logger.Information("Image update requested at {Timestamp}", DateTime.UtcNow));
         }
 

@@ -1,4 +1,6 @@
-﻿using Wallr.ImageSource;
+﻿using System;
+using Serilog;
+using Wallr.ImageSource;
 
 namespace Wallr.Core
 {
@@ -10,15 +12,24 @@ namespace Wallr.Core
     public class WallpaperSetter : IWallpaperSetter
     {
         private readonly IPlatform _platform;
+        private readonly ILogger _logger;
 
-        public WallpaperSetter(IPlatform platform)
+        public WallpaperSetter(IPlatform platform, ILogger logger)
         {
             _platform = platform;
+            _logger = logger;
         }
 
         public void SetWallpaper(ImageId imageId)
         {
-            _platform.SetWallpaper(imageId);
+            try
+            {
+                _platform.SetWallpaper(imageId);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error ocurred trying to set the wallpaper to {ImageId}", imageId);
+            }
         }
     }
 }

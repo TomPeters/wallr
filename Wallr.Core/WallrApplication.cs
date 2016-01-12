@@ -24,7 +24,7 @@ namespace Wallr.Core
             var subredditImageSource = new SubredditImageSource("wallpapers", Log.Logger);
             var populator = new ImageStreamPopulator(subredditImageSource, Log.Logger);
             new ImageStreamCoordinator(populator, new ImageStreamUpdateEvents(Log.Logger), imageStream).Start();
-            new WallpaperCoordinator(new WallpaperUpdateEvents(Log.Logger), new WallpaperSetter(platform), imageStream).Start();
+            new WallpaperCoordinator(new WallpaperUpdateEvents(Log.Logger), new WallpaperSetter(platform, Log.Logger), imageStream).Start();
         }
     }
 }

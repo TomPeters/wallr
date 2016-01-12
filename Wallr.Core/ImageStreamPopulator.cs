@@ -30,10 +30,17 @@ namespace Wallr.Core
             int availableCapacity = imageStream.Capacity - imageStream.ImageIds.Count;
             int numberOfNewImagesToAdd = Math.Min(availableCapacity, imagesToAdd);
             _logger.Information("Adding {NumberOfNewImagesToAddFromSource} images to stream", numberOfNewImagesToAdd);
-            _imageSource.Images
-                .Where(i => !imageSourceIds.Contains(i.ImageId.LocalImageId))
-                .Take(numberOfNewImagesToAdd)
-                .ForEach(imageStream.PushImage);
+            try
+            {
+                _imageSource.Images
+                    .Where(i => !imageSourceIds.Contains(i.ImageId.LocalImageId))
+                    .Take(numberOfNewImagesToAdd)
+                    .ForEach(imageStream.PushImage);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error ocurred when populating the stream");
+            }
         }
     }
 }
