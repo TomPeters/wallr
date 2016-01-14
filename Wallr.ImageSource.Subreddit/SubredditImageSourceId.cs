@@ -1,4 +1,6 @@
-﻿namespace Wallr.ImageSource.Subreddit
+﻿using Wallr.Interfaces;
+
+namespace Wallr.ImageSource.Subreddit
 {
     public class SubredditImageSourceId : ImageSourceId
     {

@@ -1,12 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Serilog;
 using Serilog.Configuration;
-using Wallr.Core.QuickUse;
-using Wallr.ImageSource;
+using Wallr.Interfaces;
 
-namespace Wallr.Core
+namespace Wallr.Platform
 {
     public interface IPlatform // TODO: interface segregation, add extra abstraction on top of this in core where required (eg image saving)
     {

@@ -4,6 +4,7 @@ using System.Linq;
 using Serilog;
 using Wallr.Common;
 using Wallr.ImageSource;
+using Wallr.Interfaces;
 
 namespace Wallr.Core
 {

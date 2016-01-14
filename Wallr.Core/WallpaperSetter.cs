@@ -1,6 +1,7 @@
 ﻿using System;
 using Serilog;
-using Wallr.ImageSource;
+using Wallr.Interfaces;
+using Wallr.Platform;
 
 namespace Wallr.Core
 {

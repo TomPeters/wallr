@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Serilog;
-using Wallr.Core.QuickUse;
 using Wallr.ImageSource.Subreddit;
+using Wallr.Platform;
 
 namespace Wallr.Core
 {

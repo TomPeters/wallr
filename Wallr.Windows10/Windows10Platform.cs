@@ -6,10 +6,9 @@ using System.Linq;
 using System.Windows.Forms;
 using Serilog;
 using Serilog.Configuration;
-using Serilog.Events;
-using Wallr.Core;
-using Wallr.Core.QuickUse;
-using Wallr.ImageSource;
+//using Wallr.Core;
+using Wallr.Interfaces;
+using Wallr.Platform;
 
 namespace Wallr.Windows10
 {

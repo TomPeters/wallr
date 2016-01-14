@@ -83,6 +83,18 @@
       <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
       <Name>Wallr.ImageSource</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wallr.Interfaces\Wallr.Interfaces.csproj">
+      <Project>{33ca4669-45a8-4fff-9eff-a7f2b742f137}</Project>
+      <Name>Wallr.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
+      <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
+      <Name>Wallr.Platform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr\Wallr.csproj">
+      <Project>{74562a83-dd36-44c9-9aee-a24298cd5f56}</Project>
+      <Name>Wallr</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="assets\wallr.ico" />

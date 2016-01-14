@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using Wallr.Interfaces;
 
 namespace Wallr.ImageSource.Subreddit
 {
