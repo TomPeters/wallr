@@ -17,7 +17,7 @@ namespace Wallr.Core
         {
             _logger = logger;
             int numberOfImagesToAdd = 5;
-            ImageStreamUpdateRequested = Observable.Interval(new TimeSpan(0, 0, 30, 0)).Publish().RefCount().Select(i => numberOfImagesToAdd);
+            ImageStreamUpdateRequested = Observable.Interval(new TimeSpan(0, 0, 0, 10)).Publish().RefCount().Select(i => numberOfImagesToAdd);
             ImageStreamUpdateRequested.Subscribe(l => _logger.Information("{NumberOfImagesRequested} images requested from source at {Timestamp}", numberOfImagesToAdd, DateTime.UtcNow));
         }
 

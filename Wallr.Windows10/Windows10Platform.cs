@@ -28,17 +28,17 @@ namespace Wallr.Windows10
 
         private string ApplicationDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallr");
 
-        public void SetWallpaper(ImageId imageId)
+        public void SetWallpaper(ImageId imageId, ILogger logger)
         {
             WindowsWallpapers.SetWallpaper(GetPathFromId(imageId));
-            Log.Logger.ForContext("LocalImageId", imageId)
+            logger.ForContext("LocalImageId", imageId)
                 .Information("Wallpaper set for {FileName}", imageId.LocalImageId.Value);
         }
 
-        public void SaveWallpaper(IImage image)
+        public void SaveWallpaper(IImage image, ILogger logger)
         {
-            var logger = Log.Logger.ForContext("LocalImageId", image.ImageId);
-            logger.Information("Saving image {FileName}", image.ImageId.LocalImageId.Value);
+            var contextLogger = logger.ForContext("LocalImageId", image.ImageId);
+            contextLogger.Information("Saving image {FileName}", image.ImageId.LocalImageId.Value);
 
             string path = GetPathFromId(image.ImageId);
             string directoryName = Path.GetDirectoryName(path);
@@ -49,7 +49,7 @@ namespace Wallr.Windows10
                 img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
             }
 
-            logger.Information("Image saved at {FilePath}", path);
+            contextLogger.Information("Image saved at {FilePath}", path);
         }
 
         public IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks

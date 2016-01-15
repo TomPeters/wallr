@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LoggingModule.cs" />
+    <Compile Include="WallrApplicationEnvironment.cs" />
     <Compile Include="WallrLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WallrModule.cs" />

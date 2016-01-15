@@ -32,7 +32,7 @@ namespace Wallr.Core
         public IReadOnlyList<ImageId> ImageIds { get; private set; }
         public void PushImage(IImage image)
         {
-            _platform.SaveWallpaper(image);
+            _platform.SaveWallpaper(image, _logger);
             ImageIds = ImageIds.Concat(new [] { image.ImageId }).ToList();
             _logger.Information("Adding {ImageId} to stream. Images stream: {@ImageStream}", image.ImageId, ImageIds.Select(i => i.LocalImageId.Value));
         }

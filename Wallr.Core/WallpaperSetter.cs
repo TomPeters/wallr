@@ -25,7 +25,7 @@ namespace Wallr.Core
         {
             try
             {
-                _platform.SetWallpaper(imageId);
+                _platform.SetWallpaper(imageId, _logger);
             }
             catch (Exception ex)
             {

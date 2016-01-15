@@ -12,10 +12,10 @@ namespace Wallr
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new WallrModule(platform));
             IContainer container = containerBuilder.Build();
-            
+
             container.Resolve<IWallrApplication>().Setup();
             
-            return container;
+            return new WallrApplicationEnvironment(container);
         }
     }
 }

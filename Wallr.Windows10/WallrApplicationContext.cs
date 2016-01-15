@@ -35,7 +35,6 @@ namespace Wallr.Windows10
 
         protected override void ExitThreadCore()
         {
-            Log.Logger.Information("Application exiting");
             _notifyIcon.Visible = false;
             base.ExitThreadCore();
         }
