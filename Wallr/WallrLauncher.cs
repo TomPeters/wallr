@@ -1,13 +1,21 @@
-﻿using Wallr.Core;
+﻿using System;
+using Autofac;
+using Wallr.Core;
 using Wallr.Platform;
 
 namespace Wallr
 {
     public static class WallrLauncher
     {
-        public static void LaunchWallr(IPlatform platform)
+        public static IDisposable LaunchWallr(IPlatform platform)
         {
-            new WallrApplication().Setup(platform);
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule(new WallrModule(platform));
+            IContainer container = containerBuilder.Build();
+            
+            container.Resolve<IWallrApplication>().Setup();
+            
+            return container;
         }
     }
 }

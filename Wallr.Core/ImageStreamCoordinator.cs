@@ -2,7 +2,12 @@
 
 namespace Wallr.Core
 {
-    public class ImageStreamCoordinator
+    public interface IImageStreamCoordinator
+    {
+        void Start();
+    }
+
+    public class ImageStreamCoordinator : IImageStreamCoordinator
     {
         private readonly IImageStreamPopulator _imageStreamPopulator;
         private readonly IImageStreamUpdateEvents _imageStreamUpdateEvents;

@@ -3,7 +3,12 @@ using System;
 
 namespace Wallr.Core
 {
-    public class WallpaperCoordinator
+    public interface IWallpaperCoordinator
+    {
+        void Start();
+    }
+
+    public class WallpaperCoordinator : IWallpaperCoordinator
     {
         private readonly IWallpaperUpdateEvents _wallpaperUpdateEvents;
         private readonly IWallpaperSetter _wallpaperSetter;

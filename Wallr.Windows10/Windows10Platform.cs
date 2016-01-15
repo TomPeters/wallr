@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Serilog;
 using Serilog.Configuration;
-//using Wallr.Core;
 using Wallr.Interfaces;
 using Wallr.Platform;
 
@@ -68,8 +67,9 @@ namespace Wallr.Windows10
             return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, $"{imageId.LocalImageId.Value}.jpg");
         }
 
-        public void Start()
+        public void Start(IDisposable applicationExitDependency)
         {
+            Application.ApplicationExit += (sender, args) => applicationExitDependency.Dispose();
             Application.Run(_applicationContext);
         }
     }
