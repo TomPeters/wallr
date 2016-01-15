@@ -25,6 +25,7 @@ namespace Wallr.Core
             var populator = new ImageStreamPopulator(subredditImageSource, Log.Logger);
             new ImageStreamCoordinator(populator, new ImageStreamUpdateEvents(Log.Logger), imageStream).Start();
             new WallpaperCoordinator(new WallpaperUpdateEvents(Log.Logger), new WallpaperSetter(platform, Log.Logger), imageStream).Start();
+            Log.Logger.Information("Application started");
         }
     }
 }
