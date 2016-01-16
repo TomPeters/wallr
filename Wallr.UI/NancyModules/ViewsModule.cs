@@ -1,5 +1,4 @@
-﻿using System.Runtime.Remoting.Messaging;
-using Nancy;
+﻿using Nancy;
 
 namespace Wallr.UI.NancyModules
 {
@@ -7,7 +6,7 @@ namespace Wallr.UI.NancyModules
     {
         public ViewsModule()
         {
-            Get["/"] = _ => "Hello world";
+            Get["/"] = _ => Response.AsFile("Content/index.html", "text/html");
         }
     }
 }
