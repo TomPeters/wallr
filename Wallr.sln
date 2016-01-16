@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.Interfaces", "Wallr.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.Platform", "Wallr.Platform\Wallr.Platform.csproj", "{E5D7B4F2-F84D-4DE8-A8F2-BAE8151710F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.UI", "Wallr.UI\Wallr.UI.csproj", "{190808F0-09A0-4E49-9F42-029B980937A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{E5D7B4F2-F84D-4DE8-A8F2-BAE8151710F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5D7B4F2-F84D-4DE8-A8F2-BAE8151710F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5D7B4F2-F84D-4DE8-A8F2-BAE8151710F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{190808F0-09A0-4E49-9F42-029B980937A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190808F0-09A0-4E49-9F42-029B980937A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{190808F0-09A0-4E49-9F42-029B980937A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190808F0-09A0-4E49-9F42-029B980937A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

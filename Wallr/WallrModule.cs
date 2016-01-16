@@ -1,6 +1,7 @@
 using Autofac;
 using Wallr.Core;
 using Wallr.Platform;
+using Wallr.UI;
 
 namespace Wallr
 {
@@ -18,6 +19,7 @@ namespace Wallr
             builder.RegisterInstance(_platform).As<IPlatform>();
             builder.RegisterModule<LoggingModule>();
             builder.RegisterModule<WallrCoreModule>();
+            builder.RegisterModule<WallrUiModule>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Autofac;
 using Wallr.Core;
 using Wallr.Platform;
+using Wallr.UI;
 
 namespace Wallr
 {
@@ -14,6 +15,7 @@ namespace Wallr
             IContainer container = containerBuilder.Build();
 
             container.Resolve<IWallrApplication>().Setup();
+            container.Resolve<IWallrUiServer>().StartServer();
             
             return new WallrApplicationEnvironment(container);
         }
