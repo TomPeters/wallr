@@ -6,6 +6,7 @@ using Autofac;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Autofac;
+using Nancy.Conventions;
 using Serilog;
 using Wallr.UI.Middleware;
 
@@ -18,6 +19,12 @@ namespace Wallr.UI
         public WallrNancyBootstrapper(ILifetimeScope parentScope)
         {
             _parentScope = parentScope;
+        }
+
+        protected override void ConfigureConventions(NancyConventions nancyConventions)
+        {
+            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("/static", "content"));
+            base.ConfigureConventions(nancyConventions);
         }
 
         protected override void ApplicationStartup(ILifetimeScope container, IPipelines pipelines)

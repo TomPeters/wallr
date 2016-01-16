@@ -6,7 +6,7 @@ namespace Wallr.UI.NancyModules
     {
         public ViewsModule()
         {
-            Get["/"] = _ => Response.AsFile("Content/index.html", "text/html");
+            Get["/"] = _ => Response.AsFile("content/views/index.html", "text/html");
         }
     }
 }

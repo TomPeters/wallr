@@ -23,12 +23,18 @@ namespace Wallr.UI.Middleware
 
         void IAfterRequestMiddleware.Invoke(NancyContext context)
         {
-            DateTime finishTime = DateTime.Now;
-            TimeSpan timeTakenForRequest = finishTime - (DateTime)context.Items[StartTimeItemsKey];
-            var contextLogger = _logger.ForContext("RouteName", context.ResolvedRoute.Description.Name)
-                .ForContext("RoutePath", context.ResolvedRoute.Description.Path);
-            contextLogger.Information("Request resolve to route {RoutePath}", context.ResolvedRoute.Description.Path);
-            contextLogger.Information("Response for {Url} sent in {RequestTimeTaken}", context.Request.Url, timeTakenForRequest);
+            var contextLogger = context.ResolvedRoute != null
+                ? _logger.ForContext("RouteName", context.ResolvedRoute.Description.Name)
+                    .ForContext("RoutePath", context.ResolvedRoute.Description.Path)
+                : _logger;
+            if (context.ResolvedRoute != null)
+                contextLogger.Information("Request resolved to route {RoutePath}", context.ResolvedRoute.Description.Path);
+            if (context.Items.ContainsKey(StartTimeItemsKey))
+            {
+                DateTime finishTime = DateTime.Now;
+                TimeSpan timeTakenForRequest = finishTime - (DateTime)context.Items[StartTimeItemsKey];
+                contextLogger.Information("Response for {Url} sent in {RequestTimeTaken}", context.Request.Url, timeTakenForRequest);
+            }
         }
 
         public dynamic Invoke(NancyContext context, Exception exception)
