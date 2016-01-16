@@ -64,7 +64,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Middleware\IAfterRequestMiddleware.cs" />
+    <Compile Include="Middleware\IBeforeRequestMiddleware.cs" />
+    <Compile Include="Middleware\IOnErrorMiddleware.cs" />
+    <Compile Include="Middleware\LoggingMiddleware.cs" />
+    <Compile Include="Middleware\MiddlewareModule.cs" />
+    <Compile Include="NancyModules\ViewsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WallrNancyBootstrapper.cs" />
     <Compile Include="WallrUIModule.cs" />
     <Compile Include="WallrUiServer.cs" />
   </ItemGroup>

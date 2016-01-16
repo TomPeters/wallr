@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Nancy.Bootstrapper;
 
 namespace Wallr.UI
 {
@@ -7,6 +8,12 @@ namespace Wallr.UI
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<WallrUiServer>().As<IWallrUiServer>();
+            builder.RegisterType<WallrNancyBootstrapper>().As<INancyBootstrapper>();
         }
+    }
+
+    public class WallrNancyModule : Module
+    {
+        
     }
 }
