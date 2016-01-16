@@ -48,11 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IImage.cs" />
+    <Compile Include="ImageId.cs" />
     <Compile Include="IPlatform.cs" />
     <Compile Include="IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
+      <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
+      <Name>Wallr.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.Interfaces\Wallr.Interfaces.csproj">
       <Project>{33ca4669-45a8-4fff-9eff-a7f2b742f137}</Project>
       <Name>Wallr.Interfaces</Name>

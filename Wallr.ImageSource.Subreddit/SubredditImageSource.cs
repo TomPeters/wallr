@@ -22,7 +22,7 @@ namespace Wallr.ImageSource.Subreddit
 
         private Uri Uri => new Uri($"http://www.reddit.com/r/{_subreddit}/hot/.json");
 
-        public IEnumerable<IImage> Images
+        public IEnumerable<ISourceImage> Images
         {
             get
             {
@@ -33,7 +33,7 @@ namespace Wallr.ImageSource.Subreddit
                     _logger.Information("Received response from reddit");
                     var jObject = JObject.Parse(jsonResponse);
                     var images = jObject["data"]["children"].Value<JArray>().Select(j => j["data"]).Select(TryDownloadImage).Where(i => i.IsSuccessful).Select(i => i.Image);
-                    foreach (IImage image in images)
+                    foreach (ISourceImage image in images)
                         yield return image;
                 }
             }
@@ -61,11 +61,11 @@ namespace Wallr.ImageSource.Subreddit
         private class ImageDownloadResult
         {
             public bool IsSuccessful { get; set; }
-            public IImage Image { get; set; }
+            public ISourceImage Image { get; set; }
         }
     }
 
-    public class RemoteImage : IImage
+    public class RemoteImage : ISourceImage
     {
         private readonly string _url;
         private readonly string _subredditName;
@@ -76,7 +76,7 @@ namespace Wallr.ImageSource.Subreddit
             _subredditName = subredditName;
         }
 
-        public ImageId ImageId => new ImageId(new LocalImageId(FileName), new SubredditImageSourceId(_subredditName));
+        public LocalImageId ImageId => new LocalImageId(FileName);
         private string FileName => _url.Split('/').Last().Split('.').First();
         public Stream FileStream => new WebClient().OpenRead(new Uri(_url));
     }

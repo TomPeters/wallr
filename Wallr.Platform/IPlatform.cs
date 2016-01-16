@@ -10,6 +10,7 @@ namespace Wallr.Platform
     {
         void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
         void SetWallpaper(ImageId imageId, ILogger logger);
+        // TODO: Will need a LoadWallpaper at some point
         void SaveWallpaper(IImage image, ILogger logger);
         IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks { get; }
     }

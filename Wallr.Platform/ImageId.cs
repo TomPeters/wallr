@@ -1,6 +1,7 @@
-﻿using System;
+using System;
+using Wallr.Interfaces;
 
-namespace Wallr.Interfaces
+namespace Wallr.Platform
 {
     public class ImageId : IEquatable<ImageId>
     {

@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IImage.cs" />
-    <Compile Include="ImageId.cs" />
     <Compile Include="ImageSourceId.cs" />
     <Compile Include="LocalImageId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Serilog;
 using Wallr.Common;
 using Wallr.ImageSource;
 using Wallr.Interfaces;
+using Wallr.Platform;
 
 namespace Wallr.Core
 {
@@ -34,6 +36,7 @@ namespace Wallr.Core
             try
             {
                 _imageSource.Images
+                    .Select(i => new Image(i, _imageSource.ImageSourceId))
                     .Where(i => !imageSourceIds.Contains(i.ImageId.LocalImageId))
                     .Take(numberOfNewImagesToAdd)
                     .ForEach(imageStream.PushImage);
@@ -43,5 +46,20 @@ namespace Wallr.Core
                 _logger.Error(ex, "An error ocurred when populating the stream");
             }
         }
+    }
+
+    public class Image : IImage // nocommit new file
+    {
+        private readonly ISourceImage _sourceImage;
+        private readonly ImageSourceId _imageSourceId;
+
+        public Image(ISourceImage sourceImage, ImageSourceId imageSourceId)
+        {
+            _sourceImage = sourceImage;
+            _imageSourceId = imageSourceId;
+        }
+
+        public ImageId ImageId => new ImageId(_sourceImage.ImageId, _imageSourceId);
+        public Stream FileStream => _sourceImage.FileStream;
     }
 }

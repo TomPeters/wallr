@@ -5,7 +5,7 @@ namespace Wallr.ImageSource
 {
     public interface IImageSource
     {
-        IEnumerable<IImage> Images { get; }
+        IEnumerable<ISourceImage> Images { get; }
         ImageSourceId ImageSourceId { get; }
     }
 }
