@@ -20,7 +20,7 @@ namespace Wallr.ImageSource.Subreddit
             _logger = logger.ForContext("Subreddit", subreddit);
         }
 
-        private Uri BaseUri => new Uri($"http://www.reddit.com/r/{_subreddit}/hot/.json");
+        private Uri BaseUri => new Uri($"http://www.reddit.com/r/{_subreddit}/top/.json");
 
         public IEnumerable<ISourceImage> Images
         {
