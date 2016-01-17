@@ -20,24 +20,38 @@ namespace Wallr.ImageSource.Subreddit
             _logger = logger.ForContext("Subreddit", subreddit);
         }
 
-        private Uri Uri => new Uri($"http://www.reddit.com/r/{_subreddit}/hot/.json");
+        private Uri BaseUri => new Uri($"http://www.reddit.com/r/{_subreddit}/hot/.json");
 
         public IEnumerable<ISourceImage> Images
         {
             get
             {
                 _logger.Information("Fetching latest image from subreddit");
-                using (var client = new WebClient())
+                using (WebClient client = new WebClient())
                 {
-                    var jsonResponse = client.DownloadString(Uri);
-                    _logger.Information("Received response from reddit");
-                    var jObject = JObject.Parse(jsonResponse);
-                    var images = jObject["data"]["children"].Value<JArray>().Select(j => j["data"]).Select(TryDownloadImage).Where(i => i.IsSuccessful).Select(i => i.Image);
-                    foreach (ISourceImage image in images)
+                    foreach (ISourceImage image in ImagesFromUri(client, BaseUri))
                         yield return image;
                 }
             }
         }
+
+        private IEnumerable<ISourceImage> ImagesFromUri(WebClient client, Uri uri, int currentCount = 0)
+        {
+            string jsonResponse = client.DownloadString(uri);
+            _logger.Information("Received response from reddit");
+            JObject jObject = JObject.Parse(jsonResponse);
+            JToken dataToken = jObject["data"];
+            IReadOnlyList<JToken> childrenTokens = dataToken["children"].Value<JArray>().Select(j => j["data"]).ToList();
+            IEnumerable<ISourceImage> images = childrenTokens.Select(TryDownloadImage).Where(i => i.IsSuccessful).Select(i => i.Image);
+            foreach (ISourceImage image in images)
+                yield return image;
+
+            string afterKey = dataToken["after"].Value<string>();
+            int nextCount = currentCount + 25;
+            Uri nextUri = new Uri(BaseUri + $"?count={nextCount}&after={afterKey}");
+            foreach (ISourceImage image in ImagesFromUri(client, nextUri, nextCount))
+                yield return image;
+        } 
 
         public ImageSourceId ImageSourceId => new SubredditImageSourceId(_subreddit);
 
@@ -49,7 +63,7 @@ namespace Wallr.ImageSource.Subreddit
                 return new ImageDownloadResult
                 {
                     IsSuccessful = true,
-                    Image = new RemoteImage(url, _subreddit)
+                    Image = new RemoteImage(url)
                 };
             }
             return new ImageDownloadResult
@@ -68,12 +82,10 @@ namespace Wallr.ImageSource.Subreddit
     public class RemoteImage : ISourceImage
     {
         private readonly string _url;
-        private readonly string _subredditName;
 
-        public RemoteImage(string url, string subredditName)
+        public RemoteImage(string url)
         {
             _url = url;
-            _subredditName = subredditName;
         }
 
         public LocalImageId ImageId => new LocalImageId(FileName);
