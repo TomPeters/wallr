@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Serilog;
 using Wallr.Interfaces;
@@ -32,9 +33,18 @@ namespace Wallr.Core
         public IReadOnlyList<ImageId> ImageIds { get; private set; }
         public void PushImage(IImage image)
         {
-            _platform.SaveWallpaper(image, _logger);
-            ImageIds = ImageIds.Concat(new [] { image.ImageId }).ToList();
             _logger.Information("Adding {ImageId} to stream. Images stream: {@ImageStream}", image.ImageId, ImageIds.Select(i => i.LocalImageId.Value));
+            try
+            {
+                _platform.SaveWallpaper(image, _logger);
+                ImageIds = ImageIds.Concat(new[] {image.ImageId}).ToList();
+                _logger.Information("Image {ImageId} added to stream. Images stream: {@ImageStream}", image.ImageId,
+                    ImageIds.Select(i => i.LocalImageId.Value));
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Error occurred adding image {ImageId} to stream", image.ImageId);
+            }
         }
 
         public ImageId PopNextImageId
