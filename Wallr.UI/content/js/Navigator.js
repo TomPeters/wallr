@@ -1,10 +1,14 @@
 ﻿"use strict";
 
-angular.module("Wallr").factory("Navigator", ["$location", "WallrRoutes",
-    function($location, wallrRoutes) {
+angular.module("Wallr").factory("Navigator", ["$route", "$location", "WallrRoutes",
+    function($route, $location, wallrRoutes) {
         return {
             navigateTo: function(route) {
                 $location.url(this._getUrl(route));
+            },
+
+            isCurrentRoute: function(route) {
+                return $route.current.$$route.key === route;
             },
 
             _getUrl: function(route) {

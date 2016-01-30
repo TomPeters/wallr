@@ -1,4 +1,8 @@
 ﻿<ul ng-controller="SideBarCtrl as sideBarCtrl">
-    <li><a class="bold" ng-click="sideBarCtrl.navigateToStream()">Stream</a></li>
-    <li><a class="bold" ng-click="sideBarCtrl.navigateToSources()">Sources</a></li>
+    <li ng-class="{'active': sideBarCtrl.isCurrentRoute(sideBarCtrl.routes.stream)}">
+        <a class="bold" ng-click="sideBarCtrl.navigateTo(sideBarCtrl.routes.stream)">Stream</a>
+    </li>
+    <li ng-class="{'active': sideBarCtrl.isCurrentRoute(sideBarCtrl.routes.sources)}">
+        <a class="bold" ng-click="sideBarCtrl.navigateTo(sideBarCtrl.routes.sources)">Sources</a>
+    </li>
 </ul>
