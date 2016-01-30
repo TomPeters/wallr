@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="Wallr">
     <head>
         <title>Wallr</title>
     </head>
-    <body>
-    Hello World 2
-    <script src="static/js/lib/angular.min.js"></script>
+    <body ng-controller="WallrCtrl as wallrCtrl">
+        {{wallrCtrl.helloWorldValue}}
+        <script src="static/js/lib/angular.min.js"></script>
+        <script src="static/js/WallrModule.js"></script>
+        <script src="static/js/WallrController.js"></script>
     </body>
 </html>

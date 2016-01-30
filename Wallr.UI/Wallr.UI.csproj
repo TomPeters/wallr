@@ -83,6 +83,12 @@
     <Content Include="content\js\lib\angular.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\WallrController.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\WallrModule.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\views\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
