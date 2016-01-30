@@ -1,0 +1,10 @@
+{
+  "dependencies": {},
+  "description": "Wallpaper manager",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-watch": "*"
+  },
+  "name": "wallr",
+  "version": "0.0.1"
+}
