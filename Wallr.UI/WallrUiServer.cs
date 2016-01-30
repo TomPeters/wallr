@@ -28,7 +28,7 @@ namespace Wallr.UI
         public void StartServer()
         {
             var hostConfiguration = new HostConfiguration();
-            hostConfiguration.UrlReservations.CreateAutomatically = true;
+            hostConfiguration.RewriteLocalhost = false;
             _host = new NancyHost(_nancyBootstrapper, hostConfiguration, new Uri("http://localhost:36849"));
             _host.Start();
         }
