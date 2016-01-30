@@ -152,6 +152,7 @@
     <Content Include="content\js\lib\angular-route.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\Routes.js" />
     <Content Include="content\js\SideBarCtrl.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,7 +1,9 @@
 ﻿"use strict";
 
-angular.module("Wallr").controller("SideBarCtrl", ["$route", function ($route) {
+angular.module("Wallr").controller("SideBarCtrl", ["$route", "WallrRoutes", function ($route, wallrRoutes) {
     this.getRoute = function () {
-        return $route.current.$$route.name;
+        if ($route.current.$$route.key == wallrRoutes.stream)
+            return "Stream";
+        return "Unknown";
     }
 }]);
