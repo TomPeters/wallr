@@ -29,7 +29,7 @@ namespace Wallr.Core
             ImageIds = new List<ImageId>();
         }
 
-        public int Capacity => 300;
+        public int Capacity => 5;
         public IReadOnlyList<ImageId> ImageIds { get; private set; }
         public void PushImage(IImage image)
         {

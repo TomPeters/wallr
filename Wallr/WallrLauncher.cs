@@ -14,9 +14,9 @@ namespace Wallr
             containerBuilder.RegisterModule(new WallrModule(platform));
             IContainer container = containerBuilder.Build();
 
-            container.Resolve<IWallrApplication>().Setup();
             container.Resolve<IWallrUiServer>().StartServer();
-            
+            container.Resolve<IWallrApplication>().Setup();
+
             return new WallrApplicationEnvironment(container);
         }
     }
