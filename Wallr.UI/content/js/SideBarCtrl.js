@@ -1,9 +1,10 @@
 ﻿"use strict";
 
-angular.module("Wallr").controller("SideBarCtrl", ["$route", "WallrRoutes", function ($route, wallrRoutes) {
-    this.getRoute = function () {
-        if ($route.current.$$route.key == wallrRoutes.stream)
-            return "Stream";
-        return "Unknown";
-    }
+angular.module("Wallr").controller("SideBarCtrl", ["$route", "WallrRoutes", "Navigator", function ($route, wallrRoutes, navigator) {
+    this.navigateToStream = function () {
+        navigator.navigateTo(wallrRoutes.stream);
+    };
+    this.navigateToSources = function () {
+        navigator.navigateTo(wallrRoutes.sources);
+    };
 }]);

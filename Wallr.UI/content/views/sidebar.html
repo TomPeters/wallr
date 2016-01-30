@@ -1,3 +1,4 @@
 ﻿<ul ng-controller="SideBarCtrl as sideBarCtrl">
-    <li class="bold">{{sideBarCtrl.getRoute()}}</li>
+    <li><a class="bold" ng-click="sideBarCtrl.navigateToStream()">Stream</a></li>
+    <li><a class="bold" ng-click="sideBarCtrl.navigateToSources()">Sources</a></li>
 </ul>

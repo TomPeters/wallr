@@ -3,7 +3,8 @@
 var wallrModule = angular.module("Wallr");
 
 wallrModule.constant("WallrRoutes", {
-    stream: 0
+    stream: 0,
+    sources: 1
 });
 
 wallrModule.config([
@@ -13,6 +14,10 @@ wallrModule.config([
             when("/stream", {
                 templateUrl: "static/views/stream.html",
                 key: wallrRoutes.stream
+            }).
+            when("/sources", {
+                templateUrl: "static/views/sources.html",
+                key: wallrRoutes.sources
             }).
             otherwise("/stream");
     }
