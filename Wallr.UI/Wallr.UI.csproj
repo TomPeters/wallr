@@ -167,6 +167,9 @@
     <Content Include="content\js\lib\materialize.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\SideNavCollapseDirective.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\WallrController.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
