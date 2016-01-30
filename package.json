@@ -3,6 +3,7 @@
   "description": "Wallpaper manager",
   "devDependencies": {
     "gulp": "*",
+    "gulp-livereload": "^3.8.1",
     "gulp-watch": "*"
   },
   "name": "wallr",
