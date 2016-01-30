@@ -76,6 +76,7 @@
     <Compile Include="WallrUiServer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="content\css\wallr.css" />
     <Content Include="content\font\material-design-icons\Material-Design-Icons.eot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -148,6 +149,16 @@
     <Content Include="content\font\roboto\Roboto-Thin.woff2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\lib\angular-route.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\SideBarCtrl.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\views\sidebar.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\views\stream.html" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -170,7 +181,7 @@
     <Content Include="content\js\SideNavCollapseDirective.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\js\WallrController.js">
+    <Content Include="content\js\WallrCtrl.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="content\js\WallrModule.js">

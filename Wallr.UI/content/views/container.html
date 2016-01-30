@@ -1,15 +1,16 @@
 ﻿<header>
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
+            <div class="navbar-wrapper">
                 <a href="#" data-activates="nav-mobile" class="button-collapse" side-nav-collapse><i class="mdi-navigation-menu"></i></a>
-                <div class="brand-logo center">Wallr</div>
+                <div class="brand-logo left navbar-title">Wallr</div>
             </div>
         </nav>
-        <ul id="nav-mobile" class="side-nav fixed">
-            <li class="bold">Some option</li>
-        </ul>
+    </div>
+    <div id="nav-mobile" class="side-nav fixed">
+        <div ng-include="'static/views/sidebar.html'"></div>
     </div>
 </header>
-<main></main>
-<footer></footer>
+<main>
+    <div ng-view></div>
+</main>
