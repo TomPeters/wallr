@@ -19,7 +19,7 @@ namespace Wallr.Core
             var manualEvents = new Subject<long>();
             _logger = logger;
             int numberOfImagesToAdd = 10;
-            ImageStreamUpdateRequested = Observable.Interval(new TimeSpan(0, 1, 0, 0)).Merge(manualEvents).Replay().RefCount().Select(i => numberOfImagesToAdd);
+            ImageStreamUpdateRequested = Observable.Interval(new TimeSpan(0, 0, 0, 10)).Merge(manualEvents).Replay().RefCount().Select(i => numberOfImagesToAdd);
             ImageStreamUpdateRequested.Subscribe(l => _logger.Information("{NumberOfImagesRequested} images requested from source at {Timestamp}", numberOfImagesToAdd, DateTime.UtcNow));
             manualEvents.OnNext(0);
         }

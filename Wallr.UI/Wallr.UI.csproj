@@ -218,6 +218,7 @@
     <Content Include="content\js\SideBarCtrl.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\SignalRConnection.js" />
     <Content Include="content\views\sidebar.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
