@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Nancy.Bootstrapper;
+using Wallr.UI.SignalR;
 
 namespace Wallr.UI
 {
@@ -9,6 +10,7 @@ namespace Wallr.UI
         {
             builder.RegisterType<WallrUiServer>().As<IWallrUiServer>();
             builder.RegisterType<WallrNancyBootstrapper>().As<INancyBootstrapper>();
+            builder.RegisterType<SignalRServer>().As<ISignalRServer>();
         }
     }
 

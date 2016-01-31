@@ -48,7 +48,7 @@ namespace Wallr.Core
         }
     }
 
-    public class Image : IImage // nocommit new file
+    public class Image : IImage // TODO new file
     {
         private readonly ISourceImage _sourceImage;
         private readonly ImageSourceId _imageSourceId;
