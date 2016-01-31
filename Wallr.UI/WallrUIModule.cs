@@ -11,6 +11,8 @@ namespace Wallr.UI
             builder.RegisterType<WallrUiServer>().As<IWallrUiServer>();
             builder.RegisterType<WallrNancyBootstrapper>().As<INancyBootstrapper>();
             builder.RegisterType<SignalRServer>().As<ISignalRServer>();
+            builder.RegisterType<WallrHub>().AsSelf();
+            builder.RegisterType<ClientEventSender>().As<IClientEventSender>();
         }
     }
 

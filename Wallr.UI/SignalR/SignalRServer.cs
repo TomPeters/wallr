@@ -19,11 +19,13 @@ namespace Wallr.UI.SignalR
         private ICertificateValidator _certificateValidator;
 
         private readonly ILogger _logger;
+        private readonly IClientEventSender _clientEventSender;
         private IDisposable _webApp;
 
-        public SignalRServer(ILogger logger)
+        public SignalRServer(ILogger logger, IClientEventSender clientEventSender)
         {
             _logger = logger;
+            _clientEventSender = clientEventSender;
         }
 
         public void StartServer()
@@ -31,6 +33,7 @@ namespace Wallr.UI.SignalR
             _logger.Information("Starting SignalR server...");
             var url = "http://localhost:29485";
             _webApp = WebApp.Start<SignalRStartup>(url);
+            _clientEventSender.StartSendingEvents();
             _logger.Information("SignalR server started");
         }
 

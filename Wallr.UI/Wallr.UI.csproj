@@ -92,6 +92,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -111,6 +119,7 @@
     <Compile Include="Middleware\MiddlewareModule.cs" />
     <Compile Include="NancyModules\ViewsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignalR\ClientEventSender.cs" />
     <Compile Include="SignalR\SignalRServer.cs" />
     <Compile Include="SignalR\SignalRStartup.cs" />
     <Compile Include="SignalR\WallrHub.cs" />
@@ -197,6 +206,9 @@
     <Content Include="content\js\lib\angular-route.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\lib\jquery.signalr-2.2.0.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\Navigator.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -218,7 +230,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Wallr.Core\Wallr.Core.csproj">
+      <Project>{94AF8898-F909-4BE3-899D-204F7D097A7A}</Project>
+      <Name>Wallr.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="content\css\materialize.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -4,9 +4,9 @@ namespace Wallr.UI.SignalR
 {
     public class WallrHub : Hub
     {
-        public void Send(string name, string message)
+        public void SendEvent(string eventName, object eventArgs)
         {
-            Clients.All.addMessage(name, message);
+            Clients.All.addMessage(eventName, eventArgs);
         }
     }
 }
