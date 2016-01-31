@@ -2,7 +2,7 @@
 
 var wallrModule = angular.module("Wallr");
 
-wallrModule.factory("eventsProvider", function() {
+wallrModule.factory("connection", function() {
     return {
         _subject: new Rx.Subject(),
         startHub: function () {
@@ -23,6 +23,11 @@ wallrModule.factory("eventsProvider", function() {
     }
 });
 
-wallrModule.run(["eventsProvider", function (events) {
-    events.startHub();
+wallrModule.run(["connection", function (connection) {
+    connection.startHub();
+}]);
+
+
+wallrModule.factory("events", ['connection', function (connection) {
+    return connection.events;
 }]);
