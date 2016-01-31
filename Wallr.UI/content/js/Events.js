@@ -2,19 +2,27 @@
 
 var wallrModule = angular.module("Wallr");
 
-wallrModule.factory('events', function() {
+wallrModule.factory("eventsProvider", function() {
     return {
-        startHub: function() {
+        _subject: new Rx.Subject(),
+        startHub: function () {
+            var subject = this._subject;
             $.connection.hub.url = "http://localhost:29485/signalr";
             $.connection.wallrHub.client.sendEvent = function (eventName, eventArgs) {
-                console.log(eventName);
-                console.log(eventArgs);
+                subject.onNext({
+                    name: eventName,
+                    args: eventArgs
+                });
             };
             $.connection.hub.start();
+        },
+
+        get events() {
+            return this._subject;
         }
     }
 });
 
-wallrModule.run(['events', function(events) {
+wallrModule.run(["eventsProvider", function (events) {
     events.startHub();
 }]);
