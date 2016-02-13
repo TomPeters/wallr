@@ -16,9 +16,4 @@ namespace Wallr.UI
             builder.RegisterType<ClientEventSender>().As<IClientEventSender>();
         }
     }
-
-    public class WallrNancyModule : Module
-    {
-        
-    }
 }

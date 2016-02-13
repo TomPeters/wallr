@@ -6,11 +6,11 @@ angular.module("Wallr").factory("ImageIdFactory", [
             createImageId: function(imageIdModel) {
                 return {
                     get sourceId() {
-                        return imageIdModel.ImageSourceId;
+                        return imageIdModel.imageSourceId;
                     },
 
                     get localId() {
-                        return imageIdModel.LocalImageId;
+                        return imageIdModel.localImageId;
                     }
                 }
             }

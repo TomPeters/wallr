@@ -8,6 +8,8 @@ using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Autofac;
 using Nancy.Conventions;
 using Serilog;
+using Wallr.Core;
+using Wallr.Platform;
 using Wallr.UI.Middleware;
 
 namespace Wallr.UI
@@ -42,6 +44,8 @@ namespace Wallr.UI
                         .ForContext("Method", context.Request.Method))
                     .As<ILogger>()
             );
+            container.Update(b => b.Register(c => _parentScope.Resolve<IPlatform>()).As<IPlatform>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
         }
 
         protected override void RequestStartup(ILifetimeScope container, IPipelines pipelines, NancyContext context)

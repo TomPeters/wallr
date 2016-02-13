@@ -15,7 +15,8 @@ angular.module("Wallr").factory("ImageQueueStore", ["$http", "ImageIdFactory",
         }
 
         function loadImageIds() {
-            $http.get("/imageQueue/images").then(function(imageIdModels) {
+            $http.get("/imageQueue/images").then(function(response) {
+                var imageIdModels = response.data;
                 imageIds = imageIdModels.map(imageIdFactory.createImageId);
             });
         };

@@ -209,6 +209,7 @@
     <Content Include="content\js\ImageId.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\ImageQueueCtrl.js" />
     <Content Include="content\js\ImageQueueStore.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

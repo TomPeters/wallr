@@ -1,3 +1,11 @@
-﻿<div>
-    Queue
+﻿<div ng-controller="ImageQueueCtrl as imageQueueCtrl">
+    <div ng-repeat="imageId in imageQueueCtrl.imageIds">
+        source: {{imageId.sourceId}}
+        local: {{imageId.localId}}
+    </div>
+    <ul>
+        <li ng-repeat="imageId in imageQueueCtrl.imageIds">
+            <img ng-src="{{imageQueueCtrl.getUrlForImage(imageId)}}"/>
+        </li>
+    </ul>
 </div>
