@@ -1,11 +1,11 @@
 ﻿<div ng-controller="ImageQueueCtrl as imageQueueCtrl">
-    <div ng-repeat="imageId in imageQueueCtrl.imageIds">
-        source: {{imageId.sourceId}}
-        local: {{imageId.localId}}
+    <div class="wallr-image-card" ng-repeat="imageId in imageQueueCtrl.imageIds">
+        <div class="card hoverable">
+            <div class="card-image">
+                <img ng-src="{{imageQueueCtrl.getUrlForImage(imageId)}}">
+                <span class="wallr-image-title card-title">Some Image</span>
+                <a class="wallr-zoom-image btn-flat" href="#/queue"><i class="material-icons">aspect_ratio</i></a>
+            </div>
+        </div>
     </div>
-    <ul>
-        <li ng-repeat="imageId in imageQueueCtrl.imageIds">
-            <img ng-src="{{imageQueueCtrl.getUrlForImage(imageId)}}"/>
-        </li>
-    </ul>
 </div>

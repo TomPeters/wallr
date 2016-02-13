@@ -11,3 +11,24 @@
 nav .brand-logo.navbar-title {
     padding-left: 40px;
 }
+
+.wallr-image-card {
+    width: 180px;
+    height: 150px; /*TODO: Make sure this ratio is 16:9 (or preferably matches the users primary monitor ratio)*/
+    display: inline-block;
+}
+
+.card .card-image .card-title.wallr-image-title {
+    padding-bottom: 2px;
+    padding-left: 5px;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.wallr-zoom-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 5px;
+    color: #fff;
+}
