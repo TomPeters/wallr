@@ -206,6 +206,12 @@
     <Content Include="content\font\roboto\Roboto-Thin.woff2">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\ImageId.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\ImageQueueStore.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\lib\angular-route.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
