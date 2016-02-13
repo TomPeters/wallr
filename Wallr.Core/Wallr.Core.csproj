@@ -74,10 +74,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IImageStream.cs" />
-    <Compile Include="ImageStreamCoordinator.cs" />
-    <Compile Include="ImageStreamPopulator.cs" />
-    <Compile Include="ImageStreamUpdateEvents.cs" />
+    <Compile Include="IImageQueue.cs" />
+    <Compile Include="ImageQueueCoordinator.cs" />
+    <Compile Include="ImageQueuePopulator.cs" />
+    <Compile Include="ImageQueueUpdateEvents.cs" />
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WallpaperUpdateEvents.cs" />

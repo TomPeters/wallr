@@ -12,20 +12,20 @@ namespace Wallr.Core
     {
         private readonly IWallpaperUpdateEvents _wallpaperUpdateEvents;
         private readonly IWallpaperSetter _wallpaperSetter;
-        private readonly IImageStream _imageStream;
+        private readonly IImageQueue _imageQueue;
 
-        public WallpaperCoordinator(IWallpaperUpdateEvents wallpaperUpdateEvents, IWallpaperSetter wallpaperSetter, IImageStream imageStream)
+        public WallpaperCoordinator(IWallpaperUpdateEvents wallpaperUpdateEvents, IWallpaperSetter wallpaperSetter, IImageQueue imageQueue)
         {
             _wallpaperUpdateEvents = wallpaperUpdateEvents;
             _wallpaperSetter = wallpaperSetter;
-            _imageStream = imageStream;
+            _imageQueue = imageQueue;
         }
 
         public void Start()
         {
             _wallpaperUpdateEvents.UpdateImageRequested
-                .Where(i => _imageStream.ImageIds.Count > 0)
-                .Select(i => _imageStream.PopNextImageId)
+                .Where(i => _imageQueue.ImageIds.Count > 0)
+                .Select(i => _imageQueue.PopNextImageId)
                 .Subscribe(_wallpaperSetter.SetWallpaper);
         } 
     }

@@ -17,7 +17,7 @@ namespace Wallr.Core
         public WallpaperUpdateEvents(ILogger logger)
         {
             _logger = logger;
-            // TODO: This won't cut it because the stream should not be interupted by restarting the application
+            // TODO: This won't cut it because the queue should not be interupted by restarting the application
             UpdateImageRequested = Observable.Interval(new TimeSpan(0, 0, 0, 20)).Publish().RefCount();
             UpdateImageRequested.Subscribe(l => _logger.Information("Image update requested at {Timestamp}", DateTime.UtcNow));
         }

@@ -12,8 +12,8 @@ angular.module("Wallr").factory("Navigator", ["$route", "$location", "WallrRoute
             },
 
             _getUrl: function(route) {
-                if (route === wallrRoutes.stream)
-                    return "/stream";
+                if (route === wallrRoutes.queue)
+                    return "/queue";
                 if (route === wallrRoutes.sources)
                     return "/sources";
                 throw "Unknown route";

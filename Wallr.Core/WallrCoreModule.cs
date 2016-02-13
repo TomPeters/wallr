@@ -10,19 +10,19 @@ namespace Wallr.Core
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<WallrApplication>().As<IWallrApplication>();
-            builder.RegisterModule<ImageStreamModule>();
+            builder.RegisterModule<ImageQueueModule>();
             builder.RegisterModule<WallpaperModule>();
         }
     }
 
-    public class ImageStreamModule : Module
+    public class ImageQueueModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ImageStream>().As<IImageStream>().SingleInstance();
-            builder.RegisterType<ImageStreamPopulator>().As<IImageStreamPopulator>();
-            builder.RegisterType<ImageStreamUpdateEvents>().As<IImageStreamUpdateEvents>();
-            builder.RegisterType<ImageStreamCoordinator>().As<IImageStreamCoordinator>();
+            builder.RegisterType<ImageQueue>().As<IImageQueue>().SingleInstance();
+            builder.RegisterType<ImageQueuePopulator>().As<IImageQueuePopulator>();
+            builder.RegisterType<ImageQueueUpdateEvents>().As<IImageQueueUpdateEvents>();
+            builder.RegisterType<ImageQueueCoordinator>().As<IImageQueueCoordinator>();
             builder.Register(c => new SubredditImageSource("wallpapers", c.Resolve<ILogger>())).As<IImageSource>(); // TODO: Should not register sources here
         }
     }

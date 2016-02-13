@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using Serilog;
 using Wallr.Interfaces;
 using Wallr.Platform;
 
 namespace Wallr.Core
 {
-    public interface IImageStream
+    public interface IImageQueue
     {
-        // Should be able to have duplicates in the stream, so need another unique id here
+        // Should be able to have duplicates in the queue, so need another unique id here
         int Capacity { get; }
         IReadOnlyList<ImageId> ImageIds { get; }
         void PushImage(IImage image);
@@ -17,13 +18,14 @@ namespace Wallr.Core
     }
 
     // Think about threading issues here
-    public class ImageStream : IImageStream
+    public class ImageQueue : IImageQueue
     {
         private readonly IPlatform _platform;
         private readonly ILogger _logger;
 
-        public ImageStream(IPlatform platform, ILogger logger)
+        public ImageQueue(IPlatform platform, ILogger logger)
         {
+            var s = new BehaviorSubject<IReadOnlyList<ImageId>>(new List<ImageId>());
             _platform = platform;
             _logger = logger;
             ImageIds = new List<ImageId>();
@@ -33,17 +35,17 @@ namespace Wallr.Core
         public IReadOnlyList<ImageId> ImageIds { get; private set; }
         public void PushImage(IImage image)
         {
-            _logger.Information("Adding {ImageId} to stream. Images stream: {@ImageStream}", image.ImageId, ImageIds.Select(i => i.LocalImageId.Value));
+            _logger.Information("Adding {ImageId} to queue. Images queue: {@ImageQueue}", image.ImageId, ImageIds.Select(i => i.LocalImageId.Value));
             try
             {
                 _platform.SaveWallpaper(image, _logger);
                 ImageIds = ImageIds.Concat(new[] {image.ImageId}).ToList();
-                _logger.Information("Image {ImageId} added to stream. Images stream: {@ImageStream}", image.ImageId,
+                _logger.Information("Image {ImageId} added to queue. Images queue: {@ImageQueue}", image.ImageId,
                     ImageIds.Select(i => i.LocalImageId.Value));
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Error occurred adding image {ImageId} to stream", image.ImageId);
+                _logger.Error(ex, "Error occurred adding image {ImageId} to queue", image.ImageId);
             }
         }
 
@@ -53,7 +55,7 @@ namespace Wallr.Core
             {
                 ImageId imageId = ImageIds.First();
                 ImageIds = ImageIds.Skip(1).ToList();
-                _logger.Information("Removing {ImageId} to stream. Images stream: {@ImageStream}", imageId, ImageIds.Select(i => i.LocalImageId.Value));
+                _logger.Information("Removing {ImageId} to queue. Images queue: {@ImageQueue}", imageId, ImageIds.Select(i => i.LocalImageId.Value));
                 return imageId;
             }
         }

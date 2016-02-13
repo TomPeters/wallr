@@ -233,7 +233,7 @@
     <Content Include="content\views\sources.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="content\views\stream.html">
+    <Content Include="content\views\queue.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="app.config" />

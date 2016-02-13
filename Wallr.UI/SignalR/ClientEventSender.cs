@@ -12,14 +12,14 @@ namespace Wallr.UI.SignalR
 
     public class ClientEventSender : IDisposable, IClientEventSender
     {
-        private readonly IImageStreamUpdateEvents _imageStreamUpdateEvents;
+        private readonly IImageQueueUpdateEvents _imageQueueUpdateEvents;
         private readonly IHubContext _hubContext;
         private readonly IWallpaperUpdateEvents _wallpaperUpdateEvents;
         private List<IDisposable> _eventSubscriptions;
 
-        public ClientEventSender(IImageStreamUpdateEvents imageStreamUpdateEvents, IHubContext hubContext, IWallpaperUpdateEvents wallpaperUpdateEvents)
+        public ClientEventSender(IImageQueueUpdateEvents imageQueueUpdateEvents, IHubContext hubContext, IWallpaperUpdateEvents wallpaperUpdateEvents)
         {
-            _imageStreamUpdateEvents = imageStreamUpdateEvents;
+            _imageQueueUpdateEvents = imageQueueUpdateEvents;
             _hubContext = hubContext;
             _wallpaperUpdateEvents = wallpaperUpdateEvents;
         }
@@ -27,8 +27,8 @@ namespace Wallr.UI.SignalR
         public void StartSendingEvents()
         {
             _eventSubscriptions = new List<IDisposable>();
-            _eventSubscriptions.Add(_imageStreamUpdateEvents.ImageStreamUpdateRequested.Subscribe(i =>
-            SendEvent("ImageStreamUpdate", new
+            _eventSubscriptions.Add(_imageQueueUpdateEvents.ImageQueueUpdateRequested.Subscribe(i =>
+            SendEvent("ImageQueueUpdate", new
                 {
                     NumberOfImagesRequested = i
                 })
