@@ -13,8 +13,8 @@ namespace Wallr.Core
         // Should be able to have duplicates in the queue, so need another unique id here
         int Capacity { get; }
         IReadOnlyList<ImageId> ImageIds { get; }
-        void PushImage(IImage image);
-        ImageId PopNextImageId { get; }
+        void PushImage(IImage image); // TODO: internally use the source image observables to populate the image ids.
+        ImageId PopNextImageId { get; } // TODO: Replace by wallpaper events
     }
 
     // Think about threading issues here

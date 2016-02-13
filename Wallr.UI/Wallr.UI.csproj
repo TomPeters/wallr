@@ -117,6 +117,9 @@
     <Compile Include="Middleware\IOnErrorMiddleware.cs" />
     <Compile Include="Middleware\LoggingMiddleware.cs" />
     <Compile Include="Middleware\MiddlewareModule.cs" />
+    <Compile Include="Models\ImageIdViewModel.cs" />
+    <Compile Include="NancyModules\ImageModule.cs" />
+    <Compile Include="NancyModules\ImageQueueModule.cs" />
     <Compile Include="NancyModules\ViewsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalR\ClientEventSender.cs" />
@@ -240,9 +243,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
+      <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
+      <Name>Wallr.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.Core\Wallr.Core.csproj">
       <Project>{94AF8898-F909-4BE3-899D-204F7D097A7A}</Project>
       <Name>Wallr.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.Interfaces\Wallr.Interfaces.csproj">
+      <Project>{33ca4669-45a8-4fff-9eff-a7f2b742f137}</Project>
+      <Name>Wallr.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
+      <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
+      <Name>Wallr.Platform</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

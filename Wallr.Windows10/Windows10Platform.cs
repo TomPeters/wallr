@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Serilog;
 using Serilog.Configuration;
-using Wallr.Interfaces;
 using Wallr.Platform;
 
 namespace Wallr.Windows10
@@ -50,6 +49,11 @@ namespace Wallr.Windows10
             }
 
             contextLogger.Information("Image saved at {FilePath}", path);
+        }
+
+        public Stream LoadImage(ImageId imageId)
+        {
+            return File.OpenRead(GetPathFromId(imageId));
         }
 
         public IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks
