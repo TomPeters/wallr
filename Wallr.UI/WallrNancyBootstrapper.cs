@@ -9,6 +9,7 @@ using Nancy.Bootstrappers.Autofac;
 using Nancy.Conventions;
 using Serilog;
 using Wallr.Core;
+using Wallr.Core.Source;
 using Wallr.Platform;
 using Wallr.UI.Middleware;
 
@@ -46,6 +47,7 @@ namespace Wallr.UI
             );
             container.Update(b => b.Register(c => _parentScope.Resolve<IPlatform>()).As<IPlatform>());
             container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceConfigurationProvider>()).As<IImageSourceConfigurationProvider>());
         }
 
         protected override void RequestStartup(ILifetimeScope container, IPipelines pipelines, NancyContext context)

@@ -118,8 +118,10 @@
     <Compile Include="Middleware\LoggingMiddleware.cs" />
     <Compile Include="Middleware\MiddlewareModule.cs" />
     <Compile Include="Models\ImageIdViewModel.cs" />
+    <Compile Include="Models\ImageSourceViewModel.cs" />
     <Compile Include="NancyModules\ImageModule.cs" />
     <Compile Include="NancyModules\ImageQueueModule.cs" />
+    <Compile Include="NancyModules\SourcesModule.cs" />
     <Compile Include="NancyModules\ViewsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignalR\ClientEventSender.cs" />

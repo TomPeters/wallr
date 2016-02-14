@@ -5,10 +5,8 @@
     <li class="wallr-menu-subSection">
         <a ng-class="{'active': sideBarCtrl.isCurrentRoute(sideBarCtrl.routes.sources)}" 
            ng-click="sideBarCtrl.navigateTo(sideBarCtrl.routes.sources)">Sources</a>
-        <ul>
-            <li><a>Source 1</a></li>
-            <li><a>Source 2</a></li>
-            <li><a>Source 3</a></li>
+        <ul ng-repeat="source in sideBarCtrl.sources">
+            <li><a>{{source.type}}</a></li>
         </ul>
     </li>
 </ul>

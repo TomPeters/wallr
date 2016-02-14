@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Serilog;
+using Wallr.Core.Source;
 using Wallr.ImageSource;
 using Wallr.ImageSource.Subreddit;
 
@@ -12,6 +13,7 @@ namespace Wallr.Core
             builder.RegisterType<WallrApplication>().As<IWallrApplication>();
             builder.RegisterModule<ImageQueueModule>();
             builder.RegisterModule<WallpaperModule>();
+            builder.RegisterType<ImageSourceConfigurationProvider>().As<IImageSourceConfigurationProvider>(); // nocommit new module for sources
         }
     }
 
