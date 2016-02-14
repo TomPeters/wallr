@@ -75,13 +75,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfiguredImageSourceId.cs" />
-    <Compile Include="IConfiguredImageSource.cs" />
+    <Compile Include="Source\IConfiguredImageSource.cs" />
     <Compile Include="IImageQueue.cs" />
     <Compile Include="ImageQueueCoordinator.cs" />
     <Compile Include="ImageQueuePopulator.cs" />
     <Compile Include="ImageQueueUpdateEvents.cs" />
+    <Compile Include="ImageSourceTypeKey.cs" />
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\IImageSourceConfiguration.cs" />
     <Compile Include="WallpaperUpdateEvents.cs" />
     <Compile Include="WallpaperCoordinator.cs" />
     <Compile Include="WallpaperSetter.cs" />

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace SerializationModel
+namespace Serialization
 {
     public class SourcesCollection // nocommit persist this
     {
-        public IReadOnlyList<Source> Sources { get; set; }  
+        public IReadOnlyList<Source> Sources { get; set; }
     }
 }

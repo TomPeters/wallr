@@ -234,6 +234,12 @@
     <Content Include="content\js\Events.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\js\Source.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\js\SourcesStore.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\js\Toaster.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

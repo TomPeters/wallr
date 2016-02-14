@@ -32,3 +32,15 @@ nav .brand-logo.navbar-title {
     padding: 5px;
     color: #fff;
 }
+
+.side-nav .wallr-menu-subSection:hover {
+    background-color: #fff;
+}
+
+.side-nav .wallr-side-nav li {
+    padding: 0;
+}
+
+.side-nav .wallr-side-nav .wallr-menu-subSection li {
+    padding-left: 15px;
+}
