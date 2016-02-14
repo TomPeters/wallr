@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Serilog;
 using Serilog.Configuration;
+using Wallr.Common;
 using Wallr.Platform;
 
 namespace Wallr.Windows10
@@ -70,6 +71,19 @@ namespace Wallr.Windows10
                 yield return writeTo => writeTo.File(Path.Combine(ApplicationDataFolderPath, "log.txt"));
                 yield return writeTo => writeTo.Seq("http://localhost:5341/");
             }
+        }
+
+        public void SaveSettings(string settingsKey, string settings)
+        {
+            File.WriteAllText(Path.Combine(ApplicationDataFolderPath, settingsKey), settings);
+        }
+
+        public IMaybe<string> LoadSettings(string settingsKey)
+        {
+            var settingsPath = Path.Combine(ApplicationDataFolderPath, settingsKey);
+            return File.Exists(settingsPath) 
+                ? Maybe.Just(File.ReadAllText(settingsPath)) 
+                : Maybe.Nothing<string>();
         }
 
         private string GetPathFromId(ImageId imageId)

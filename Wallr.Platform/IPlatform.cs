@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Serilog;
 using Serilog.Configuration;
+using Wallr.Common;
 using Wallr.Interfaces;
 
 namespace Wallr.Platform
@@ -16,5 +17,7 @@ namespace Wallr.Platform
         void SaveWallpaper(IImage image, ILogger logger);
         Stream LoadImage(ImageId imageId);
         IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks { get; }
+        void SaveSettings(string settingsKey, string settings);
+        IMaybe<string> LoadSettings(string settingsKey);
     }
 }
