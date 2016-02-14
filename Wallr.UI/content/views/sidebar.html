@@ -1,12 +1,16 @@
 ﻿<ul ng-controller="SideBarCtrl as sideBarCtrl" class="wallr-side-nav">
     <li ng-class="{'active': sideBarCtrl.isCurrentRoute(sideBarCtrl.routes.queue)}">
-        <a class="bold" ng-click="sideBarCtrl.navigateTo(sideBarCtrl.routes.queue)">Queue</a>
+        <a ng-click="sideBarCtrl.navigateTo(sideBarCtrl.routes.queue)">Queue</a>
     </li>
     <li class="wallr-menu-subSection">
-        <a ng-class="{'active': sideBarCtrl.isCurrentRoute(sideBarCtrl.routes.sources)}" 
-           ng-click="sideBarCtrl.navigateTo(sideBarCtrl.routes.sources)">Sources</a>
+        <span class="wallr-menu-subSection-heading">Sources</span>
+        <span class="right side-nav-button-container"><div class="side-nav-button-inline-button waves-effect waves-light red btn" ng-click="sidebarCtrl.addSource()"><i class="material-icons">add</i></div></span>
+        
         <ul ng-repeat="source in sideBarCtrl.sources">
-            <li><a>{{source.type}}</a></li>
+            <li>
+                <a>{{source.type}}</a>
+                <span class="right side-nav-button-container"><div class="side-nav-button-inline-button waves-effect waves-light red btn"><i class="material-icons">delete</i></div></span>
+            </li>
         </ul>
     </li>
 </ul>

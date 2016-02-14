@@ -37,10 +37,28 @@ nav .brand-logo.navbar-title {
     background-color: #fff;
 }
 
+.wallr-menu-subSection-heading {
+    padding-left: 15px;
+}
+
 .side-nav .wallr-side-nav li {
     padding: 0;
 }
 
 .side-nav .wallr-side-nav .wallr-menu-subSection li {
     padding-left: 15px;
+}
+
+.side-nav-button-container {
+    padding-right: 10px;
+}
+
+.side-nav-button-inline-button {
+    width: 34px;
+    height: 34px;
+    padding: 0;
+}
+
+.side-nav .wallr-menu-subSection a {
+    display: inline;
 }
