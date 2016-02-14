@@ -19,7 +19,6 @@ namespace Wallr
             container.Resolve<IWallrUiServer>().StartServer();
             container.Resolve<IWallrApplication>().Setup();
 
-
             return new WallrApplicationEnvironment(container);
         }
     }

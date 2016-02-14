@@ -20,6 +20,7 @@ namespace Wallr
             builder.RegisterModule<LoggingModule>();
             builder.RegisterModule<WallrCoreModule>();
             builder.RegisterModule<WallrUiModule>();
+            builder.RegisterType<OpenConfigPageOption>().As<IQuickUseOption>();
         }
     }
 }

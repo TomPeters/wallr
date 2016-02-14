@@ -9,6 +9,7 @@ namespace Wallr.Platform
 {
     public interface IPlatform // TODO: interface segregation, add extra abstraction on top of this in core where required (eg image saving)
     {
+        void NavigateToUrl(string url);
         void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
         void SetWallpaper(ImageId imageId, ILogger logger);
         // TODO: Will need a LoadWallpaper at some point

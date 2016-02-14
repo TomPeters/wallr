@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,11 @@ namespace Wallr.Windows10
         public Windows10Platform(WallrApplicationContext applicationContext)
         {
             _applicationContext = applicationContext;
+        }
+
+        public void NavigateToUrl(string url)
+        {
+            Process.Start(url);
         }
 
         public void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions)
