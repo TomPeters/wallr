@@ -74,6 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguredImageSourceId.cs" />
+    <Compile Include="IConfiguredImageSource.cs" />
     <Compile Include="IImageQueue.cs" />
     <Compile Include="ImageQueueCoordinator.cs" />
     <Compile Include="ImageQueuePopulator.cs" />
