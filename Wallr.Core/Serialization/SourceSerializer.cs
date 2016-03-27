@@ -10,7 +10,7 @@ namespace Wallr.Core.Serialization
     public interface ISourceSerializer
     {
         string Serialize(IEnumerable<IImageSourceConfiguration> imageSourceConfigurations);
-        IEnumerable<IImageSourceConfiguration> Deserialize(IMaybe<string> imageSourceConfigurations);
+        IEnumerable<IImageSourceConfiguration> Deserialize(string imageSourceConfigurations);
     }
 
     public class SourceSerializer : ISourceSerializer
@@ -32,14 +32,7 @@ namespace Wallr.Core.Serialization
             return JsonConvert.SerializeObject(sourceCollection);
         }
 
-        public IEnumerable<IImageSourceConfiguration> Deserialize(IMaybe<string> imageSourceConfigurations)
-        {
-            return imageSourceConfigurations
-                .Safe(Deserialize)
-                .Or(Enumerable.Empty<IImageSourceConfiguration>());
-        }
-
-        private IEnumerable<IImageSourceConfiguration> Deserialize(string imageSourceConfigurations)
+        public IEnumerable<IImageSourceConfiguration> Deserialize(string imageSourceConfigurations)
         {
             SourcesCollection sourcesCollection = JsonConvert.DeserializeObject<SourcesCollection>(imageSourceConfigurations);
             return sourcesCollection.Sources.Select(c =>
