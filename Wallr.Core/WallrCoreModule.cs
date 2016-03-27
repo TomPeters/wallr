@@ -13,17 +13,7 @@ namespace Wallr.Core
             builder.RegisterType<WallrApplication>().As<IWallrApplication>();
             builder.RegisterModule<ImageQueueModule>();
             builder.RegisterModule<WallpaperModule>();
-            builder.RegisterModule<ImageSourceModule>();
-        }
-    }
-
-    public class ImageSourceModule : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<SourcesRepository>().As<ISourcesRepository>();
-            builder.RegisterType<ObservableSourcesRepository>().As<IImageSourceConfigurationProvider>();
-            builder.Register(c => new SubredditImageSource("wallpapers", c.Resolve<ILogger>())).As<IImageSource>(); // TODO: don't hardcode sources
+            builder.RegisterType<ImageSourceConfigurationProvider>().As<IImageSourceConfigurationProvider>(); // nocommit new module for sources
         }
     }
 
@@ -35,6 +25,7 @@ namespace Wallr.Core
             builder.RegisterType<ImageQueuePopulator>().As<IImageQueuePopulator>();
             builder.RegisterType<ImageQueueUpdateEvents>().As<IImageQueueUpdateEvents>();
             builder.RegisterType<ImageQueueCoordinator>().As<IImageQueueCoordinator>();
+            builder.Register(c => new SubredditImageSource("wallpapers", c.Resolve<ILogger>())).As<IImageSource>(); // TODO: Should not register sources here
         }
     }
 

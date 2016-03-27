@@ -44,12 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourcesCollection.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
-      <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
-      <Name>Wallr.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

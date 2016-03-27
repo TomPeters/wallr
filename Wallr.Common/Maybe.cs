@@ -74,7 +74,7 @@ namespace Wallr.Common
             return maybe.Bind(val => true, () => false);
         }
 
-        public static T Or<T>(this IMaybe<T> maybe, T nullFallback)
+        public static T Coalesce<T>(this IMaybe<T> maybe, T nullFallback)
         {
             return maybe.Bind(val => val, () => nullFallback);
         }
