@@ -5,13 +5,13 @@ namespace Wallr.Core.Source
     public interface IImageSourceConfiguration
     {
         ConfiguredImageSourceId Id { get; }
-        ImageSourceTypeKey ImageSourceType { get; }
+        ImageSourceType ImageSourceType { get; }
         IDictionary<string, string> Settings { get; } 
     }
 
     public class ImageSourceConfiguration : IImageSourceConfiguration
     {
-        public ImageSourceConfiguration(ConfiguredImageSourceId id, ImageSourceTypeKey imageSourceType, IDictionary<string, string> settings)
+        public ImageSourceConfiguration(ConfiguredImageSourceId id, ImageSourceType imageSourceType, IDictionary<string, string> settings)
         {
             Id = id;
             ImageSourceType = imageSourceType;
@@ -19,15 +19,15 @@ namespace Wallr.Core.Source
         }
 
         public ConfiguredImageSourceId Id { get; }
-        public ImageSourceTypeKey ImageSourceType { get; }
+        public ImageSourceType ImageSourceType { get; }
         public IDictionary<string, string> Settings { get; }
     }
 
     public class ImageSourceConfigurationFactory
     {
-        public IImageSourceConfiguration CreateConfiguredImageSource(ImageSourceTypeKey imageSourceTypeKey)
+        public IImageSourceConfiguration CreateConfiguredImageSource(ImageSourceType imageSourceType)
         {
-            return new ImageSourceConfiguration(new ConfiguredImageSourceId(), imageSourceTypeKey, new Dictionary<string, string>());
+            return new ImageSourceConfiguration(new ConfiguredImageSourceId(), imageSourceType, new Dictionary<string, string>());
         }
     }
 }

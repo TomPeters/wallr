@@ -40,6 +40,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -75,16 +79,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfiguredImageSourceId.cs" />
+    <Compile Include="Serialization\SourceSerializer.cs" />
     <Compile Include="Source\IConfiguredImageSource.cs" />
     <Compile Include="IImageQueue.cs" />
     <Compile Include="ImageQueueCoordinator.cs" />
     <Compile Include="ImageQueuePopulator.cs" />
     <Compile Include="ImageQueueUpdateEvents.cs" />
-    <Compile Include="ImageSourceTypeKey.cs" />
+    <Compile Include="ImageSourceType.cs" />
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\IImageSourceConfiguration.cs" />
     <Compile Include="Source\IImageSourceConfigurationProvider.cs" />
+    <Compile Include="Source\SourcesRepository.cs" />
     <Compile Include="WallpaperUpdateEvents.cs" />
     <Compile Include="WallpaperCoordinator.cs" />
     <Compile Include="WallpaperSetter.cs" />
@@ -96,6 +102,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Serialization\Serialization.csproj">
+      <Project>{31d19df7-d390-412e-b381-05f930aa7cad}</Project>
+      <Name>Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
       <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
       <Name>Wallr.Common</Name>

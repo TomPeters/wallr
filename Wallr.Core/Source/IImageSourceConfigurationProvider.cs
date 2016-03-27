@@ -14,7 +14,7 @@ namespace Wallr.Core.Source
             get
             {
                 // nocommit, implement properly
-                yield return new ImageSourceConfiguration(new ConfiguredImageSourceId(), new ImageSourceTypeKey("Some fake key"), new Dictionary<string, string>());
+                yield return new ImageSourceConfiguration(new ConfiguredImageSourceId(), new ImageSourceType("Some fake key"), new Dictionary<string, string>());
             }
         }
     }
