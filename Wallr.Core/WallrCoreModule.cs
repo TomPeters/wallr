@@ -13,7 +13,15 @@ namespace Wallr.Core
             builder.RegisterType<WallrApplication>().As<IWallrApplication>();
             builder.RegisterModule<ImageQueueModule>();
             builder.RegisterModule<WallpaperModule>();
-            builder.RegisterType<ImageSourceConfigurationProvider>().As<IImageSourceConfigurationProvider>(); // nocommit new module for sources
+            builder.RegisterModule<SourcesModule>();
+        }
+    }
+
+    public class SourcesModule : Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<SourcesRepository>().As<ISourcesRepository>().As<ISourceConfigurationsProvider>();
         }
     }
 

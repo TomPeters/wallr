@@ -47,7 +47,7 @@ namespace Wallr.UI
             );
             container.Update(b => b.Register(c => _parentScope.Resolve<IPlatform>()).As<IPlatform>());
             container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceConfigurationProvider>()).As<IImageSourceConfigurationProvider>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<ISourcesRepository>()).As<ISourcesRepository>());
         }
 
         protected override void RequestStartup(ILifetimeScope container, IPipelines pipelines, NancyContext context)

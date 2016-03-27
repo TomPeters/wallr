@@ -7,9 +7,9 @@ namespace Wallr.UI.NancyModules
 {
     public class SourcesModule : NancyModule
     {
-        public SourcesModule(IImageSourceConfigurationProvider imageSourceConfigurationProvider) : base("/sources")
+        public SourcesModule(ISourcesRepository sourcesRepository) : base("/sources")
         {
-            Get["/"] = _ => imageSourceConfigurationProvider.ImageSourceConfigurations.Select(s => new ImageSourceViewModel(s));
+            Get["/"] = _ => sourcesRepository.SourceConfigurations.Select(s => new ImageSourceViewModel(s));
             Post["/add"] = _ => "Success"; // nocommit, implement
         }
     }
