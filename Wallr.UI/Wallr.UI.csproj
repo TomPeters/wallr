@@ -266,6 +266,10 @@
       <Project>{94AF8898-F909-4BE3-899D-204F7D097A7A}</Project>
       <Name>Wallr.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
+      <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
+      <Name>Wallr.ImageSource</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.Interfaces\Wallr.Interfaces.csproj">
       <Project>{33ca4669-45a8-4fff-9eff-a7f2b742f137}</Project>
       <Name>Wallr.Interfaces</Name>

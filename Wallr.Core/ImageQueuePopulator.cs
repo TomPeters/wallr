@@ -17,26 +17,26 @@ namespace Wallr.Core
 
     public class ImageQueuePopulator : IImageQueuePopulator
     {
-        private readonly IImageSource _imageSource;
+        private readonly IStatefulImageSource _statefulImageSource;
         private readonly ILogger _logger;
 
-        public ImageQueuePopulator(IImageSource imageSource, ILogger logger)
+        public ImageQueuePopulator(IStatefulImageSource statefulImageSource, ILogger logger)
         {
-            _imageSource = imageSource;
+            _statefulImageSource = statefulImageSource;
             _logger = logger;
         }
 
         public void AddImagesToQueue(IImageQueue imageQueue, int imagesToAdd)
         {
-            IReadOnlyList<LocalImageId> imageSourceIds = imageQueue.ImageIds.Where(i => i.ImageSourceId.Equals(_imageSource.ImageSourceId))
+            IReadOnlyList<LocalImageId> imageSourceIds = imageQueue.ImageIds.Where(i => i.ImageSourceId.Equals(_statefulImageSource.ImageSourceId))
                 .Select(i => i.LocalImageId).ToList();
             int availableCapacity = imageQueue.Capacity - imageQueue.ImageIds.Count;
             int numberOfNewImagesToAdd = Math.Min(availableCapacity, imagesToAdd);
             _logger.Information("Adding {NumberOfNewImagesToAddFromSource} images to queue", numberOfNewImagesToAdd);
             try
             {
-                _imageSource.Images
-                    .Select(i => new Image(i, _imageSource.ImageSourceId))
+                _statefulImageSource.Images
+                    .Select(i => new Image(i, _statefulImageSource.ImageSourceId))
                     .Where(i => !imageSourceIds.Contains(i.ImageId.LocalImageId))
                     .Take(numberOfNewImagesToAdd)
                     .ForEach(imageQueue.PushImage);

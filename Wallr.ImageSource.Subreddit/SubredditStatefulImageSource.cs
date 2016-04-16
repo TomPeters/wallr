@@ -9,12 +9,12 @@ using Wallr.Interfaces;
 
 namespace Wallr.ImageSource.Subreddit
 {
-    public class SubredditImageSource : IImageSource
+    public class SubredditStatefulImageSource : IStatefulImageSource
     {
         private readonly string _subreddit;
         private readonly ILogger _logger;
 
-        public SubredditImageSource(string subreddit, ILogger logger)
+        public SubredditStatefulImageSource(string subreddit, ILogger logger)
         {
             _subreddit = subreddit;
             _logger = logger.ForContext("Subreddit", subreddit);

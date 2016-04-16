@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Wallr.ImageSource;
 
 namespace Wallr.Core.Source
 {

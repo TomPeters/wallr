@@ -13,7 +13,8 @@ angular.module("Wallr").factory("SourcesStore", ["$http", "SourceFactory",
                 return sources;
             },
 
-            addSource: function() { // add source type
+            addSource: function () { // TODO: add source type parameter, add screen to select source type, #2
+
                 $http.post("/sources/add").then(loadSources); // todo make sources load through events instead of manual reloading here
             }
         }

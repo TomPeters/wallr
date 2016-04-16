@@ -22,6 +22,7 @@ namespace Wallr.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<SourceTypeProvider>().As<ISourceTypeProvider>();
             builder.RegisterType<SourceSerializer>().As<ISourceSerializer>();
             builder.RegisterType<SourcesRepository>().As<ISourcesRepository>().As<ISourceConfigurationsProvider>();
         }
@@ -35,7 +36,7 @@ namespace Wallr.Core
             builder.RegisterType<ImageQueuePopulator>().As<IImageQueuePopulator>();
             builder.RegisterType<ImageQueueUpdateEvents>().As<IImageQueueUpdateEvents>();
             builder.RegisterType<ImageQueueCoordinator>().As<IImageQueueCoordinator>();
-            builder.Register(c => new SubredditImageSource("wallpapers", c.Resolve<ILogger>())).As<IImageSource>(); // TODO: Should not register sources here
+            builder.Register(c => new SubredditStatefulImageSource("wallpapers", c.Resolve<ILogger>())).As<IStatefulImageSource>(); // TODO: Should not register sources here
         }
     }
 

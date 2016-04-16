@@ -1,6 +1,6 @@
-﻿using Wallr.Common;
+using Wallr.Common;
 
-namespace Wallr.Core
+namespace Wallr.ImageSource
 {
     public class ImageSourceType : TypedString<ImageSourceType>
     {

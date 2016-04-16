@@ -85,11 +85,11 @@
     <Compile Include="ImageQueueCoordinator.cs" />
     <Compile Include="ImageQueuePopulator.cs" />
     <Compile Include="ImageQueueUpdateEvents.cs" />
-    <Compile Include="ImageSourceType.cs" />
     <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\IImageSourceConfiguration.cs" />
     <Compile Include="Source\SourcesRepository.cs" />
+    <Compile Include="Source\SourceTypeProvider.cs" />
     <Compile Include="WallpaperUpdateEvents.cs" />
     <Compile Include="WallpaperCoordinator.cs" />
     <Compile Include="WallpaperSetter.cs" />

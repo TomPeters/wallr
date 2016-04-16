@@ -11,20 +11,20 @@ namespace Wallr.Core.Source
 
     public class ConfiguredImageSource : IConfiguredImageSource
     {
-        private readonly IImageSource _imageSource;
+        private readonly IStatefulImageSource _statefulImageSource;
 
-        public ConfiguredImageSource(ConfiguredImageSourceId id, IImageSource imageSource)
+        public ConfiguredImageSource(ConfiguredImageSourceId id, IStatefulImageSource statefulImageSource)
         {
-            _imageSource = imageSource;
+            _statefulImageSource = statefulImageSource;
             Id = id;
         }
 
         public ConfiguredImageSourceId Id { get; }
-        public IEnumerable<ISourceImage> Images => _imageSource.Images;
+        public IEnumerable<ISourceImage> Images => _statefulImageSource.Images;
     }
 
     public interface IImageSourcesProvider // nocommit implementation
     {
-        IEnumerable<IImageSource> AvailableImageSources { get; }
+        IEnumerable<IStatefulImageSource> AvailableImageSources { get; }
     }
 }
