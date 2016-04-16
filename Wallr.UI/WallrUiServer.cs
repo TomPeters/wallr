@@ -37,7 +37,7 @@ namespace Wallr.UI
             _host = new NancyHost(_nancyBootstrapper, hostConfiguration, new Uri(Url));
             _logger.Information("Web server starting...");
             _host.Start();
-            _logger.Information("Web server started");
+            _logger.Information("Web server started at {Url}", Url);
         }
     }
 }

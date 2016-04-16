@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Serilog;
+using Wallr.Core.Serialization;
 using Wallr.Core.Source;
 using Wallr.ImageSource;
 using Wallr.ImageSource.Subreddit;
@@ -21,6 +22,7 @@ namespace Wallr.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<SourceSerializer>().As<ISourceSerializer>();
             builder.RegisterType<SourcesRepository>().As<ISourcesRepository>().As<ISourceConfigurationsProvider>();
         }
     }
