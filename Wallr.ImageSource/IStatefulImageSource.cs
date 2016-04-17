@@ -10,7 +10,7 @@ namespace Wallr.ImageSource
         ImageSourceId ImageSourceId { get; }
     }
 
-    public interface IThinImageSource // TODO: Rename to IImageSource
+    public interface IImageSource // TODO: Rename to IImageSource
     {
         ImageSourceType SourceType { get; }
         IDictionary<string, string> DefaultSettings { get; } 

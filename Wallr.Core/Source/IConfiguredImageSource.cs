@@ -22,9 +22,4 @@ namespace Wallr.Core.Source
         public ConfiguredImageSourceId Id { get; }
         public IEnumerable<ISourceImage> Images => _statefulImageSource.Images;
     }
-
-    public interface IImageSourcesProvider // nocommit implementation
-    {
-        IEnumerable<IStatefulImageSource> AvailableImageSources { get; }
-    }
 }

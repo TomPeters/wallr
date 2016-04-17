@@ -22,7 +22,7 @@ namespace Wallr.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SourceTypeProvider>().As<ISourceTypeProvider>();
+            builder.RegisterType<ImageSourceProvider>().As<IImageSourceProvider>();
             builder.RegisterType<SourceSerializer>().As<ISourceSerializer>();
             builder.RegisterType<SourcesRepository>().As<ISourcesRepository>().As<ISourceConfigurationsProvider>();
         }

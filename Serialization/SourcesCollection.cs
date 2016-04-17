@@ -2,7 +2,7 @@
 
 namespace Serialization
 {
-    public class SourcesCollection // nocommit persist this
+    public class SourcesCollection
     {
         public IReadOnlyList<Source> Sources { get; set; }
     }

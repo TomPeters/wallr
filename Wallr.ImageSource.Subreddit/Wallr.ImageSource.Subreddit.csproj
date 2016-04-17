@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubredditImageSource.cs" />
     <Compile Include="SubredditStatefulImageSource.cs" />
     <Compile Include="SubredditImageSourceId.cs" />
   </ItemGroup>

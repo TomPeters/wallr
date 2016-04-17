@@ -48,7 +48,7 @@ namespace Wallr.Core.Source
         public void AddSourceConfiguration(IImageSourceConfiguration configuration)
         {
             _logger.Information("Added {SourceConfigurationId} to collection", configuration.Id);
-            _imageSourceConfigurations = _imageSourceConfigurations.Concat(new [] { configuration }).ToList();
+            _imageSourceConfigurations = SourceConfigurations.Concat(new [] { configuration }).ToList();
             _platform.SaveSettings(SourcesKey, _sourceSerializer.Serialize(_imageSourceConfigurations));
             _logger.Information("Persisted {PersistedSourcesCount}", _imageSourceConfigurations.Count);
         }

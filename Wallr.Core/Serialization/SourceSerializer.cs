@@ -2,7 +2,6 @@
 using System.Linq;
 using Newtonsoft.Json;
 using Serialization;
-using Wallr.Common;
 using Wallr.Core.Source;
 using Wallr.ImageSource;
 
