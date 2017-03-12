@@ -31,8 +31,8 @@ namespace Wallr.Core
         public void Setup()
         {
             _platform.SetupQuickUseControl(_quickUseOptions.ToList());
-            _imageQueueCoordinator.Start();
-            _wallpaperCoordinator.Start();
+            _imageQueueCoordinator.UpdateImageQueuePeriodically();
+            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
             _logger.Information("Application started");
         }
     }

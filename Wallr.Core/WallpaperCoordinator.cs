@@ -5,7 +5,7 @@ namespace Wallr.Core
 {
     public interface IWallpaperCoordinator
     {
-        void Start();
+        void SubscribeToWallpaperUpdates();
     }
 
     public class WallpaperCoordinator : IWallpaperCoordinator
@@ -21,7 +21,7 @@ namespace Wallr.Core
             _imageQueue = imageQueue;
         }
 
-        public void Start()
+        public void SubscribeToWallpaperUpdates()
         {
             _wallpaperUpdateEvents.UpdateImageRequested
                 .Where(i => _imageQueue.ImageIds.Count > 0)

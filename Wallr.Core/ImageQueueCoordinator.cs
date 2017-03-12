@@ -4,7 +4,7 @@ namespace Wallr.Core
 {
     public interface IImageQueueCoordinator
     {
-        void Start();
+        void UpdateImageQueuePeriodically();
     }
 
     public class ImageQueueCoordinator : IImageQueueCoordinator
@@ -20,7 +20,7 @@ namespace Wallr.Core
             _imageQueue = imageQueue;
         }
 
-        public void Start()
+        public void UpdateImageQueuePeriodically()
         {
             _imageQueueUpdateEvents.ImageQueueUpdateRequested
                 .Subscribe(numItems => _imageQueuePopulator.AddImagesToQueue(_imageQueue, numItems));
