@@ -7,6 +7,7 @@ using Wallr.Common;
 using Wallr.ImageSource;
 using Wallr.Interfaces;
 using Wallr.Platform;
+using IImage = Wallr.Platform.IImage;
 
 namespace Wallr.Core
 {

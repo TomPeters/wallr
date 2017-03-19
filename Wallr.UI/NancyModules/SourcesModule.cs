@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Nancy;
 using Nancy.ModelBinding;
 using Wallr.Common;
@@ -18,9 +19,8 @@ namespace Wallr.UI.NancyModules
             {
                 AddRequestModel request = this.Bind<AddRequestModel>();
                 var sourceType = new ImageSourceType(request.SourceType);
-                IImageSource source = imageSourceProvider.GetSource(sourceType);
                 var imageSourceId = new ConfiguredImageSourceId();
-                sourcesRepository.AddSourceConfiguration(new ImageSourceConfiguration(imageSourceId, sourceType, source.DefaultSettings));
+                sourcesRepository.AddSourceConfiguration(new ImageSourceConfiguration(imageSourceId, sourceType, new Dictionary<string, string>()));
                 return imageSourceId.Value;
             };
         }
