@@ -3,11 +3,11 @@ using System.Collections.Async;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Serilog;
+using Wallr.ImageSource.Api;
 
 namespace Wallr.ImageSource.Subreddit
 {
@@ -71,7 +71,7 @@ namespace Wallr.ImageSource.Subreddit
                 _httpClient = httpClient;
             }
 
-            public string Id => _url.ToString().Split('/').Last().Split('.').First();
+            public Task<string> Id => Task.FromResult(_url.ToString().Split('/').Last().Split('.').First());
             public async Task<Stream> GetImageStream()
             {
                 HttpResponseMessage response = await _httpClient.GetAsync(_url);

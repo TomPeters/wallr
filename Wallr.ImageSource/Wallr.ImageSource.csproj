@@ -60,10 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IImage.cs" />
     <Compile Include="IImageSource.cs" />
+    <Compile Include="ImageId.cs" />
+    <Compile Include="ImageSourceId.cs" />
+    <Compile Include="ImageSourceName.cs" />
     <Compile Include="ImageSourceType.cs" />
-    <Compile Include="IStatefulImageSource.cs" />
-    <Compile Include="ISourceImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

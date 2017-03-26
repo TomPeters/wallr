@@ -2,7 +2,7 @@
 
 namespace Wallr.Interfaces
 {
-    public class ImageSourceId : TypedString<ImageSourceId>
+    public class ImageSourceId : TypedString<ImageSourceId> // nocommit, delete
     {
         public ImageSourceId(string value) : base(value)
         {

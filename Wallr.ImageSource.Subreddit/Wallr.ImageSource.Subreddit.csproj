@@ -63,8 +63,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubredditImageSource.cs" />
-    <Compile Include="SubredditStatefulImageSource.cs" />
-    <Compile Include="SubredditImageSourceId.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -75,9 +73,9 @@
       <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
       <Name>Wallr.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
-      <Project>{390BDCB5-BA59-4C7E-AA2D-042B735FC805}</Project>
-      <Name>Wallr.ImageSource</Name>
+    <ProjectReference Include="..\Wallr.ImageSource.Api\Wallr.ImageSource.Api.csproj">
+      <Project>{857691f8-9434-4370-812c-e7a804820727}</Project>
+      <Name>Wallr.ImageSource.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wallr.Interfaces\Wallr.Interfaces.csproj">
       <Project>{33ca4669-45a8-4fff-9eff-a7f2b742f137}</Project>

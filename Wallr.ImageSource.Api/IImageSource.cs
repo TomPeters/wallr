@@ -1,6 +1,4 @@
 ﻿using System.Collections.Async;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Wallr.ImageSource.Api
 {
@@ -8,11 +6,5 @@ namespace Wallr.ImageSource.Api
     {
         string SourceTypeName { get; }
         IAsyncEnumerable<IImage> GetImages(TSettings settings);
-    }
-
-    public interface IImage
-    {
-        string Id { get; }
-        Task<Stream> GetImageStream();
     }
 }
