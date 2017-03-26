@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8DD9AB2B-FFCF-4F3F-A633-5F7F36294E84}</ProjectGuid>
+    <ProjectGuid>{857691F8-9434-4370-812C-E7A804820727}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wallr.ImageQueue</RootNamespace>
-    <AssemblyName>Wallr.ImageQueue</AssemblyName>
+    <RootNamespace>Wallr.ImageSource.Api</RootNamespace>
+    <AssemblyName>Wallr.ImageSource.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,24 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ImageQueue.cs" />
+    <Compile Include="IImageSource.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
+    <Reference Include="AsyncEnumerable, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0426b068161bd1d1">
+      <HintPath>..\packages\AsyncEnumerator.2.0.1\lib\net45\AsyncEnumerable.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Wallr.ImagePersistence\Wallr.ImagePersistence.csproj">
-      <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
-      <Name>Wallr.ImagePersistence</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

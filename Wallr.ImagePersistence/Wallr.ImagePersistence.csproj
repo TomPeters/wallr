@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Wallr.ImagePersistence</RootNamespace>
     <AssemblyName>Wallr.ImagePersistence</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IImageRepository.cs" />
+    <Compile Include="ImageSaver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Optional, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
@@ -48,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
+      <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
+      <Name>Wallr.ImageSource</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

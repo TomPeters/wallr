@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageQueue", "Wallr.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImagePersistence", "Wallr.ImagePersistence\Wallr.ImagePersistence.csproj", "{755B5FA0-9964-4CC9-8932-A90C0775862F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageSource.Api", "Wallr.ImageSource.Api\Wallr.ImageSource.Api.csproj", "{857691F8-9434-4370-812C-E7A804820727}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{755B5FA0-9964-4CC9-8932-A90C0775862F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{755B5FA0-9964-4CC9-8932-A90C0775862F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{755B5FA0-9964-4CC9-8932-A90C0775862F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{857691F8-9434-4370-812C-E7A804820727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{857691F8-9434-4370-812C-E7A804820727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{857691F8-9434-4370-812C-E7A804820727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{857691F8-9434-4370-812C-E7A804820727}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
