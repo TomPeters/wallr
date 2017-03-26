@@ -2,7 +2,7 @@
 
 namespace Wallr.Common
 {
-    public interface IMaybe<out T>
+    public interface IMaybe<out T> // nocommit, replace with Option type
     {
         TReturn Bind<TReturn>(Func<T, TReturn> justHandler, Func<TReturn> nothingHandler);
     }
