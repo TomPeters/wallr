@@ -5,7 +5,7 @@ namespace Wallr.ImageSource
 {
     public interface IImage
     {
-        Task<ImageId> GetId { get; }
+        Task<ImageId> GetId();
         Task<Stream> GetImageStream();
     }
 }
