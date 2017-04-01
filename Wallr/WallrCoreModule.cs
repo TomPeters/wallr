@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Wallr.ImagePersistence;
 
 namespace Wallr
 {
@@ -7,6 +8,7 @@ namespace Wallr
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<WallrApplication>().As<IWallrApplication>();
+            builder.RegisterModule<ImagePersistenceModule>();
             // nocommit, reimplement
 //            builder.RegisterModule<ImageQueueModule>();
 //            builder.RegisterModule<WallpaperModule>();

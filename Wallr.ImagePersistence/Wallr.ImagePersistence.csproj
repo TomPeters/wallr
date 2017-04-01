@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IImagePersistence.cs" />
+    <Compile Include="ImagePersistenceModule.cs" />
     <Compile Include="ImageRepository.cs" />
     <Compile Include="ImageSaver.cs" />
     <Compile Include="ISavedImage.cs" />
@@ -42,6 +43,9 @@
   <ItemGroup>
     <Reference Include="AsyncEnumerable, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0426b068161bd1d1">
       <HintPath>..\packages\AsyncEnumerator.2.0.1\lib\net45\AsyncEnumerable.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Optional, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Optional.3.2.0\lib\net45\Optional.dll</HintPath>
