@@ -1,23 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using Optional;
 using Serilog;
 using Serilog.Configuration;
 using Wallr.Common;
-using Wallr.Interfaces;
 
 namespace Wallr.Platform
 {
-    public interface IPlatform // TODO: interface segregation, add extra abstraction on top of this in core where required (eg image saving)
+    public interface IConfiguration
     {
-        void NavigateToUrl(string url);
-        void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
-        void SetWallpaper(ImageId imageId, ILogger logger);
-        // TODO: Will need a LoadWallpaper at some point
-        void SaveWallpaper(IImage image, ILogger logger);
-        Stream LoadImage(ImageId imageId);
         IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks { get; }
-        void SaveSettings(string settingsKey, string settings);
-        IMaybe<string> LoadSettings(string settingsKey);
+    }
+
+    public interface ISetup
+    {
+        Task SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions); // nocommit, Task
+    }
+
+    public interface INavigation
+    {
+        Task NavigateToUrl(string url); // nocommit, task
+    }
+
+    public interface IImagePersistence
+    {
+        Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger);
+        // nocommit used to be void
+        // used to be         void SaveWallpaper(IImage image, ILogger logger);
+        Task<Option<Stream>> LoadImage(ImageId imageId);
+        // nocommit used to be void
+        // used to be         Stream LoadImage(ImageId imageId);
+    }
+
+    public interface IWallpaperEnvironment
+    {
+        Task SetWallpaper(ImageId imageId, ILogger logger); // nocommit, Task
+    }
+
+    public interface IPersistence
+    {
+        Task SaveSettings(string settingsKey, string settings); // nocommit used to be void
+        Task<Option<string>> LoadSettings(string settingsKey); // nocommit, used to be Maybe<string>
+    }
+
+    public interface IPlatform : IConfiguration, IImagePersistence, INavigation, ISetup, IWallpaperEnvironment, IPersistence
+    {
     }
 }

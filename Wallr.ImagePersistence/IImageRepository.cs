@@ -9,7 +9,7 @@ namespace Wallr.ImagePersistence
     // nocommit, needs an implementation
     public interface IImagePersistence // Move to Wallr.Platform? Maybe just leave it here...
     {
-        Task SaveImage(ImageId imageId, ILogger logger);
+        Task SaveImage(ImageId imageId, Stream imageStream, ILogger logger);
         Task<Option<Stream>> LoadImage(ImageId imageId);
     }
 

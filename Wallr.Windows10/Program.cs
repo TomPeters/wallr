@@ -5,7 +5,8 @@
         static void Main(string[] args)
         {
             Windows10Platform windows10Platform = new Windows10Platform(new WallrApplicationContext());
-            windows10Platform.Start(WallrLauncher.LaunchWallr(windows10Platform));
+            var closeWallr = WallrLauncher.LaunchWallr(windows10Platform).GetAwaiter().GetResult();
+            windows10Platform.Start(closeWallr);
         }
     }
 }

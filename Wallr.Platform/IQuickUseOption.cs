@@ -1,8 +1,10 @@
-﻿namespace Wallr.Platform
+﻿using System.Threading.Tasks;
+
+namespace Wallr.Platform
 {
     public interface IQuickUseOption
     {
         string Label { get; }
-        void SelectOption();
+        Task SelectOption();
     }
 }

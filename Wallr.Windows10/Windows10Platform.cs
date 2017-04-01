@@ -4,10 +4,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Nito.AsyncEx;
+using Optional;
 using Serilog;
 using Serilog.Configuration;
-using Wallr.Common;
 using Wallr.Platform;
 
 namespace Wallr.Windows10
@@ -21,46 +23,52 @@ namespace Wallr.Windows10
             _applicationContext = applicationContext;
         }
 
-        public void NavigateToUrl(string url)
+        public Task NavigateToUrl(string url)
         {
-            Process.Start(url);
+            return Task.Run(() => Process.Start(url));
         }
 
-        public void SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions)
+        public Task SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions)
         {
-            IEnumerable<ToolStripItem> systemTrayOptions = quickUseOptions.Select(o => new ToolStripButton(o.Label, null, (sender, args) => o.SelectOption()));
-            _applicationContext.InitializeNotifyIcon(systemTrayOptions);
+            IEnumerable<ToolStripItem> systemTrayOptions = quickUseOptions.Select(o => new ToolStripButton(o.Label, null, async (sender, args) => await o.SelectOption())); // be aware that this is an async void EventHandler
+            _applicationContext.InitializeNotifyIcon(systemTrayOptions); // Can't wrap this in a Task.Run, because it needs to run on the main thread
+            return TaskConstants.Completed;
         }
 
         private string ApplicationDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallr");
 
-        public void SetWallpaper(ImageId imageId, ILogger logger)
+        public async Task SetWallpaper(ImageId imageId, ILogger logger)
         {
-            WindowsWallpapers.SetWallpaper(GetPathFromId(imageId));
+            await Task.Run(() => WindowsWallpapers.SetWallpaper(GetPathFromId(imageId)));
             logger.ForContext("LocalImageId", imageId)
                 .Information("Wallpaper set for {FileName}", imageId.LocalImageId.Value);
         }
 
-        public void SaveWallpaper(IImage image, ILogger logger)
+        public async Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger)
         {
-            var contextLogger = logger.ForContext("LocalImageId", image.ImageId);
-            contextLogger.Information("Saving image {FileName}", image.ImageId.LocalImageId.Value);
+            var contextLogger = logger.ForContext("LocalImageId", imageId);
+            contextLogger.Information("Saving image {FileName}", imageId.LocalImageId.Value);
 
-            string path = GetPathFromId(image.ImageId);
+            string path = GetPathFromId(imageId);
             string directoryName = Path.GetDirectoryName(path);
-            Directory.CreateDirectory(directoryName);
-            using (Stream stream = image.FileStream)
+            await Task.Run(() => Directory.CreateDirectory(directoryName));
+            using (Stream stream = createImageStream())
             {
-                Image img = Image.FromStream(stream);
-                img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+                Image img = await Task.Run(() => Image.FromStream(stream));
+                await Task.Run(() => img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg));
             }
 
             contextLogger.Information("Image saved at {FilePath}", path);
         }
 
-        public Stream LoadImage(ImageId imageId)
+        public Task<Option<Stream>> LoadImage(ImageId imageId)
         {
-            return File.OpenRead(GetPathFromId(imageId));
+            string path = GetPathFromId(imageId);
+            if (!File.Exists(path)) return Task.FromResult(Option.None<Stream>());
+            return Task.FromResult(
+                new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous)
+                    .Some<Stream>()
+            );
         }
 
         public IEnumerable<Func<LoggerSinkConfiguration, LoggerConfiguration>> LoggerSinks
@@ -73,17 +81,19 @@ namespace Wallr.Windows10
             }
         }
 
-        public void SaveSettings(string settingsKey, string settings)
+        public async Task SaveSettings(string settingsKey, string settings)
         {
-            File.WriteAllText(Path.Combine(ApplicationDataFolderPath, settingsKey), settings);
+            using (var streamWriter = new StreamWriter(Path.Combine(ApplicationDataFolderPath, settingsKey)))
+                await streamWriter.WriteAsync(settings);
         }
 
-        public IMaybe<string> LoadSettings(string settingsKey)
+        public async Task<Option<string>> LoadSettings(string settingsKey)
         {
-            var settingsPath = Path.Combine(ApplicationDataFolderPath, settingsKey);
-            return File.Exists(settingsPath) 
-                ? Maybe.Just(File.ReadAllText(settingsPath)) 
-                : Maybe.Nothing<string>();
+            string path = Path.Combine(ApplicationDataFolderPath, settingsKey);
+            if (!File.Exists(path)) return Option.None<string>();
+
+            using (var reader = new StreamReader(path))
+                return (await reader.ReadToEndAsync()).Some();
         }
 
         private string GetPathFromId(ImageId imageId)

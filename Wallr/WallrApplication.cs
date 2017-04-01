@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Serilog;
 using Wallr.Platform;
 
@@ -7,7 +8,7 @@ namespace Wallr
 {
     public interface IWallrApplication
     {
-        void Setup();
+        Task Setup();
     }
 
     public class WallrApplication : IWallrApplication
@@ -23,9 +24,9 @@ namespace Wallr
             _quickUseOptions = quickUseOptions;
         }
 
-        public void Setup()
+        public async Task Setup()
         {
-            _platform.SetupQuickUseControl(_quickUseOptions.ToList());
+            await _platform.SetupQuickUseControl(_quickUseOptions.ToList());
 //            _imageQueueCoordinator.UpdateImageQueuePeriodically();
 //            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
             _logger.Information("Application started");

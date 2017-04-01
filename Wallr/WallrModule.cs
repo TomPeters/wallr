@@ -15,7 +15,7 @@ namespace Wallr
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance(_platform).As<IPlatform>();
+            builder.RegisterInstance(_platform).As<IPlatform>(); // nocommit, don't register IPlatform, register the segregated interface instead
             builder.RegisterModule<LoggingModule>();
             builder.RegisterModule<WallrCoreModule>();
             builder.RegisterModule<WallrUiModule>();

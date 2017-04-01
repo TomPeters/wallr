@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Autofac;
 using Wallr.Platform;
 using Wallr.UI;
@@ -8,7 +9,7 @@ namespace Wallr
 {
     public static class WallrLauncher
     {
-        public static IDisposable LaunchWallr(IPlatform platform)
+        public static async Task<IDisposable> LaunchWallr(IPlatform platform)
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new WallrModule(platform));
@@ -16,7 +17,7 @@ namespace Wallr
 
             container.Resolve<ISignalRServer>().StartServer(); // TODO: Merge signalR and web server into composite server
             container.Resolve<IWallrUiServer>().StartServer();
-            container.Resolve<IWallrApplication>().Setup();
+            await container.Resolve<IWallrApplication>().Setup();
 
             return new WallrApplicationEnvironment(container);
         }

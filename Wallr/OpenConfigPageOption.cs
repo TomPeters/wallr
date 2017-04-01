@@ -1,4 +1,5 @@
-﻿using Wallr.Platform;
+﻿using System.Threading.Tasks;
+using Wallr.Platform;
 using Wallr.UI;
 
 namespace Wallr
@@ -16,9 +17,9 @@ namespace Wallr
 
         public string Label => "Configure";
 
-        public void SelectOption()
+        public Task SelectOption()
         {
-            _platform.NavigateToUrl(_wallrUiServer.Url);
+            return _platform.NavigateToUrl(_wallrUiServer.Url);
         }
     }
 }
