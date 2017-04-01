@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="LoggingModule.cs" />
     <Compile Include="OpenConfigPageOption.cs" />
-    <Compile Include="QuickUse\IQuickUseOption.cs" />
     <Compile Include="WallrApplication.cs" />
     <Compile Include="WallrApplicationEnvironment.cs" />
     <Compile Include="WallrCoreModule.cs" />
@@ -57,9 +56,9 @@
     <Compile Include="WallrModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wallr.Core\Wallr.Core.csproj">
-      <Project>{94af8898-f909-4be3-899d-204f7d097a7a}</Project>
-      <Name>Wallr.Core</Name>
+    <ProjectReference Include="..\Wallr.ImagePersistence\Wallr.ImagePersistence.csproj">
+      <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
+      <Name>Wallr.ImagePersistence</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
       <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>

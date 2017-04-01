@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IImage.cs" />
     <Compile Include="IPlatform.cs" />
     <Compile Include="IQuickUseOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

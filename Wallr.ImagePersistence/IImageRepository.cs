@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Optional;
 using Serilog;
@@ -6,10 +7,9 @@ using Wallr.ImageSource;
 
 namespace Wallr.ImagePersistence
 {
-    // nocommit, needs an implementation
-    public interface IImagePersistence // Move to Wallr.Platform? Maybe just leave it here...
+    public interface IImagePersistence
     {
-        Task SaveImage(ImageId imageId, Stream imageStream, ILogger logger);
+        Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger);
         Task<Option<Stream>> LoadImage(ImageId imageId);
     }
 

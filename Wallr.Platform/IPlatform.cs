@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Optional;
 using Serilog;
 using Serilog.Configuration;
-using Wallr.Common;
 using Wallr.ImagePersistence;
 
 namespace Wallr.Platform
@@ -23,16 +21,6 @@ namespace Wallr.Platform
     public interface INavigation
     {
         Task NavigateToUrl(string url); // nocommit, task
-    }
-
-    public interface IImagePersistence // nocommit, move to Wallr.ImagePersistence
-    {
-        Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger);
-        // nocommit used to be void
-        // used to be         void SaveWallpaper(IImage image, ILogger logger);
-        Task<Option<Stream>> LoadImage(ImageId imageId);
-        // nocommit used to be void
-        // used to be         Stream LoadImage(ImageId imageId);
     }
 
     public interface IWallpaperEnvironment
