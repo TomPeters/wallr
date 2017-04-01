@@ -36,21 +36,18 @@
     <Compile Include="ImageQueue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Wallr.ImagePersistence\Wallr.ImagePersistence.csproj">
       <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
       <Name>Wallr.ImagePersistence</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.2.4.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

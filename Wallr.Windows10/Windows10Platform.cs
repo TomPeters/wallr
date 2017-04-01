@@ -67,7 +67,7 @@ namespace Wallr.Windows10
         {
             get
             {
-                yield return writeTo => writeTo.ColoredConsole();
+                yield return writeTo => writeTo.LiterateConsole();
                 yield return writeTo => writeTo.File(Path.Combine(ApplicationDataFolderPath, "log.txt"));
                 yield return writeTo => writeTo.Seq("http://localhost:5341/");
             }

@@ -43,11 +43,8 @@
     <Reference Include="Optional, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Optional.3.2.0\lib\net45\Optional.dll</HintPath>
     </Reference>
-    <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.dll</HintPath>
-    </Reference>
-    <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\packages\Serilog.1.5.14\lib\net45\Serilog.FullNetFx.dll</HintPath>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.2.4.0\lib\net45\Serilog.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
       <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net45\System.Reactive.Core.dll</HintPath>
