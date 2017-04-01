@@ -12,33 +12,29 @@ namespace Wallr.UI.SignalR
 
     public class ClientEventSender : IDisposable, IClientEventSender
     {
-        private readonly IImageQueueUpdateEvents _imageQueueUpdateEvents;
         private readonly IHubContext _hubContext;
-        private readonly IWallpaperUpdateEvents _wallpaperUpdateEvents;
         private List<IDisposable> _eventSubscriptions;
 
-        public ClientEventSender(IImageQueueUpdateEvents imageQueueUpdateEvents, IHubContext hubContext, IWallpaperUpdateEvents wallpaperUpdateEvents)
+        public ClientEventSender(IHubContext hubContext)
         {
-            _imageQueueUpdateEvents = imageQueueUpdateEvents;
             _hubContext = hubContext;
-            _wallpaperUpdateEvents = wallpaperUpdateEvents;
         }
 
         public void StartSendingEvents()
         {
             _eventSubscriptions = new List<IDisposable>();
-            _eventSubscriptions.Add(_imageQueueUpdateEvents.ImageQueueUpdateRequested.Subscribe(i =>
-            SendEvent("ImageQueueUpdate", new
-                {
-                    NumberOfImagesRequested = i
-                })
-            ));
-            _eventSubscriptions.Add(_wallpaperUpdateEvents.UpdateImageRequested.Subscribe(i =>
-                SendEvent("WallpaperUpdate", new
-                {
-                    TimeSinceLastUpdate = i
-                })
-            ));
+//            _eventSubscriptions.Add(_imageQueueUpdateEvents.ImageQueueUpdateRequested.Subscribe(i =>
+//            SendEvent("ImageQueueUpdate", new
+//                {
+//                    NumberOfImagesRequested = i
+//                })
+//            ));
+//            _eventSubscriptions.Add(_wallpaperUpdateEvents.UpdateImageRequested.Subscribe(i =>
+//                SendEvent("WallpaperUpdate", new
+//                {
+//                    TimeSinceLastUpdate = i
+//                })
+//            ));
         }
 
         private void SendEvent(string eventName, object eventArgs)

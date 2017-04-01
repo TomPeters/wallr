@@ -13,17 +13,12 @@ namespace Wallr.Core
     public class WallrApplication : IWallrApplication
     {
         private readonly IPlatform _platform;
-        private readonly IImageQueueCoordinator _imageQueueCoordinator;
-        private readonly IWallpaperCoordinator _wallpaperCoordinator;
         private readonly ILogger _logger;
         private readonly IEnumerable<IQuickUseOption> _quickUseOptions;
 
-        public WallrApplication(IPlatform platform, IImageQueueCoordinator imageQueueCoordinator,
-            IWallpaperCoordinator wallpaperCoordinator, ILogger logger, IEnumerable<IQuickUseOption> quickUseOptions)
+        public WallrApplication(IPlatform platform, ILogger logger, IEnumerable<IQuickUseOption> quickUseOptions)
         {
             _platform = platform;
-            _imageQueueCoordinator = imageQueueCoordinator;
-            _wallpaperCoordinator = wallpaperCoordinator;
             _logger = logger;
             _quickUseOptions = quickUseOptions;
         }
@@ -31,8 +26,8 @@ namespace Wallr.Core
         public void Setup()
         {
             _platform.SetupQuickUseControl(_quickUseOptions.ToList());
-            _imageQueueCoordinator.UpdateImageQueuePeriodically();
-            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
+//            _imageQueueCoordinator.UpdateImageQueuePeriodically();
+//            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
             _logger.Information("Application started");
         }
     }

@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Nancy;
 using Nancy.ModelBinding;
-using Wallr.Common;
-using Wallr.Core;
-using Wallr.Core.Source;
 using Wallr.ImageSource;
 using Wallr.UI.Models;
 
@@ -12,16 +9,18 @@ namespace Wallr.UI.NancyModules
 {
     public class SourcesModule : NancyModule
     {
-        public SourcesModule(ISourcesRepository sourcesRepository, IImageSourceProvider imageSourceProvider) : base("/sources")
+        public SourcesModule() : base("/sources")
         {
-            Get["/"] = _ => sourcesRepository.SourceConfigurations.Select(s => new ImageSourceViewModel(s));
+            // nocommit, reimplement
+            var viewModels = new List<ImageSourceViewModel>();
+            Get["/"] = _ => viewModels;
             Post["/add"] = _ =>
             {
                 AddRequestModel request = this.Bind<AddRequestModel>();
                 var sourceType = new ImageSourceType(request.SourceType);
-                var imageSourceId = new ConfiguredImageSourceId();
-                sourcesRepository.AddSourceConfiguration(new ImageSourceConfiguration(imageSourceId, sourceType, new Dictionary<string, string>()));
-                return imageSourceId.Value;
+                var imageSourceViewModel = new ImageSourceViewModel(Guid.NewGuid(), "foo");
+                viewModels.Add(imageSourceViewModel);
+                return imageSourceViewModel.Id;
             };
         }
     }

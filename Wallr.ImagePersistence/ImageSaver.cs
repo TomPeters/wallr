@@ -48,7 +48,7 @@ namespace Wallr.ImagePersistence
         }
     }
 
-    public static class AsyncEnumerableExtensions
+    public static class AsyncEnumerableExtensions // nocommit, new file
     {
         public static IObservable<T> ToObservable<T>(this IAsyncEnumerable<T> enumerable)
         {

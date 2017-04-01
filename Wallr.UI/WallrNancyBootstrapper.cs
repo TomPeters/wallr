@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using Autofac;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Autofac;
 using Nancy.Conventions;
 using Serilog;
-using Wallr.Core;
-using Wallr.Core.Source;
 using Wallr.Platform;
 using Wallr.UI.Middleware;
 
@@ -46,9 +43,10 @@ namespace Wallr.UI
                     .As<ILogger>()
             );
             container.Update(b => b.Register(c => _parentScope.Resolve<IPlatform>()).As<IPlatform>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<ISourcesRepository>()).As<ISourcesRepository>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceProvider>()).As<IImageSourceProvider>());
+            // nocommit registrations
+//            container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
+//            container.Update(b => b.Register(c => _parentScope.Resolve<ISourcesRepository>()).As<ISourcesRepository>());
+//            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceProvider>()).As<IImageSourceProvider>());
         }
 
         protected override void RequestStartup(ILifetimeScope container, IPipelines pipelines, NancyContext context)
