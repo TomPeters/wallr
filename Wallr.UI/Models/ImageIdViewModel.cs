@@ -1,4 +1,5 @@
-﻿using Wallr.Platform;
+﻿using System;
+using Wallr.ImagePersistence;
 
 namespace Wallr.UI.Models
 {
@@ -11,7 +12,7 @@ namespace Wallr.UI.Models
             _imageId = imageId;
         }
 
-        public string ImageSourceId => _imageId.ImageSourceId.Value;
-        public string LocalImageId => _imageId.LocalImageId.Value;
+        public Guid ImageSourceId => _imageId.SourceId.Value;
+        public string LocalImageId => _imageId.SourceImageId.Value;
     }
 }

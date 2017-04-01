@@ -260,6 +260,10 @@
       <Project>{94AF8898-F909-4BE3-899D-204F7D097A7A}</Project>
       <Name>Wallr.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImagePersistence\Wallr.ImagePersistence.csproj">
+      <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
+      <Name>Wallr.ImagePersistence</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
       <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
       <Name>Wallr.ImageSource</Name>

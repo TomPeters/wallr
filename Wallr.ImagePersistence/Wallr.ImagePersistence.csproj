@@ -66,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
+      <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
+      <Name>Wallr.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
       <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
       <Name>Wallr.ImageSource</Name>

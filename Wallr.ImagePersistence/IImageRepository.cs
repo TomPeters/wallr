@@ -37,5 +37,26 @@ namespace Wallr.ImagePersistence
 
         public ImageSourceId SourceId { get; }
         public ImageSource.ImageId SourceImageId { get; }
+
+        protected bool Equals(ImageId other)
+        {
+            return Equals(SourceId, other.SourceId) && Equals(SourceImageId, other.SourceImageId);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ImageId) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((SourceId != null ? SourceId.GetHashCode() : 0) * 397) ^ (SourceImageId != null ? SourceImageId.GetHashCode() : 0);
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ using Nito.AsyncEx;
 using Optional;
 using Serilog;
 using Serilog.Configuration;
+using Wallr.ImagePersistence;
 using Wallr.Platform;
 
 namespace Wallr.Windows10
@@ -41,13 +42,13 @@ namespace Wallr.Windows10
         {
             await Task.Run(() => WindowsWallpapers.SetWallpaper(GetPathFromId(imageId)));
             logger.ForContext("LocalImageId", imageId)
-                .Information("Wallpaper set for {FileName}", imageId.LocalImageId.Value);
+                .Information("Wallpaper set for {FileName}", imageId.SourceImageId.Value);
         }
 
         public async Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger)
         {
             var contextLogger = logger.ForContext("LocalImageId", imageId);
-            contextLogger.Information("Saving image {FileName}", imageId.LocalImageId.Value);
+            contextLogger.Information("Saving image {FileName}", imageId.SourceImageId.Value);
 
             string path = GetPathFromId(imageId);
             string directoryName = Path.GetDirectoryName(path);
@@ -98,7 +99,7 @@ namespace Wallr.Windows10
 
         private string GetPathFromId(ImageId imageId)
         {
-            return Path.Combine(ApplicationDataFolderPath, imageId.ImageSourceId.Value, $"{imageId.LocalImageId.Value}.jpg");
+            return Path.Combine(ApplicationDataFolderPath, imageId.SourceId.Value.ToString(), $"{imageId.SourceImageId.Value}.jpg");
         }
 
         public void Start(IDisposable applicationExitDependency)

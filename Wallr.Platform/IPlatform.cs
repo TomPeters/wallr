@@ -6,6 +6,7 @@ using Optional;
 using Serilog;
 using Serilog.Configuration;
 using Wallr.Common;
+using Wallr.ImagePersistence;
 
 namespace Wallr.Platform
 {
@@ -24,7 +25,7 @@ namespace Wallr.Platform
         Task NavigateToUrl(string url); // nocommit, task
     }
 
-    public interface IImagePersistence
+    public interface IImagePersistence // nocommit, move to Wallr.ImagePersistence
     {
         Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger);
         // nocommit used to be void
