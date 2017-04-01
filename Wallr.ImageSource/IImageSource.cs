@@ -1,4 +1,5 @@
-﻿using System.Collections.Async;
+﻿using System;
+using System.Collections.Async;
 
 namespace Wallr.ImageSource
 {
@@ -9,6 +10,7 @@ namespace Wallr.ImageSource
         ImageSourceType SourceType { get; }
         IAsyncEnumerable<IImage> GetLatestImages();
         IImageSourceSettings Settings { get; }
+        TimeSpan UpdateInterval { get; }
     }
 
     public interface IImageSourceSettings

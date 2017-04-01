@@ -62,9 +62,12 @@
   <ItemGroup>
     <Compile Include="IImage.cs" />
     <Compile Include="IImageSource.cs" />
+    <Compile Include="ImageSourceModule.cs" />
+    <Compile Include="ImageSourceRepository.cs" />
     <Compile Include="ImageId.cs" />
     <Compile Include="ImageSourceId.cs" />
     <Compile Include="ImageSourceName.cs" />
+    <Compile Include="ImageSources.cs" />
     <Compile Include="ImageSourceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
