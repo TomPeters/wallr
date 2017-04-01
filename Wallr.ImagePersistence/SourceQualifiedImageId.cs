@@ -1,32 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Optional;
-using Serilog;
 using Wallr.ImageSource;
 
 namespace Wallr.ImagePersistence
 {
-    public interface IImagePersistence
-    {
-        Task SaveImage(SourceQualifiedImageId sourceQualifiedImageId, Func<Stream> createImageStream, ILogger logger);
-        Task<Option<Stream>> LoadImage(SourceQualifiedImageId sourceQualifiedImageId);
-    }
-
-    public interface IImageRepository // nocommit, needs an implementation
-    {
-        Task<ISavedImage> SaveImage(SourceQualifiedImageId id);
-        Task<Option<Stream>> LoadImage(SourceQualifiedImageId id);
-    }
-
-    public interface ISavedImage
-    {
-        SourceQualifiedImageId Id { get; }
-        Task<Option<Stream>> GetStream();
-    }
-
-    // This id that identifies a persisted image, and therefore belongs in this assembly.
-    // It should be used primarily by the image persistence and the image queue, which can be thought of as a queue of persisted images.
     public class SourceQualifiedImageId
     {
         public SourceQualifiedImageId(ImageSourceId sourceId, ImageSource.ImageId imageId)

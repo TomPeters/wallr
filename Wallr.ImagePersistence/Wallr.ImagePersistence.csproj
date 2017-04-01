@@ -33,8 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IImageRepository.cs" />
+    <Compile Include="IImagePersistence.cs" />
+    <Compile Include="ImageRepository.cs" />
     <Compile Include="ImageSaver.cs" />
+    <Compile Include="ISavedImage.cs" />
+    <Compile Include="SourceQualifiedImageId.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AsyncEnumerable, Version=2.0.1.0, Culture=neutral, PublicKeyToken=0426b068161bd1d1">

@@ -45,7 +45,7 @@ namespace Wallr.Windows10
                 .Information("Wallpaper set for {FileName}", sourceQualifiedImageId.ImageId.Value);
         }
 
-        public async Task SaveImage(SourceQualifiedImageId sourceQualifiedImageId, Func<Stream> createImageStream, ILogger logger)
+        public async Task SaveImage(SourceQualifiedImageId sourceQualifiedImageId, Func<Task<Stream>> createImageStream, ILogger logger)
         {
             var contextLogger = logger.ForContext("LocalImageId", sourceQualifiedImageId);
             contextLogger.Information("Saving image {FileName}", sourceQualifiedImageId.ImageId.Value);
@@ -53,7 +53,7 @@ namespace Wallr.Windows10
             string path = GetPathFromId(sourceQualifiedImageId);
             string directoryName = Path.GetDirectoryName(path);
             await Task.Run(() => Directory.CreateDirectory(directoryName));
-            using (Stream stream = createImageStream())
+            using (Stream stream = await createImageStream())
             {
                 Image img = await Task.Run(() => Image.FromStream(stream));
                 await Task.Run(() => img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg));

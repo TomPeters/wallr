@@ -39,7 +39,7 @@ namespace Wallr.ImagePersistence
         private async Task<ISavedImage> SaveImage(IImage image, IImageSource source)
         {
             ImageSource.ImageId id = await image.GetId();
-            return await _imageRepository.SaveImage(new SourceQualifiedImageId(source.ImageSourceId, id));
+            return await _imageRepository.SaveImage(new SourceQualifiedImageId(source.ImageSourceId, id), image.GetImageStream);
         }
 
         public void Dispose()

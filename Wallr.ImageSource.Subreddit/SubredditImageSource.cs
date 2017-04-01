@@ -32,7 +32,7 @@ namespace Wallr.ImageSource.Subreddit
 
         public IAsyncEnumerable<IImage> GetImages(ISubredditSettings settings)
         {
-            return ImagesFromUri(BaseUri(settings.SubredditName));
+            return ImagesFromUri(BaseUri(/*settings.SubredditName*/"wallpaper")); // nocommit, change to the setting once settings are supported
         }
 
         private IAsyncEnumerable<IImage> ImagesFromUri(Uri baseUri, int currentCount = 0)
