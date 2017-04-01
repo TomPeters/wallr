@@ -3,7 +3,7 @@ using System.Linq;
 using Serilog;
 using Wallr.Platform;
 
-namespace Wallr.Core
+namespace Wallr
 {
     public interface IWallrApplication
     {

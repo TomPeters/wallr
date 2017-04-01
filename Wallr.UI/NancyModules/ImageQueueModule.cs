@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using Nancy;
-using Wallr.Core;
 using Wallr.UI.Models;
 
 namespace Wallr.UI.NancyModules

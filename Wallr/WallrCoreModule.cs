@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Wallr.Core
+namespace Wallr
 {
     public class WallrCoreModule : Module
     {

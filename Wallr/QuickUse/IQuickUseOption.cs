@@ -1,4 +1,4 @@
-namespace Wallr.Core.QuickUse
+namespace Wallr.QuickUse
 {
     public interface IQuickUseOption
     {

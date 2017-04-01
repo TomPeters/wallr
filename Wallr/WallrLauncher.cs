@@ -1,6 +1,5 @@
 ﻿using System;
 using Autofac;
-using Wallr.Core;
 using Wallr.Platform;
 using Wallr.UI;
 using Wallr.UI.SignalR;

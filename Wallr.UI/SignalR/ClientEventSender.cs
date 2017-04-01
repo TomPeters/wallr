@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNet.SignalR;
-using Wallr.Core;
 
 namespace Wallr.UI.SignalR
 {

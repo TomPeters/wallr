@@ -1,5 +1,4 @@
 using Autofac;
-using Wallr.Core;
 using Wallr.Platform;
 using Wallr.UI;
 
