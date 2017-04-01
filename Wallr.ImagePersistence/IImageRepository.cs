@@ -9,38 +9,38 @@ namespace Wallr.ImagePersistence
 {
     public interface IImagePersistence
     {
-        Task SaveImage(ImageId imageId, Func<Stream> createImageStream, ILogger logger);
-        Task<Option<Stream>> LoadImage(ImageId imageId);
+        Task SaveImage(SourceQualifiedImageId sourceQualifiedImageId, Func<Stream> createImageStream, ILogger logger);
+        Task<Option<Stream>> LoadImage(SourceQualifiedImageId sourceQualifiedImageId);
     }
 
     public interface IImageRepository // nocommit, needs an implementation
     {
-        Task<ISavedImage> SaveImage(ImageId id);
-        Task<Option<Stream>> LoadImage(ImageId id);
+        Task<ISavedImage> SaveImage(SourceQualifiedImageId id);
+        Task<Option<Stream>> LoadImage(SourceQualifiedImageId id);
     }
 
     public interface ISavedImage
     {
-        ImageId Id { get; }
+        SourceQualifiedImageId Id { get; }
         Task<Option<Stream>> GetStream();
     }
 
     // This id that identifies a persisted image, and therefore belongs in this assembly.
     // It should be used primarily by the image persistence and the image queue, which can be thought of as a queue of persisted images.
-    public class ImageId
+    public class SourceQualifiedImageId
     {
-        public ImageId(ImageSourceId sourceId, ImageSource.ImageId sourceImageId)
+        public SourceQualifiedImageId(ImageSourceId sourceId, ImageSource.ImageId imageId)
         {
             SourceId = sourceId;
-            SourceImageId = sourceImageId;
+            ImageId = imageId;
         }
 
         public ImageSourceId SourceId { get; }
-        public ImageSource.ImageId SourceImageId { get; }
+        public ImageId ImageId { get; }
 
-        protected bool Equals(ImageId other)
+        protected bool Equals(SourceQualifiedImageId other)
         {
-            return Equals(SourceId, other.SourceId) && Equals(SourceImageId, other.SourceImageId);
+            return Equals(SourceId, other.SourceId) && Equals(ImageId, other.ImageId);
         }
 
         public override bool Equals(object obj)
@@ -48,14 +48,14 @@ namespace Wallr.ImagePersistence
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((ImageId) obj);
+            return Equals((SourceQualifiedImageId) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((SourceId != null ? SourceId.GetHashCode() : 0) * 397) ^ (SourceImageId != null ? SourceImageId.GetHashCode() : 0);
+                return ((SourceId != null ? SourceId.GetHashCode() : 0) * 397) ^ (ImageId != null ? ImageId.GetHashCode() : 0);
             }
         }
     }

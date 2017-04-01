@@ -25,7 +25,7 @@ namespace Wallr.Platform
 
     public interface IWallpaperEnvironment
     {
-        Task SetWallpaper(ImageId imageId, ILogger logger); // nocommit, Task
+        Task SetWallpaper(SourceQualifiedImageId sourceQualifiedImageId, ILogger logger); // nocommit, Task
     }
 
     public interface IPersistence

@@ -6,12 +6,12 @@ namespace Wallr
 {
     public class OpenConfigPageOption : IQuickUseOption
     {
-        private readonly IPlatform _platform;
+        private readonly INavigation _navigation;
         private readonly IWallrUiServer _wallrUiServer;
 
-        public OpenConfigPageOption(IPlatform platform, IWallrUiServer wallrUiServer)
+        public OpenConfigPageOption(INavigation navigation, IWallrUiServer wallrUiServer)
         {
-            _platform = platform;
+            _navigation = navigation;
             _wallrUiServer = wallrUiServer;
         }
 
@@ -19,7 +19,7 @@ namespace Wallr
 
         public Task SelectOption()
         {
-            return _platform.NavigateToUrl(_wallrUiServer.Url);
+            return _navigation.NavigateToUrl(_wallrUiServer.Url);
         }
     }
 }

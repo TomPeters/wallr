@@ -1,4 +1,5 @@
 using Autofac;
+using Wallr.ImagePersistence;
 using Wallr.Platform;
 using Wallr.UI;
 
@@ -15,7 +16,13 @@ namespace Wallr
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterInstance(_platform).As<IPlatform>(); // nocommit, don't register IPlatform, register the segregated interface instead
+            builder.RegisterInstance(_platform)
+                .As<IConfiguration>()
+                .As<ISetup>()
+                .As<INavigation>()
+                .As<IWallpaperEnvironment>()
+                .As<IPersistence>()
+                .As<IImagePersistence>();
             builder.RegisterModule<LoggingModule>();
             builder.RegisterModule<WallrCoreModule>();
             builder.RegisterModule<WallrUiModule>();

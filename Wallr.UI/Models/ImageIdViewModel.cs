@@ -5,14 +5,14 @@ namespace Wallr.UI.Models
 {
     public class ImageIdViewModel
     {
-        private readonly ImageId _imageId;
+        private readonly SourceQualifiedImageId _sourceQualifiedImageId;
 
-        public ImageIdViewModel(ImageId imageId)
+        public ImageIdViewModel(SourceQualifiedImageId sourceQualifiedImageId)
         {
-            _imageId = imageId;
+            _sourceQualifiedImageId = sourceQualifiedImageId;
         }
 
-        public Guid ImageSourceId => _imageId.SourceId.Value;
-        public string LocalImageId => _imageId.SourceImageId.Value;
+        public Guid ImageSourceId => _sourceQualifiedImageId.SourceId.Value;
+        public string LocalImageId => _sourceQualifiedImageId.ImageId.Value;
     }
 }

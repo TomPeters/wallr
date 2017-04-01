@@ -13,20 +13,20 @@ namespace Wallr
 
     public class WallrApplication : IWallrApplication
     {
-        private readonly IPlatform _platform;
+        private readonly ISetup _setup;
         private readonly ILogger _logger;
         private readonly IEnumerable<IQuickUseOption> _quickUseOptions;
 
-        public WallrApplication(IPlatform platform, ILogger logger, IEnumerable<IQuickUseOption> quickUseOptions)
+        public WallrApplication(ISetup setup, ILogger logger, IEnumerable<IQuickUseOption> quickUseOptions)
         {
-            _platform = platform;
+            _setup = setup;
             _logger = logger;
             _quickUseOptions = quickUseOptions;
         }
 
         public async Task Setup()
         {
-            await _platform.SetupQuickUseControl(_quickUseOptions.ToList());
+            await _setup.SetupQuickUseControl(_quickUseOptions.ToList());
 //            _imageQueueCoordinator.UpdateImageQueuePeriodically();
 //            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
             _logger.Information("Application started");

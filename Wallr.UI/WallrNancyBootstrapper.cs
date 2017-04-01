@@ -7,6 +7,7 @@ using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Autofac;
 using Nancy.Conventions;
 using Serilog;
+using Wallr.ImagePersistence;
 using Wallr.Platform;
 using Wallr.UI.Middleware;
 
@@ -42,7 +43,7 @@ namespace Wallr.UI
                         .ForContext("Method", context.Request.Method))
                     .As<ILogger>()
             );
-            container.Update(b => b.Register(c => _parentScope.Resolve<IPlatform>()).As<IPlatform>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImagePersistence>()).As<IImagePersistence>());
             // nocommit registrations
 //            container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
 //            container.Update(b => b.Register(c => _parentScope.Resolve<ISourcesRepository>()).As<ISourcesRepository>());

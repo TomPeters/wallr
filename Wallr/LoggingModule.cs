@@ -10,16 +10,16 @@ namespace Wallr
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => CreateLogger(c.Resolve<IPlatform>())).As<ILogger>().SingleInstance();
+            builder.Register(c => CreateLogger(c.Resolve<IConfiguration>())).As<ILogger>().SingleInstance();
         }
 
-        private ILogger CreateLogger(IPlatform platform)
+        private ILogger CreateLogger(IConfiguration configuration)
         {
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
                 .Enrich.WithProperty("Product", "Wallr")
                 .Enrich.WithProperty("InstanceId", Guid.NewGuid())
                 .MinimumLevel.Debug();
-            return platform.LoggerSinks
+            return configuration.LoggerSinks
                 .Aggregate(loggerConfiguration, (current, sinkConfiguration) => sinkConfiguration(current.WriteTo))
                 .CreateLogger();
         }
