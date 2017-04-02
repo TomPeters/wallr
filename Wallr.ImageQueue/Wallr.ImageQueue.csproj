@@ -34,16 +34,52 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ImageQueue.cs" />
+    <Compile Include="Persistence\SourceQualifiedImageIdConverter.cs" />
+    <Compile Include="Persistence\SSourceQualifiedImageId.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
+      <Project>{cce4f6d1-b6f5-45d1-9ad8-83cc3ded258c}</Project>
+      <Name>Wallr.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.ImagePersistence\Wallr.ImagePersistence.csproj">
       <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
       <Name>Wallr.ImagePersistence</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
+      <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
+      <Name>Wallr.ImageSource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
+      <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
+      <Name>Wallr.Platform</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Optional, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Optional.3.2.0\lib\net452\Optional.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
       <HintPath>..\packages\Serilog.2.4.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Reactive.Core, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.PlatformServices.3.1.1\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

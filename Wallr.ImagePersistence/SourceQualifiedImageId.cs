@@ -4,7 +4,7 @@ namespace Wallr.ImagePersistence
 {
     public class SourceQualifiedImageId
     {
-        public SourceQualifiedImageId(ImageSourceId sourceId, ImageSource.ImageId imageId)
+        public SourceQualifiedImageId(ImageSourceId sourceId, ImageId imageId)
         {
             SourceId = sourceId;
             ImageId = imageId;
