@@ -60,6 +60,10 @@
       <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
       <Name>Wallr.ImagePersistence</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImageQueue\Wallr.ImageQueue.csproj">
+      <Project>{8dd9ab2b-ffcf-4f3f-a633-5f7f36294e84}</Project>
+      <Name>Wallr.ImageQueue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
       <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
       <Name>Wallr.Platform</Name>

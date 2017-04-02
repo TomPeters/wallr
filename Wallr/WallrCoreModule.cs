@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Wallr.ImagePersistence;
+using Wallr.ImageQueue;
 
 namespace Wallr
 {
@@ -9,8 +10,8 @@ namespace Wallr
         {
             builder.RegisterType<WallrApplication>().As<IWallrApplication>();
             builder.RegisterModule<ImagePersistenceModule>();
+            builder.RegisterModule<ImageQueueModule>();
             // nocommit, reimplement
-//            builder.RegisterModule<ImageQueueModule>();
 //            builder.RegisterModule<WallpaperModule>();
 //            builder.RegisterModule<SourcesModule>();
         }
