@@ -18,6 +18,7 @@ namespace Wallr.ImageQueue
         Task Enqueue(ISavedImage savedImage);
         Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages);
         Task<ISavedImage> Dequeue();
+        IEnumerable<SourceQualifiedImageId> QueuedImageIds { get; }
     }
 
     public class ImageQueue : IImageQueue, IDisposable
@@ -59,6 +60,8 @@ namespace Wallr.ImageQueue
             await PersistLatestQueueState();
             return image;
         }
+
+        public IEnumerable<SourceQualifiedImageId> QueuedImageIds => _queue.Select(i => i.Id);
 
         private Task PersistLatestQueueState()
         {
