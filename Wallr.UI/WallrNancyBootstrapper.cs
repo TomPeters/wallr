@@ -9,6 +9,7 @@ using Nancy.Conventions;
 using Serilog;
 using Wallr.ImagePersistence;
 using Wallr.ImageQueue;
+using Wallr.ImageSource;
 using Wallr.Platform;
 using Wallr.UI.Middleware;
 
@@ -46,6 +47,8 @@ namespace Wallr.UI
             );
             container.Update(b => b.Register(c => _parentScope.Resolve<IImagePersistence>()).As<IImagePersistence>());
             container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSources>()).As<IImageSources>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceFactory>()).As<IImageSourceFactory>());
             // nocommit registrations
 //            container.Update(b => b.Register(c => _parentScope.Resolve<ISourcesRepository>()).As<ISourcesRepository>());
 //            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceProvider>()).As<IImageSourceProvider>());

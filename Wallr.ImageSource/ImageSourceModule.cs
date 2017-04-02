@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System.Collections.Generic;
+using Autofac;
+using Wallr.ImageSource.Persistence;
 
 namespace Wallr.ImageSource
 {
@@ -6,7 +8,9 @@ namespace Wallr.ImageSource
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ImageSources>().As<IImageSources>();
+            builder.RegisterType<ImageSources>().As<IImageSources>().As<IEnumerable<IImageSource>>().SingleInstance();
+            builder.RegisterType<ImageSourceConverter>().As<IImageSourceConverter>();
+            builder.RegisterType<ImageSourceFactory>().As<IImageSourceFactory>();
         }
     }
 }

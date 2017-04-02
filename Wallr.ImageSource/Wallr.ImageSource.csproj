@@ -42,6 +42,9 @@
     <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
       <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Optional, Version=3.2.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Optional.3.2.0\lib\net452\Optional.dll</HintPath>
     </Reference>
@@ -60,12 +63,15 @@
   <ItemGroup>
     <Compile Include="IImage.cs" />
     <Compile Include="IImageSource.cs" />
+    <Compile Include="ImageSourceFactory.cs" />
     <Compile Include="ImageSourceModule.cs" />
     <Compile Include="ImageId.cs" />
     <Compile Include="ImageSourceId.cs" />
     <Compile Include="ImageSourceName.cs" />
     <Compile Include="ImageSources.cs" />
     <Compile Include="ImageSourceType.cs" />
+    <Compile Include="Persistence\ImageSourceConverter.cs" />
+    <Compile Include="Persistence\SImageSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +86,10 @@
     <ProjectReference Include="..\Wallr.ImageSource.Api\Wallr.ImageSource.Api.csproj">
       <Project>{857691f8-9434-4370-812c-e7a804820727}</Project>
       <Name>Wallr.ImageSource.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
+      <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
+      <Name>Wallr.Platform</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
