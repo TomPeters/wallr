@@ -10,6 +10,10 @@ namespace Wallr.ImageSource
 
     public class ImageSources : IImageSources
     {
+        public ImageSources()
+        {
+        }
+
         public IEnumerator<IImageSource> GetEnumerator()
         {
             throw new NotImplementedException();

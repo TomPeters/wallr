@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Optional;
 using Serilog;
 using Serilog.Configuration;
-using Wallr.ImagePersistence;
 
 namespace Wallr.Platform
 {
@@ -25,7 +24,7 @@ namespace Wallr.Platform
 
     public interface IWallpaperEnvironment
     {
-        Task SetWallpaper(SourceQualifiedImageId sourceQualifiedImageId, ILogger logger); // nocommit, Task
+        Task SetWallpaper(Guid sourceId, string imageId, ILogger logger); // nocommit, Task
     }
 
     public interface IPersistence

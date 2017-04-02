@@ -3,8 +3,8 @@ using Nancy;
 using Nancy.Responses;
 using Optional;
 using Optional.Linq;
-using Wallr.ImagePersistence;
 using Wallr.ImageSource;
+using Wallr.Platform;
 using ImageId = Wallr.ImageSource.ImageId;
 
 namespace Wallr.UI.NancyModules
@@ -15,10 +15,9 @@ namespace Wallr.UI.NancyModules
         {
             Get["/{imageSourceId}/{localImageId}", true] = async (parameters, ct) =>
             {
-                var imageSourceId = new ImageId(parameters.imageSourceId);
-                var localImageId = new ImageSourceId(parameters.localImageId);
-                var imageId = new SourceQualifiedImageId(localImageId, imageSourceId);
-                Option<Stream> imageStream = await imagePersistence.LoadImage(imageId);
+                var imageSourceId = new ImageSourceId(parameters.imageSourceId);
+                var localImageId = new ImageId(parameters.localImageId);
+                Option<Stream> imageStream = await imagePersistence.LoadImage(imageSourceId.Value, localImageId.Value);
                 return imageStream
                     .Select<Stream, Response>(s => new StreamResponse(() => s, "image/jpeg"))
                     .ValueOr(() => new NotFoundResponse());

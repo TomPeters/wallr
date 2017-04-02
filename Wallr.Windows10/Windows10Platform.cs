@@ -38,19 +38,21 @@ namespace Wallr.Windows10
 
         private string ApplicationDataFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallr");
 
-        public async Task SetWallpaper(SourceQualifiedImageId sourceQualifiedImageId, ILogger logger)
+        public async Task SetWallpaper(Guid sourceId, string imageId, ILogger logger)
         {
-            await Task.Run(() => WindowsWallpapers.SetWallpaper(GetPathFromId(sourceQualifiedImageId)));
-            logger.ForContext("LocalImageId", sourceQualifiedImageId)
-                .Information("Wallpaper set for {FileName}", sourceQualifiedImageId.ImageId.Value);
+            string pathFromId = GetPathFromId(sourceId, imageId);
+            await Task.Run(() => WindowsWallpapers.SetWallpaper(pathFromId));
+            logger.ForContext("ImageId", imageId)
+                .ForContext("SourceId", sourceId)
+                .Information("Wallpaper set to {FilePath}", pathFromId);
         }
 
-        public async Task SaveImage(SourceQualifiedImageId sourceQualifiedImageId, Func<Task<Stream>> createImageStream, ILogger logger)
+        public async Task SaveImage(Guid sourceId, string imageId, Func<Task<Stream>> createImageStream, ILogger logger)
         {
-            var contextLogger = logger.ForContext("LocalImageId", sourceQualifiedImageId);
-            contextLogger.Information("Saving image {FileName}", sourceQualifiedImageId.ImageId.Value);
+            var contextLogger = logger.ForContext("ImageId", imageId).ForContext("SourceId", sourceId);
+            contextLogger.Information("Saving image {FileName}", imageId);
 
-            string path = GetPathFromId(sourceQualifiedImageId);
+            string path = GetPathFromId(sourceId, imageId);
             string directoryName = Path.GetDirectoryName(path);
             await Task.Run(() => Directory.CreateDirectory(directoryName));
             using (Stream stream = await createImageStream())
@@ -62,9 +64,9 @@ namespace Wallr.Windows10
             contextLogger.Information("Image saved at {FilePath}", path);
         }
 
-        public Task<Option<Stream>> LoadImage(SourceQualifiedImageId sourceQualifiedImageId)
+        public Task<Option<Stream>> LoadImage(Guid sourceId, string imageId)
         {
-            string path = GetPathFromId(sourceQualifiedImageId);
+            string path = GetPathFromId(sourceId, imageId);
             if (!File.Exists(path)) return Task.FromResult(Option.None<Stream>());
             return Task.FromResult(
                 new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.Asynchronous)
@@ -97,9 +99,9 @@ namespace Wallr.Windows10
                 return (await reader.ReadToEndAsync()).Some();
         }
 
-        private string GetPathFromId(SourceQualifiedImageId sourceQualifiedImageId)
+        private string GetPathFromId(Guid sourceId, string imageId)
         {
-            return Path.Combine(ApplicationDataFolderPath, sourceQualifiedImageId.SourceId.Value.ToString(), $"{sourceQualifiedImageId.ImageId.Value}.jpg");
+            return Path.Combine(ApplicationDataFolderPath, sourceId.ToString(), $"{imageId}.jpg");
         }
 
         public void Start(IDisposable applicationExitDependency)

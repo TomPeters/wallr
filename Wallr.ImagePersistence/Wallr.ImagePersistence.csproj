@@ -34,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AsyncEnumerableExtensions.cs" />
-    <Compile Include="IImagePersistence.cs" />
     <Compile Include="ImagePersistenceModule.cs" />
     <Compile Include="ImageRepository.cs" />
     <Compile Include="ImageSaver.cs" />
@@ -81,6 +80,10 @@
     <ProjectReference Include="..\Wallr.ImageSource\Wallr.ImageSource.csproj">
       <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
       <Name>Wallr.ImageSource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
+      <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
+      <Name>Wallr.Platform</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

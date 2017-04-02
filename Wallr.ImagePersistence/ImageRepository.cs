@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Optional;
 using Serilog;
+using Wallr.Platform;
 
 namespace Wallr.ImagePersistence
 {
@@ -25,7 +26,7 @@ namespace Wallr.ImagePersistence
 
         public async Task<ISavedImage> SaveImage(SourceQualifiedImageId id, Func<Task<Stream>> getImageStream)
         {
-            await _imagePersistence.SaveImage(id, getImageStream, _logger);
+            await _imagePersistence.SaveImage(id.SourceId.Value, id.ImageId.Value, getImageStream, _logger);
             return LoadImage(id);
         }
 
@@ -47,7 +48,7 @@ namespace Wallr.ImagePersistence
             public SourceQualifiedImageId Id { get; }
             public Task<Option<Stream>> GetStream()
             {
-                return _imagePersistence.LoadImage(Id);
+                return _imagePersistence.LoadImage(Id.SourceId.Value, Id.ImageId.Value);
             }
         }
     }
