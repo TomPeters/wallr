@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Async;
 using System.Collections.Generic;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Wallr.ImageSource;
@@ -45,41 +43,6 @@ namespace Wallr.ImagePersistence
         public void Dispose()
         {
             foreach(IDisposable saveSubscription in _saveSubscriptions) saveSubscription.Dispose();
-        }
-    }
-
-    public static class AsyncEnumerableExtensions // nocommit, new file
-    {
-        public static IObservable<T> ToObservable<T>(this IAsyncEnumerable<T> enumerable)
-        {
-            return Observable.Create<T>(obs =>
-            {
-                return Scheduler.Default.ScheduleAsync(async (s, t) =>
-                {
-                    var enumerator = await enumerable.GetAsyncEnumeratorAsync(t);
-                    while (true)
-                    {
-                        if (t.IsCancellationRequested)
-                            break;
-                        try
-                        {
-                            bool next = await enumerator.MoveNextAsync(t);
-                            if (!next)
-                            {
-                                obs.OnCompleted();
-                                break;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            obs.OnError(ex);
-                            break;
-                        }
-                        obs.OnNext(enumerator.Current);
-                    }
-                    enumerator.Dispose();
-                });
-            });
         }
     }
 }
