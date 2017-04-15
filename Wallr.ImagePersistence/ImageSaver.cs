@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Wallr.ImageSource;
 
@@ -23,14 +24,15 @@ namespace Wallr.ImagePersistence
 
         public IObservable<ISavedImage> SaveImages(IImageSource imageSource, IObservable<DateTime> saveRequests)
         {
-            var saves = saveRequests
+            IObservable<IImage> selectMany = saveRequests
                 .Select(_ => imageSource.GetLatestImages())
-                .SelectMany(e => e.ToObservable())
+                .SelectMany(e => e.ToObservable()); // nocommit, move this out to IImageSource, simply pass in this observable here instead
+            IConnectableObservable<ISavedImage> saves = selectMany
                 .Select(i => Observable.FromAsync(() => SaveImage(i, imageSource)))
                 .Concat()
-                .Publish().RefCount();
+                .Publish();
 
-            _saveSubscriptions.Add(saves.Subscribe());
+            _saveSubscriptions.Add(saves.Connect());
             return saves;
         }
 
