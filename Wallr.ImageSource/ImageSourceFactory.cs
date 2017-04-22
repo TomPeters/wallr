@@ -2,7 +2,12 @@
 
 namespace Wallr.ImageSource
 {
-    public class ImageSourceFactory
+    public interface IImageSourceFactory
+    {
+        IImageSource CreateImageSource(IImageSourceConfiguration imageSourceConfiguration);
+    }
+
+    public class ImageSourceFactory : IImageSourceFactory
     {
         private readonly IImageSourcePluginFactory _imageSourcePluginFactory;
 
@@ -11,7 +16,7 @@ namespace Wallr.ImageSource
             _imageSourcePluginFactory = imageSourcePluginFactory;
         }
 
-        public IImageSource CreateImageSource(ImageSourceConfiguration imageSourceConfiguration)
+        public IImageSource CreateImageSource(IImageSourceConfiguration imageSourceConfiguration)
         {
             return new ImageSource(imageSourceConfiguration, _imageSourcePluginFactory);
         }

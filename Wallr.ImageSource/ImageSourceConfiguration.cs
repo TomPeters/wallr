@@ -2,7 +2,17 @@
 
 namespace Wallr.ImageSource
 {
-    public class ImageSourceConfiguration
+    public interface IImageSourceConfiguration
+    {
+        ImageSourceId ImageSourceId { get; }
+        ImageSourceName ImageSourceName { get; }
+        ImageSourceType SourceType { get; }
+        IImageSourceSettings Settings { get; }
+        TimeSpan UpdateInterval { get; }
+        bool IsEnabled { get; }
+    }
+
+    public class ImageSourceConfiguration : IImageSourceConfiguration
     {
         public ImageSourceConfiguration(ImageSourceId imageSourceId,
             ImageSourceName imageSourceName,

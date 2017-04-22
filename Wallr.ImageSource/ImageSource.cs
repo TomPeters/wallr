@@ -11,10 +11,10 @@ namespace Wallr.ImageSource
 
     public class ImageSource : IImageSource
     {
-        private readonly ImageSourceConfiguration _configuration;
+        private readonly IImageSourceConfiguration _configuration;
         private readonly IImageSourcePluginFactory _imageSourcePluginFactory;
 
-        public ImageSource(ImageSourceConfiguration configuration, IImageSourcePluginFactory imageSourcePluginFactory)
+        public ImageSource(IImageSourceConfiguration configuration, IImageSourcePluginFactory imageSourcePluginFactory)
         {
             _configuration = configuration;
             _imageSourcePluginFactory = imageSourcePluginFactory;

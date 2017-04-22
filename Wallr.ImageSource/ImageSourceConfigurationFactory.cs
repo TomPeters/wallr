@@ -4,12 +4,12 @@ namespace Wallr.ImageSource
 {
     public interface IImageSourceConfigurationFactory
     {
-        ImageSourceConfiguration CreateNewSource(ImageSourceType sourceType);
+        IImageSourceConfiguration CreateNewSource(ImageSourceType sourceType);
     }
 
     public class ImageSourceConfigurationFactory : IImageSourceConfigurationFactory
     {
-        public ImageSourceConfiguration CreateNewSource(ImageSourceType sourceType)
+        public IImageSourceConfiguration CreateNewSource(ImageSourceType sourceType)
         {
             return new ImageSourceConfiguration(new ImageSourceId(Guid.NewGuid()),
                 new ImageSourceName(sourceType.Value),

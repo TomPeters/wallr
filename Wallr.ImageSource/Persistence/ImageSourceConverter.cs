@@ -4,13 +4,13 @@ namespace Wallr.ImageSource.Persistence
 {
     public interface IImageSourceConverter
     {
-        ImageSourceConfiguration FromSerializationModel(SImageSource serializationModel);
-        SImageSource ToSerializationModel(ImageSourceConfiguration imageSource);
+        IImageSourceConfiguration FromSerializationModel(SImageSource serializationModel);
+        SImageSource ToSerializationModel(IImageSourceConfiguration imageSource);
     }
 
     public class ImageSourceConverter : IImageSourceConverter
     {
-        public ImageSourceConfiguration FromSerializationModel(SImageSource serializationModel)
+        public IImageSourceConfiguration FromSerializationModel(SImageSource serializationModel)
         {
             return new ImageSourceConfiguration(new ImageSourceId(serializationModel.Id),
                 new ImageSourceName(serializationModel.Name),
@@ -20,7 +20,7 @@ namespace Wallr.ImageSource.Persistence
                 serializationModel.IsEnabled);
         }
 
-        public SImageSource ToSerializationModel(ImageSourceConfiguration imageSource)
+        public SImageSource ToSerializationModel(IImageSourceConfiguration imageSource)
         {
             return new SImageSource(imageSource.ImageSourceId.Value,
                 imageSource.ImageSourceName.Value,

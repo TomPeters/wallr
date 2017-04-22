@@ -78,7 +78,7 @@
   <ItemGroup>
     <Compile Include="AsyncEnumerableExtensions.cs" />
     <Compile Include="IImage.cs" />
-    <Compile Include="IImageSource.cs" />
+    <Compile Include="ImageSourceConfiguration.cs" />
     <Compile Include="ImageSource.cs" />
     <Compile Include="ImageSourceConfigurationFactory.cs" />
     <Compile Include="ImageSourceFactory.cs" />
@@ -87,6 +87,7 @@
     <Compile Include="ImageSourceId.cs" />
     <Compile Include="ImageSourceName.cs" />
     <Compile Include="ImageSourcePluginFactory.cs" />
+    <Compile Include="ImageSourceConfigurations.cs" />
     <Compile Include="ImageSources.cs" />
     <Compile Include="ImageSourceSettings.cs" />
     <Compile Include="ImageSourceType.cs" />
