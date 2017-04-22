@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Optional;
 using Optional.Linq;
+using Serilog;
 using Wallr.ImagePersistence;
 using Wallr.ImageQueue.Persistence;
 using Wallr.Platform;
@@ -26,13 +27,16 @@ namespace Wallr.ImageQueue
         private const string SettingsKey = "ImageQueue";
         private readonly IPersistence _persistence;
         private readonly ISourceQualifiedImageIdConverter _sourceQualifiedImageIdConverter;
+        private readonly ILogger _logger;
         private Queue<ISavedImage> _queue = new Queue<ISavedImage>();
         private readonly List<IDisposable> _savedImagesSubscriptions = new List<IDisposable>();
 
-        public ImageQueue(IPersistence persistence, ISourceQualifiedImageIdConverter sourceQualifiedImageIdConverter)
+        public ImageQueue(IPersistence persistence, ISourceQualifiedImageIdConverter sourceQualifiedImageIdConverter,
+            ILogger logger)
         {
             _persistence = persistence;
             _sourceQualifiedImageIdConverter = sourceQualifiedImageIdConverter;
+            _logger = logger.ForContext<ImageQueue>();
         }
 
         public void StartQueuingSavedImages(IObservable<ISavedImage> savedImages)
@@ -42,6 +46,7 @@ namespace Wallr.ImageQueue
 
         public Task Enqueue(ISavedImage savedImage)
         {
+            _logger.Information("Enqueuing image {ImageId} from source {SourceId}", savedImage.Id.ImageId.Value, savedImage.Id.SourceId.Value);
             _queue.Enqueue(savedImage);
             return PersistLatestQueueState();
         }
@@ -62,15 +67,19 @@ namespace Wallr.ImageQueue
             if (!_queue.Any()) return Option.None<ISavedImage>();
             ISavedImage image = _queue.Dequeue();
             await PersistLatestQueueState();
+            _logger.Information("Dequeuing image {ImageId} from source {SourceId}", image.Id.ImageId.Value, image.Id.SourceId.Value);
             return image.Some();
         }
 
         public IEnumerable<SourceQualifiedImageId> QueuedImageIds => _queue.Select(i => i.Id);
 
-        private Task PersistLatestQueueState()
+        private async Task PersistLatestQueueState()
         {
-            IEnumerable<SSourceQualifiedImageId> sQueue = _queue.Select(i => i.Id).Select(_sourceQualifiedImageIdConverter.ToSerializationModel);
-            return _persistence.SaveSettings(SettingsKey, JsonConvert.SerializeObject(sQueue));
+            IEnumerable<SourceQualifiedImageId> sourceQualifiedImageIds = _queue.Select(i => i.Id).ToList();
+            _logger.Information("Persisting queue state: {@QueuedImageIds}", sourceQualifiedImageIds);
+            IEnumerable<SSourceQualifiedImageId> sQueue = sourceQualifiedImageIds.Select(_sourceQualifiedImageIdConverter.ToSerializationModel);
+            await _persistence.SaveSettings(SettingsKey, JsonConvert.SerializeObject(sQueue));
+            _logger.Information("Queue state persisted");
         }
 
         public void Dispose()

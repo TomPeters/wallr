@@ -35,8 +35,13 @@ namespace Wallr.WallpaperUpdates
             _wallpaperUpdateSubscriptions.Add(Observable
                 .Interval(TimeSpan.FromSeconds(10)) // TODO: Make this a configurable setting
                 .SelectMany(i => Observable.FromAsync(_ => imageQueue.Dequeue()))
-                .Select(o => Observable.FromAsync(_ => o
-                        .Map(i => _wallpaperEnvironment.SetWallpaper(i.Id.SourceId.Value, i.Id.ImageId.Value, _logger))
+                .SelectMany(o => Observable.FromAsync(_ => o
+                        .Map(async i =>
+                    {
+                        _logger.Information("Setting wallpaper to {ImageId} from source {SourceId}", i.Id.ImageId.Value, i.Id.SourceId.Value);
+                        await _wallpaperEnvironment.SetWallpaper(i.Id.SourceId.Value, i.Id.ImageId.Value, _logger);
+                        _logger.Information("Wallpaper set to {ImageId} from source {SourceId}", i.Id.ImageId.Value, i.Id.SourceId.Value);
+                    })
                         .ValueOr(TaskConstants.Completed)))
                 .Subscribe());
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Async;
 using System.Reactive.Linq;
 
 namespace Wallr.ImageSource
@@ -28,7 +29,7 @@ namespace Wallr.ImageSource
             {
                 return Observable.Interval(_configuration.UpdateInterval)
                     .Select(_ => _imageSourcePluginFactory.CreateImageSourcePlugin(_configuration.SourceType)
-                        .GetImages(_configuration.Settings))
+                        .GetImages(_configuration.Settings).Take(5)) // nocommit, make the Take here configurable
                     .SelectMany(e => e.ToObservable());
             }
         }
