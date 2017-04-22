@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Wallr.ImagePersistence
+namespace Wallr.ImageSource
 {
     public static class AsyncEnumerableExtensions
     {

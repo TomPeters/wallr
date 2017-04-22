@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Async;
-using System.Threading.Tasks;
+using System.Reactive.Linq;
 
 namespace Wallr.ImageSource
 {
@@ -16,13 +15,30 @@ namespace Wallr.ImageSource
         // nocommit, some way of updating the settings??
     }
 
+    public class ImageSourceFactory
+    {
+        private readonly IImageSourcePluginFactory _imageSourcePluginFactory;
+
+        public ImageSourceFactory(IImageSourcePluginFactory imageSourcePluginFactory)
+        {
+            _imageSourcePluginFactory = imageSourcePluginFactory;
+        }
+
+        public IImageSource CreateImageSource(ImageSourceConfiguration imageSourceConfiguration)
+        {
+            return new ImageSource(imageSourceConfiguration, _imageSourcePluginFactory);
+        }
+    }
+
     public class ImageSource : IImageSource
     {
         private readonly ImageSourceConfiguration _configuration;
+        private readonly IImageSourcePluginFactory _imageSourcePluginFactory;
 
-        public ImageSource(ImageSourceConfiguration configuration)
+        public ImageSource(ImageSourceConfiguration configuration, IImageSourcePluginFactory imageSourcePluginFactory)
         {
             _configuration = configuration;
+            _imageSourcePluginFactory = imageSourcePluginFactory;
         }
 
         public ImageSourceId ImageSourceId => _configuration.ImageSourceId;
@@ -31,8 +47,10 @@ namespace Wallr.ImageSource
         {
             get
             {
-                return null;
-                // nocommit, do something interesting here :)
+                return Observable.Interval(_configuration.UpdateInterval)
+                    .Select(_ => _imageSourcePluginFactory.CreateImageSourcePlugin(_configuration.SourceType)
+                        .GetImages(_configuration.Settings))
+                    .SelectMany(e => e.ToObservable());
             }
         }
     }

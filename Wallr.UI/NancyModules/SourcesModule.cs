@@ -8,13 +8,13 @@ namespace Wallr.UI.NancyModules
 {
     public class SourcesModule : NancyModule
     {
-        public SourcesModule(IImageSourceConfigurations sourceConfigurations, IImageSourceFactory sourceFactory) : base("/sources")
+        public SourcesModule(IImageSourceConfigurations sourceConfigurations, IImageSourceConfigurationFactory sourceConfigurationFactory) : base("/sources")
         {
             Get["/"] = _ => sourceConfigurations.Select(s => new ImageSourceViewModel(s.ImageSourceId.Value, s.SourceType.Value));
             Post["/add", true] = async (parameters, ctx) =>
             {
                 var request = this.Bind<AddRequestModel>();
-                ImageSourceConfiguration source = sourceFactory.CreateImageSource(new ImageSourceType(request.SourceType));
+                ImageSourceConfiguration source = sourceConfigurationFactory.CreateImageSourceConfiguration(new ImageSourceType(request.SourceType));
                 await sourceConfigurations.Add(source);
                 return source.ImageSourceId;
             };

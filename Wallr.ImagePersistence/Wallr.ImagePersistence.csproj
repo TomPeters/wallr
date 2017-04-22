@@ -33,7 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AsyncEnumerableExtensions.cs" />
     <Compile Include="ImagePersistenceModule.cs" />
     <Compile Include="ImageRepository.cs" />
     <Compile Include="ImageSaver.cs" />

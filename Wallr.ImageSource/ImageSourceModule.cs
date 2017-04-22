@@ -10,7 +10,7 @@ namespace Wallr.ImageSource
         {
             builder.RegisterType<ImageSourceConfigurations>().As<IImageSourceConfigurations>().As<IEnumerable<IImageSource>>().SingleInstance();
             builder.RegisterType<ImageSourceConverter>().As<IImageSourceConverter>();
-            builder.RegisterType<ImageSourceFactory>().As<IImageSourceFactory>();
+            builder.RegisterType<ImageSourceConfigurationFactory>().As<IImageSourceConfigurationFactory>();
         }
     }
 }
