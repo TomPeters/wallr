@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
+using System.Threading.Tasks;
+using Nito.AsyncEx;
+using Optional;
 using Serilog;
+using Wallr.ImagePersistence;
 using Wallr.ImageQueue;
 using Wallr.Platform;
 
@@ -27,15 +32,18 @@ namespace Wallr.WallpaperUpdates
 
         public void UpdateWallpaperFrom(IImageQueue imageQueue)
         {
-            _wallpaperUpdateSubscriptions.Add(Observable.Interval(TimeSpan.FromSeconds(10)) // TODO: Make this a configurable setting
+            _wallpaperUpdateSubscriptions.Add(Observable
+                .Interval(TimeSpan.FromSeconds(10)) // TODO: Make this a configurable setting
                 .SelectMany(i => Observable.FromAsync(_ => imageQueue.Dequeue()))
-                .Select(i => Observable.FromAsync(_ => _wallpaperEnvironment.SetWallpaper(i.Id.SourceId.Value, i.Id.ImageId.Value, _logger)))
+                .Select(o => Observable.FromAsync(_ => o
+                        .Map(i => _wallpaperEnvironment.SetWallpaper(i.Id.SourceId.Value, i.Id.ImageId.Value, _logger))
+                        .ValueOr(TaskConstants.Completed)))
                 .Subscribe());
         }
 
         public void Dispose()
         {
-            foreach(IDisposable subscription in _wallpaperUpdateSubscriptions)
+            foreach (IDisposable subscription in _wallpaperUpdateSubscriptions)
                 subscription.Dispose();
         }
     }

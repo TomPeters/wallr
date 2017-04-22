@@ -45,10 +45,10 @@ namespace Wallr.UI
                         .ForContext("Method", context.Request.Method))
                     .As<ILogger>()
             );
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImagePersistence>()).As<IImagePersistence>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceConfigurations>()).As<IImageSourceConfigurations>());
-            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceConfigurationFactory>()).As<IImageSourceConfigurationFactory>());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImagePersistence>()).As<IImagePersistence>().ExternallyOwned());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageQueue>()).As<IImageQueue>().ExternallyOwned());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceConfigurations>()).As<IImageSourceConfigurations>().ExternallyOwned());
+            container.Update(b => b.Register(c => _parentScope.Resolve<IImageSourceConfigurationFactory>()).As<IImageSourceConfigurationFactory>().ExternallyOwned());
         }
 
         protected override void RequestStartup(ILifetimeScope container, IPipelines pipelines, NancyContext context)

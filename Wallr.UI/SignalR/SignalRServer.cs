@@ -34,7 +34,7 @@ namespace Wallr.UI.SignalR
             var url = "http://localhost:29485";
             _webApp = WebApp.Start<SignalRStartup>(url);
             _clientEventSender.StartSendingEvents();
-            _logger.Information("SignalR server started");
+            _logger.Information("SignalR server started at {Url}", url);
         }
 
         public void Dispose()

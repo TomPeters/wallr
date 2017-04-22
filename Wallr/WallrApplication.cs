@@ -52,10 +52,15 @@ namespace Wallr
         public async Task Setup()
         {
             await _setup.SetupQuickUseControl(_quickUseOptions.ToList());
+            _logger.Information("Setup quick use controls");
             await _imageQueue.Rehydrade(ids => ids.Select(_imageRepository.LoadImage));
+            _logger.Information("Image queue loaded from persistence");
             _imageQueue.StartQueuingSavedImages(_saver.StartSavingImages(_imageSources));
+            _logger.Information("Image queue connecting to image sources");
             await _imageSourceConfigurations.RehydrateSources();
+            _logger.Information("Image sources loaded from persistence");
             _wallpaperUpdater.UpdateWallpaperFrom(_imageQueue);
+            _logger.Information("Wallpaper updates connected to image queue");
             foreach (IImageSourceConfiguration source in _testingSources.GetTestingSourceConfigurations())
                 await _imageSourceConfigurations.Add(source);
             _logger.Information("Application started");
