@@ -5,7 +5,7 @@ namespace Wallr.ImageSource
 {
     public interface IImageSources
     {
-        IObservable<IImage> ImagesFromAllSources { get; }
+        IObservable<IImageFromSource> ImagesFromAllSources { get; }
     }
 
     public class ImageSources : IImageSources
@@ -19,7 +19,7 @@ namespace Wallr.ImageSource
             _imageSourceFactory = imageSourceFactory;
         }
 
-        public IObservable<IImage> ImagesFromAllSources
+        public IObservable<IImageFromSource> ImagesFromAllSources
         {
             get
             {
@@ -38,7 +38,7 @@ namespace Wallr.ImageSource
 
                     return sourceConfigurations
                         .Select(_imageSourceFactory.CreateImageSource)
-                        .Select(i => i.Images)
+                        .Select(s => s.Images.Select(i => new ImageFromSource(i, s.ImageSourceId)))
                         .Switch();
                 });
             }

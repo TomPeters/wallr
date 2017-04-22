@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Serilog;
@@ -22,11 +23,14 @@ namespace Wallr
         private readonly IImageQueue _imageQueue;
         private readonly IImageRepository _imageRepository;
         private readonly IImageSourceConfigurations _imageSourceConfigurations;
+        private readonly IImageSaver _saver;
+        private readonly IImageSources _imageSources;
 
         public WallrApplication(ISetup setup, ILogger logger,
             IEnumerable<IQuickUseOption> quickUseOptions,
             IImageQueue imageQueue, IImageRepository imageRepository,
-            IImageSourceConfigurations imageSourceConfigurations)
+            IImageSourceConfigurations imageSourceConfigurations,
+            IImageSaver saver, IImageSources imageSources)
         {
             _setup = setup;
             _logger = logger;
@@ -34,16 +38,16 @@ namespace Wallr
             _imageQueue = imageQueue;
             _imageRepository = imageRepository;
             _imageSourceConfigurations = imageSourceConfigurations;
+            _saver = saver;
+            _imageSources = imageSources;
         }
 
         public async Task Setup()
         {
             await _setup.SetupQuickUseControl(_quickUseOptions.ToList());
             await _imageQueue.Rehydrade(ids => ids.Select(_imageRepository.LoadImage));
+            _imageQueue.StartQueuingSavedImages(_saver.StartSavingImages(_imageSources));
             await _imageSourceConfigurations.RehydrateSources();
-            // nocommit, hook up current image sources to the queue
-            // nocommit, think about how to handle disabling
-//            _imageQueueCoordinator.UpdateImageQueuePeriodically();
 //            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
             _logger.Information("Application started");
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Optional;
@@ -15,6 +14,7 @@ namespace Wallr.ImageQueue
 {
     public interface IImageQueue
     {
+        void StartQueuingSavedImages(IObservable<ISavedImage> savedImages);
         Task Enqueue(ISavedImage savedImage);
         Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages);
         Task<ISavedImage> Dequeue();
@@ -27,14 +27,17 @@ namespace Wallr.ImageQueue
         private readonly IPersistence _persistence;
         private readonly ISourceQualifiedImageIdConverter _sourceQualifiedImageIdConverter;
         private Queue<ISavedImage> _queue = new Queue<ISavedImage>();
-        private readonly Subject<ISavedImage> _sources = new Subject<ISavedImage>();
-        private readonly IDisposable _sourcesSubscription;
+        private readonly List<IDisposable> _savedImagesSubscriptions = new List<IDisposable>();
 
         public ImageQueue(IPersistence persistence, ISourceQualifiedImageIdConverter sourceQualifiedImageIdConverter)
         {
             _persistence = persistence;
             _sourceQualifiedImageIdConverter = sourceQualifiedImageIdConverter;
-            _sourcesSubscription = _sources.SelectMany(i => Observable.FromAsync(t => Enqueue(i))).Subscribe();
+        }
+
+        public void StartQueuingSavedImages(IObservable<ISavedImage> savedImages)
+        {
+            _savedImagesSubscriptions.Add(savedImages.SelectMany(i => Observable.FromAsync(t => Enqueue(i))).Subscribe());
         }
 
         public Task Enqueue(ISavedImage savedImage)
@@ -71,8 +74,8 @@ namespace Wallr.ImageQueue
 
         public void Dispose()
         {
-            _sourcesSubscription.Dispose();
-            _sources.Dispose();
+            foreach(IDisposable subscription in _savedImagesSubscriptions)
+                subscription.Dispose();
         }
     }
 }

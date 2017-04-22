@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageUpdater.cs" />
     <Compile Include="LoggingModule.cs" />
     <Compile Include="OpenConfigPageOption.cs" />
     <Compile Include="WallrApplication.cs" />

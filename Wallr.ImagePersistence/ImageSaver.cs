@@ -9,7 +9,7 @@ namespace Wallr.ImagePersistence
 {
     public interface IImageSaver
     {
-        IObservable<ISavedImage> SaveImages(IImageSource imageSource);
+        IObservable<ISavedImage> StartSavingImages(IImageSources imageSources);
     }
 
     public class ImageSaver : IImageSaver, IDisposable
@@ -22,10 +22,10 @@ namespace Wallr.ImagePersistence
             _imageRepository = imageRepository;
         }
 
-        public IObservable<ISavedImage> SaveImages(IImageSource imageSource)
+        public IObservable<ISavedImage> StartSavingImages(IImageSources imageSources)
         {
-            IConnectableObservable<ISavedImage> saves = imageSource.Images
-                .Select(i => Observable.FromAsync(() => SaveImage(i, imageSource)))
+            IConnectableObservable<ISavedImage> saves = imageSources.ImagesFromAllSources
+                .Select(i => Observable.FromAsync(() => SaveImage(i.Image, i.SourceId)))
                 .Concat()
                 .Publish();
 
@@ -33,10 +33,10 @@ namespace Wallr.ImagePersistence
             return saves;
         }
 
-        private async Task<ISavedImage> SaveImage(IImage image, IImageSource source)
+        private async Task<ISavedImage> SaveImage(IImage image, ImageSourceId sourceId)
         {
             ImageSource.ImageId id = await image.GetId();
-            return await _imageRepository.SaveImage(new SourceQualifiedImageId(source.ImageSourceId, id), image.GetImageStream);
+            return await _imageRepository.SaveImage(new SourceQualifiedImageId(sourceId, id), image.GetImageStream);
         }
 
         public void Dispose()
