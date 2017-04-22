@@ -94,6 +94,7 @@
     <Compile Include="Persistence\ImageSourceConverter.cs" />
     <Compile Include="Persistence\SImageSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypedSettingsConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -107,6 +108,10 @@
     <ProjectReference Include="..\Wallr.ImageSource.Api\Wallr.ImageSource.Api.csproj">
       <Project>{857691f8-9434-4370-812c-e7a804820727}</Project>
       <Name>Wallr.ImageSource.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wallr.ImageSource.Subreddit\Wallr.ImageSource.Subreddit.csproj">
+      <Project>{93390ee0-0cb2-4573-9f28-60f91047f898}</Project>
+      <Name>Wallr.ImageSource.Subreddit</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wallr.Platform\Wallr.Platform.csproj">
       <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>

@@ -21,7 +21,7 @@ namespace Wallr.ImageSource.Subreddit
         private readonly ILogger _logger;
         private readonly HttpClient _httpClient;
 
-        public SubredditImageSource(ILogger logger, HttpClient httpClient)
+        public SubredditImageSource(ILogger logger, HttpClient httpClient) // nocommit, add image source modules, then register http client here
         {
             _logger = logger;
             _httpClient = httpClient;
