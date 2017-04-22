@@ -8,7 +8,7 @@ namespace Wallr.ImageSource
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ImageSources>().As<IImageSources>().As<IEnumerable<IImageSource>>().SingleInstance();
+            builder.RegisterType<ImageSourceConfigurations>().As<IImageSourceConfigurations>().As<IEnumerable<IImageSource>>().SingleInstance();
             builder.RegisterType<ImageSourceConverter>().As<IImageSourceConverter>();
             builder.RegisterType<ImageSourceFactory>().As<IImageSourceFactory>();
         }

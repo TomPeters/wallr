@@ -17,7 +17,7 @@ namespace Wallr
 
         public void UpdateImages(IImageSource source)
         {
-            _saver.SaveImages(source.Source)
+            _saver.SaveImages(source);
         }
     }
 }

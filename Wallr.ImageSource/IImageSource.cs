@@ -31,7 +31,7 @@ namespace Wallr.ImageSource
         {
             get
             {
-
+                return null;
                 // nocommit, do something interesting here :)
             }
         }

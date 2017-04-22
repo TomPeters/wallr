@@ -8,14 +8,14 @@ namespace Wallr.UI.NancyModules
 {
     public class SourcesModule : NancyModule
     {
-        public SourcesModule(IImageSources sources, IImageSourceFactory sourceFactory) : base("/sources")
+        public SourcesModule(IImageSourceConfigurations sourceConfigurations, IImageSourceFactory sourceFactory) : base("/sources")
         {
-            Get["/"] = _ => sources.Select(s => new ImageSourceViewModel(s.ImageSourceId.Value, s.SourceType.Value));
+            Get["/"] = _ => sourceConfigurations.Select(s => new ImageSourceViewModel(s.ImageSourceId.Value, s.SourceType.Value));
             Post["/add", true] = async (parameters, ctx) =>
             {
                 var request = this.Bind<AddRequestModel>();
-                IImageSource source = sourceFactory.CreateImageSource(new ImageSourceType(request.SourceType));
-                await sources.Add(source);
+                ImageSourceConfiguration source = sourceFactory.CreateImageSource(new ImageSourceType(request.SourceType));
+                await sourceConfigurations.Add(source);
                 return source.ImageSourceId;
             };
         }

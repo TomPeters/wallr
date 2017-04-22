@@ -13,28 +13,28 @@ using Wallr.Platform;
 
 namespace Wallr.ImageSource
 {
-    public interface IImageSources : IEnumerable<IImageSource>
+    public interface IImageSourceConfigurations : IEnumerable<ImageSourceConfiguration>
     {
         Task RehydrateSources();
-        IImageSource Get(ImageSourceId id);
-        Task Add(IImageSource source);
+        ImageSourceConfiguration Get(ImageSourceId id);
+        Task Add(ImageSourceConfiguration source);
         Task Remove(ImageSourceId id);
     }
 
-    public class ImageSources : IImageSources
+    public class ImageSourceConfigurations : IImageSourceConfigurations
     {
         private const string SettingsKey = "Sources";
         private readonly IPersistence _persistence;
         private readonly IImageSourceConverter _imageSourceConverter;
         private ImageSourcesCollection _sources = new ImageSourcesCollection();
 
-        public ImageSources(IPersistence persistence, IImageSourceConverter imageSourceConverter)
+        public ImageSourceConfigurations(IPersistence persistence, IImageSourceConverter imageSourceConverter)
         {
             _persistence = persistence;
             _imageSourceConverter = imageSourceConverter;
         }
 
-        public IEnumerator<IImageSource> GetEnumerator()
+        public IEnumerator<ImageSourceConfiguration> GetEnumerator()
         {
             return _sources.GetEnumerator();
         }
@@ -54,12 +54,12 @@ namespace Wallr.ImageSource
                 .ValueOr(new ImageSourcesCollection());
         }
 
-        public IImageSource Get(ImageSourceId id)
+        public ImageSourceConfiguration Get(ImageSourceId id)
         {
             return _sources[id];
         }
 
-        public Task Add(IImageSource source)
+        public Task Add(ImageSourceConfiguration source)
         {
             _sources.Add(source);
             return PersistAllSources();
@@ -77,18 +77,18 @@ namespace Wallr.ImageSource
             return _persistence.SaveSettings(SettingsKey, JsonConvert.SerializeObject(sources));
         }
 
-        private class ImageSourcesCollection : KeyedCollection<ImageSourceId, IImageSource>
+        private class ImageSourcesCollection : KeyedCollection<ImageSourceId, ImageSourceConfiguration>
         {
             public ImageSourcesCollection()
-                : this(Enumerable.Empty<IImageSource>())
+                : this(Enumerable.Empty<ImageSourceConfiguration>())
             {
             }
-            public ImageSourcesCollection(IEnumerable<IImageSource> sources)
+            public ImageSourcesCollection(IEnumerable<ImageSourceConfiguration> sources)
             {
                 sources.ForEach(Add);
             }
 
-            protected override ImageSourceId GetKeyForItem(IImageSource item)
+            protected override ImageSourceId GetKeyForItem(ImageSourceConfiguration item)
             {
                 return item.ImageSourceId;
             }

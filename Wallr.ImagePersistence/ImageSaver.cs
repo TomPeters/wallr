@@ -9,7 +9,7 @@ namespace Wallr.ImagePersistence
 {
     public interface IImageSaver
     {
-        IObservable<ISavedImage> SaveImages(IImageSource imageSource, IObservable<DateTime> saveRequests);
+        IObservable<ISavedImage> SaveImages(IImageSource imageSource);
     }
 
     public class ImageSaver : IImageSaver, IDisposable
@@ -22,12 +22,9 @@ namespace Wallr.ImagePersistence
             _imageRepository = imageRepository;
         }
 
-        public IObservable<ISavedImage> SaveImages(IImageSource imageSource, IObservable<DateTime> saveRequests)
+        public IObservable<ISavedImage> SaveImages(IImageSource imageSource)
         {
-            IObservable<IImage> selectMany = saveRequests
-                .Select(_ => imageSource.GetLatestImages())
-                .SelectMany(e => e.ToObservable()); // nocommit, move this out to IImageSource, simply pass in this observable here instead
-            IConnectableObservable<ISavedImage> saves = selectMany
+            IConnectableObservable<ISavedImage> saves = imageSource.Images
                 .Select(i => Observable.FromAsync(() => SaveImage(i, imageSource)))
                 .Concat()
                 .Publish();
