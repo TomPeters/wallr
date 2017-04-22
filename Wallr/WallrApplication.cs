@@ -27,13 +27,15 @@ namespace Wallr
         private readonly IImageSaver _saver;
         private readonly IImageSources _imageSources;
         private readonly IWallpaperUpdater _wallpaperUpdater;
+        private readonly TestingSources _testingSources;
 
         public WallrApplication(ISetup setup, ILogger logger,
             IEnumerable<IQuickUseOption> quickUseOptions,
             IImageQueue imageQueue, IImageRepository imageRepository,
             IImageSourceConfigurations imageSourceConfigurations,
             IImageSaver saver, IImageSources imageSources,
-            IWallpaperUpdater wallpaperUpdater)
+            IWallpaperUpdater wallpaperUpdater,
+            TestingSources testingSources)
         {
             _setup = setup;
             _logger = logger;
@@ -44,6 +46,7 @@ namespace Wallr
             _saver = saver;
             _imageSources = imageSources;
             _wallpaperUpdater = wallpaperUpdater;
+            _testingSources = testingSources;
         }
 
         public async Task Setup()
@@ -53,7 +56,8 @@ namespace Wallr
             _imageQueue.StartQueuingSavedImages(_saver.StartSavingImages(_imageSources));
             await _imageSourceConfigurations.RehydrateSources();
             _wallpaperUpdater.UpdateWallpaperFrom(_imageQueue);
-//            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
+            foreach (IImageSourceConfiguration source in _testingSources.GetTestingSourceConfigurations())
+                await _imageSourceConfigurations.Add(source);
             _logger.Information("Application started");
         }
     }

@@ -17,7 +17,8 @@ namespace Wallr.Windows10
         {
             var components = new Container();
             ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
-            systemTrayOptions.ForEach(o => contextMenuStrip.Items.Add(o));
+            foreach (ToolStripItem item in systemTrayOptions)
+                contextMenuStrip.Items.Add(item);
             contextMenuStrip.Items.Add(new ToolStripButton("Exit", null, exitItem_Click));
             _notifyIcon = new NotifyIcon(components)
             {

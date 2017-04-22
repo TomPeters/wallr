@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using Wallr.ImageSource.Persistence;
+using Wallr.ImageSource.Subreddit;
 
 namespace Wallr.ImageSource
 {
@@ -15,6 +16,10 @@ namespace Wallr.ImageSource
             builder.RegisterType<ImageSourceConverter>().As<IImageSourceConverter>();
             builder.RegisterType<ImageSourceConfigurationFactory>().As<IImageSourceConfigurationFactory>();
 
+            #region temporary (for testing)
+            builder.RegisterType<SubredditImageSource>(); // nocommit, don't have a dependency on specific sources, should use reflection to load them
+            builder.RegisterType<TestingSources>();
+            #endregion
         }
     }
 }

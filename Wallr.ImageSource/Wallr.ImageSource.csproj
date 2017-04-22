@@ -95,6 +95,7 @@
     <Compile Include="Persistence\ImageSourceConverter.cs" />
     <Compile Include="Persistence\SImageSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestingSources.cs" />
     <Compile Include="TypedSettingsConverter.cs" />
   </ItemGroup>
   <ItemGroup>

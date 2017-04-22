@@ -156,7 +156,8 @@ namespace Wallr.ImageSource
             }
             public ImageSourcesCollection(IEnumerable<IImageSourceConfiguration> sources)
             {
-                sources.ForEach(Add);
+                foreach (IImageSourceConfiguration item in sources)
+                    Add(item);
             }
 
             protected override ImageSourceId GetKeyForItem(IImageSourceConfiguration item)

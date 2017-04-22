@@ -1,7 +1,10 @@
 using Autofac;
 using Wallr.ImagePersistence;
+using Wallr.ImageQueue;
+using Wallr.ImageSource;
 using Wallr.Platform;
 using Wallr.UI;
+using Wallr.WallpaperUpdates;
 
 namespace Wallr
 {
@@ -24,9 +27,13 @@ namespace Wallr
                 .As<IPersistence>()
                 .As<IImagePersistence>();
             builder.RegisterModule<LoggingModule>();
-            builder.RegisterModule<WallrCoreModule>();
+            builder.RegisterModule<ImagePersistenceModule>();
+            builder.RegisterModule<ImageQueueModule>();
+            builder.RegisterModule<ImageSourceModule>();
+            builder.RegisterModule<WallpaperUpdatesModule>();
             builder.RegisterModule<WallrUiModule>();
             builder.RegisterType<OpenConfigPageOption>().As<IQuickUseOption>();
+            builder.RegisterType<WallrApplication>().As<IWallrApplication>();
         }
     }
 }
