@@ -45,6 +45,16 @@ namespace Wallr.ImageSource
         public IImageSourceConfiguration UpdatedSourceConfiguration { get; }
     }
 
+    public class SourceConfigurationsLoadedEvent
+    {
+        public SourceConfigurationsLoadedEvent(IEnumerable<IImageSourceConfiguration> sourceConfigurations)
+        {
+            SourceConfigurations = sourceConfigurations;
+        }
+
+        public IEnumerable<IImageSourceConfiguration> SourceConfigurations { get; }
+    }
+
     public interface IImageSourceConfigurations : IEnumerable<IImageSourceConfiguration> // nocommit, maybe also make it implement IObservable?
     {
         Task RehydrateSources();
@@ -55,9 +65,10 @@ namespace Wallr.ImageSource
         IObservable<SourceConfigurationAddedEvent> SourceAdds { get; }
         IObservable<SourceConfigurationChangedEvent> SourceChanges { get; }
         IObservable<SourceConfigurationRemovedEvent> SourceRemoves { get; }
+        IObservable<SourceConfigurationsLoadedEvent> SourceLoads { get; }
     }
 
-    public class ImageSourceConfigurations : IImageSourceConfigurations
+    public class ImageSourceConfigurations : IDisposable, IImageSourceConfigurations
     {
         private const string SettingsKey = "Sources";
         private readonly IPersistence _persistence;
@@ -67,6 +78,7 @@ namespace Wallr.ImageSource
         private readonly Subject<SourceConfigurationAddedEvent> _sourceAdds = new Subject<SourceConfigurationAddedEvent>();
         private readonly Subject<SourceConfigurationChangedEvent> _sourceChanges = new Subject<SourceConfigurationChangedEvent>();
         private readonly Subject<SourceConfigurationRemovedEvent> _sourceRemoves = new Subject<SourceConfigurationRemovedEvent>();
+        private readonly Subject<SourceConfigurationsLoadedEvent> _sourceLoads = new Subject<SourceConfigurationsLoadedEvent>();
 
         public ImageSourceConfigurations(IPersistence persistence, IImageSourceConverter imageSourceConverter)
         {
@@ -93,10 +105,7 @@ namespace Wallr.ImageSource
                 .Select(s => new ImageSourcesCollection(s))
                 .ValueOr(new ImageSourcesCollection());
 
-            _sources
-                .ToObservable()
-                .Select(s => new SourceConfigurationAddedEvent(s))
-                .Subscribe(_sourceAdds);
+            _sourceLoads.OnNext(new SourceConfigurationsLoadedEvent(_sources.ToList()));
         }
 
         public IImageSourceConfiguration Get(ImageSourceId id)
@@ -131,6 +140,7 @@ namespace Wallr.ImageSource
         public IObservable<SourceConfigurationAddedEvent> SourceAdds => _sourceAdds;
         public IObservable<SourceConfigurationChangedEvent> SourceChanges => _sourceChanges;
         public IObservable<SourceConfigurationRemovedEvent> SourceRemoves => _sourceRemoves;
+        public IObservable<SourceConfigurationsLoadedEvent> SourceLoads => _sourceLoads;
 
         private Task PersistAllSources()
         {
@@ -153,6 +163,14 @@ namespace Wallr.ImageSource
             {
                 return item.ImageSourceId;
             }
+        }
+
+        public void Dispose()
+        {
+            _sourceAdds.Dispose();
+            _sourceChanges.Dispose();
+            _sourceRemoves.Dispose();
+            _sourceLoads.Dispose();
         }
     }
 }

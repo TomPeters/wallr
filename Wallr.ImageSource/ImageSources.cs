@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 
 namespace Wallr.ImageSource
@@ -23,24 +24,30 @@ namespace Wallr.ImageSource
         {
             get
             {
-                return _configurations.SourceAdds.SelectMany(newSourceEvent =>
-                {
-                    ImageSourceId sourceId = newSourceEvent.SourceConfiguration.ImageSourceId;
+                return _configurations.SourceLoads.Select(load =>
+                    {
+                        return load.SourceConfigurations.ToObservable()
+                            .Concat(_configurations.SourceAdds.Select(add => add.SourceConfiguration))
+                            .SelectMany(configuration =>
+                            {
+                                ImageSourceId sourceId = configuration.ImageSourceId;
 
-                    var removes = _configurations.SourceRemoves
-                        .Where(remove => remove.SourceId.Equals(sourceId));
-                    var changes = _configurations.SourceChanges
-                        .Where(change => change.UpdatedSourceConfiguration.ImageSourceId.Equals(sourceId));
+                                var removes = _configurations.SourceRemoves
+                                    .Where(remove => remove.SourceId.Equals(sourceId));
+                                var changes = _configurations.SourceChanges
+                                    .Where(change => change.UpdatedSourceConfiguration.ImageSourceId.Equals(sourceId));
 
-                    var sourceConfigurations = Observable.Return(newSourceEvent.SourceConfiguration)
-                            .Concat(changes.Select(c => c.UpdatedSourceConfiguration))
-                            .TakeUntil(removes);
+                                var sourceConfigurations = Observable.Return(configuration)
+                                    .Concat(changes.Select(c => c.UpdatedSourceConfiguration))
+                                    .TakeUntil(removes);
 
-                    return sourceConfigurations
-                        .Select(_imageSourceFactory.CreateImageSource)
-                        .Select(s => s.Images.Select(i => new ImageFromSource(i, s.ImageSourceId)))
-                        .Switch();
-                });
+                                return sourceConfigurations
+                                    .Select(_imageSourceFactory.CreateImageSource)
+                                    .Select(s => s.Images.Select(i => new ImageFromSource(i, s.ImageSourceId)))
+                                    .Switch();
+                            });
+                    })
+                    .Switch();
             }
         }
     }
