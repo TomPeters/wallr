@@ -28,11 +28,11 @@ namespace Wallr.ImageSource.Subreddit
         }
 
         public string SourceTypeName => "Subreddit";
-        private static Uri BaseUri(string subredditName) => new Uri($"http://www.reddit.com/r/{subredditName}/top/.json");
+        private static Uri BaseUri(string subredditName) => new Uri($"http://www.reddit.com/r/{subredditName}/top/.json?sort=top&t=day");
 
         public IAsyncEnumerable<IImage> GetImages(ISubredditSettings settings)
         {
-            return ImagesFromUri(BaseUri(/*settings.SubredditName*/"wallpaper")); // nocommit, change to the setting once settings are supported
+            return ImagesFromUri(BaseUri(/*settings.SubredditName*/"wallpapers")); // nocommit, change to the setting once settings are supported
         }
 
         private IAsyncEnumerable<IImage> ImagesFromUri(Uri baseUri, int currentCount = 0)
