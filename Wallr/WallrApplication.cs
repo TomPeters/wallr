@@ -41,6 +41,8 @@ namespace Wallr
             await _setup.SetupQuickUseControl(_quickUseOptions.ToList());
             await _imageQueue.Rehydrade(ids => ids.Select(_imageRepository.LoadImage));
             await _imageSourceConfigurations.RehydrateSources();
+            // nocommit, hook up current image sources to the queue
+            // nocommit, think about how to handle disabling
 //            _imageQueueCoordinator.UpdateImageQueuePeriodically();
 //            _wallpaperCoordinator.SubscribeToWallpaperUpdates();
             _logger.Information("Application started");

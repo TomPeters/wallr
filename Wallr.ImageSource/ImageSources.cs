@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Reactive.Linq;
 
 namespace Wallr.ImageSource
 {
-    public interface IImageSources : IEnumerable<IImageSource>
+    public interface IImageSources
     {
+        IObservable<IImage> ImagesFromAllSources { get; }
     }
 
     public class ImageSources : IImageSources
@@ -19,14 +19,29 @@ namespace Wallr.ImageSource
             _imageSourceFactory = imageSourceFactory;
         }
 
-        public IEnumerator<IImageSource> GetEnumerator()
+        public IObservable<IImage> ImagesFromAllSources
         {
-            return _configurations.Select(_imageSourceFactory.CreateImageSource).GetEnumerator();
-        }
+            get
+            {
+                return _configurations.SourceAdds.SelectMany(newSourceEvent =>
+                {
+                    ImageSourceId sourceId = newSourceEvent.SourceConfiguration.ImageSourceId;
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+                    var removes = _configurations.SourceRemoves
+                        .Where(remove => remove.SourceId.Equals(sourceId));
+                    var changes = _configurations.SourceChanges
+                        .Where(change => change.UpdatedSourceConfiguration.ImageSourceId.Equals(sourceId));
+
+                    var sourceConfigurations = Observable.Return(newSourceEvent.SourceConfiguration)
+                            .Concat(changes.Select(c => c.UpdatedSourceConfiguration))
+                            .TakeUntil(removes);
+
+                    return sourceConfigurations
+                        .Select(_imageSourceFactory.CreateImageSource)
+                        .Select(i => i.Images)
+                        .Switch();
+                });
+            }
         }
     }
 }
