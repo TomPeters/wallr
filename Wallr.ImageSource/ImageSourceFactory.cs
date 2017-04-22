@@ -2,16 +2,18 @@
 
 namespace Wallr.ImageSource
 {
-    public interface IImageSourceConfigurationFactory
+    public class ImageSourceFactory
     {
-        ImageSourceConfiguration CreateImageSourceConfiguration(ImageSourceType sourceType);
-    }
+        private readonly IImageSourcePluginFactory _imageSourcePluginFactory;
 
-    public class ImageSourceConfigurationFactory : IImageSourceConfigurationFactory
-    {
-        public ImageSourceConfiguration CreateImageSourceConfiguration(ImageSourceType sourceType)
+        public ImageSourceFactory(IImageSourcePluginFactory imageSourcePluginFactory)
         {
-            return null; // nocommit implement, just create subreddit source all the time for now
+            _imageSourcePluginFactory = imageSourcePluginFactory;
+        }
+
+        public IImageSource CreateImageSource(ImageSourceConfiguration imageSourceConfiguration)
+        {
+            return new ImageSource(imageSourceConfiguration, _imageSourcePluginFactory);
         }
     }
 }

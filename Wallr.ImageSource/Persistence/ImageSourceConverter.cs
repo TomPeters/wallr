@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace Wallr.ImageSource.Persistence
 {
     public interface IImageSourceConverter
@@ -10,12 +12,21 @@ namespace Wallr.ImageSource.Persistence
     {
         public ImageSourceConfiguration FromSerializationModel(SImageSource serializationModel)
         {
-            return null; // nocommit
+            return new ImageSourceConfiguration(new ImageSourceId(serializationModel.Id),
+                new ImageSourceName(serializationModel.Name),
+                new ImageSourceType(serializationModel.Type),
+                new ImageSourceSettings(), //nocommit settings
+                serializationModel.UpdateInterval,
+                serializationModel.IsEnabled);
         }
 
         public SImageSource ToSerializationModel(ImageSourceConfiguration imageSource)
         {
-            return new SImageSource(imageSource.ImageSourceId.Value);
+            return new SImageSource(imageSource.ImageSourceId.Value,
+                imageSource.ImageSourceName.Value,
+                imageSource.SourceType.Value,
+                imageSource.UpdateInterval,
+                imageSource.IsEnabled);
         }
     }
 }

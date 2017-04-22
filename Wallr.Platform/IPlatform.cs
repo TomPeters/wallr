@@ -14,23 +14,23 @@ namespace Wallr.Platform
 
     public interface ISetup
     {
-        Task SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions); // nocommit, Task
+        Task SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
     }
 
     public interface INavigation
     {
-        Task NavigateToUrl(string url); // nocommit, task
+        Task NavigateToUrl(string url);
     }
 
     public interface IWallpaperEnvironment
     {
-        Task SetWallpaper(Guid sourceId, string imageId, ILogger logger); // nocommit, Task
+        Task SetWallpaper(Guid sourceId, string imageId, ILogger logger);
     }
 
     public interface IPersistence
     {
-        Task SaveSettings(string settingsKey, string settings); // nocommit used to be void
-        Task<Option<string>> LoadSettings(string settingsKey); // nocommit, used to be Maybe<string>
+        Task SaveSettings(string settingsKey, string settings);
+        Task<Option<string>> LoadSettings(string settingsKey);
     }
 
     public interface IPlatform : IConfiguration, IImagePersistence, INavigation, ISetup, IWallpaperEnvironment, IPersistence

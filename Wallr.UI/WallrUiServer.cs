@@ -12,7 +12,7 @@ namespace Wallr.UI
         string Url { get; }
     }
 
-    public class WallrUiServer : IWallrUiServer, IDisposable // TODO: Implement server
+    public class WallrUiServer : IWallrUiServer, IDisposable
     {
         private readonly INancyBootstrapper _nancyBootstrapper;
         private readonly ILogger _logger;

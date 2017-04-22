@@ -14,7 +14,7 @@ namespace Wallr.UI.NancyModules
             Post["/add", true] = async (parameters, ctx) =>
             {
                 var request = this.Bind<AddRequestModel>();
-                ImageSourceConfiguration source = sourceConfigurationFactory.CreateImageSourceConfiguration(new ImageSourceType(request.SourceType));
+                ImageSourceConfiguration source = sourceConfigurationFactory.CreateNewSource(new ImageSourceType(request.SourceType));
                 await sourceConfigurations.Add(source);
                 return source.ImageSourceId;
             };
