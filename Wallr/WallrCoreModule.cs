@@ -2,6 +2,7 @@
 using Wallr.ImagePersistence;
 using Wallr.ImageQueue;
 using Wallr.ImageSource;
+using Wallr.WallpaperUpdates;
 
 namespace Wallr
 {
@@ -13,6 +14,7 @@ namespace Wallr
             builder.RegisterModule<ImagePersistenceModule>();
             builder.RegisterModule<ImageQueueModule>();
             builder.RegisterModule<ImageSourceModule>();
+            builder.RegisterModule<WallpaperUpdatesModule>();
             // nocommit, reimplement
 //            builder.RegisterModule<WallpaperModule>();
 //            builder.RegisterModule<SourcesModule>();
