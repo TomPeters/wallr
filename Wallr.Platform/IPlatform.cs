@@ -14,6 +14,7 @@ namespace Wallr.Platform
 
     public interface ISetup
     {
+        // This will be invoked on the main thread from which wallr is started.
         Task SetupQuickUseControl(IReadOnlyList<IQuickUseOption> quickUseOptions);
     }
 

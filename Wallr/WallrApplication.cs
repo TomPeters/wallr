@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Serilog;
 using Wallr.ImagePersistence;
@@ -51,19 +52,26 @@ namespace Wallr
 
         public async Task Setup()
         {
+            // This might setup a synchronization context (eg in the case of webforms), but we don't want that context around for the duration of the setup
+            // since the main thread is likely to be blocking at this point
             await _setup.SetupQuickUseControl(_quickUseOptions.ToList());
             _logger.Information("Setup quick use controls");
-            await _imageQueue.Rehydrade(ids => ids.Select(_imageRepository.LoadImage));
-            _logger.Information("Image queue loaded from persistence");
-            _imageQueue.StartQueuingSavedImages(_saver.StartSavingImages(_imageSources));
-            _logger.Information("Image queue connecting to image sources");
-            await _imageSourceConfigurations.RehydrateSources();
-            _logger.Information("Image sources loaded from persistence");
-            _wallpaperUpdater.UpdateWallpaperFrom(_imageQueue);
-            _logger.Information("Wallpaper updates connected to image queue");
-            foreach (IImageSourceConfiguration source in _testingSources.GetTestingSourceConfigurations())
-                await _imageSourceConfigurations.Add(source);
-            _logger.Information("Application started");
+
+            // Run the rest on a different thread to avoid any static environmental contexts (eg WindowsFormsSynchronizationContext) setup by the _setup.SetupQuickUseControl method
+            await Task.Run(async () =>
+            {
+                await _imageQueue.Rehydrade(ids => ids.Select(_imageRepository.LoadImage));
+                _logger.Information("Image queue loaded from persistence");
+                _imageQueue.StartQueuingSavedImages(_saver.StartSavingImages(_imageSources));
+                _logger.Information("Image queue connecting to image sources");
+                await _imageSourceConfigurations.RehydrateSources();
+                _logger.Information("Image sources loaded from persistence");
+                _wallpaperUpdater.UpdateWallpaperFrom(_imageQueue);
+                _logger.Information("Wallpaper updates connected to image queue");
+                foreach (IImageSourceConfiguration source in _testingSources.GetTestingSourceConfigurations())
+                    await _imageSourceConfigurations.Add(source);
+                _logger.Information("Application started");
+            });
         }
     }
 }
