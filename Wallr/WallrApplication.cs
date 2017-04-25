@@ -71,7 +71,7 @@ namespace Wallr
                 foreach (IImageSourceConfiguration source in _testingSources.GetTestingSourceConfigurations())
                     await _imageSourceConfigurations.Add(source);
                 _logger.Information("Application started");
-            });
+            }).ConfigureAwait(false); // Avoid deadlocking the main thread, which may be blocking on the result of this method
         }
     }
 }
