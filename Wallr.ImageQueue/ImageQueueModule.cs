@@ -7,7 +7,7 @@ namespace Wallr.ImageQueue
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ImageQueue>().As<IImageQueue>().SingleInstance();
+            builder.RegisterType<ImageQueue>().As<IImageQueue>().As<IImageQueueEvents>().SingleInstance();
             builder.RegisterType<SourceQualifiedImageIdConverter>().As<ISourceQualifiedImageIdConverter>();
         }
     }

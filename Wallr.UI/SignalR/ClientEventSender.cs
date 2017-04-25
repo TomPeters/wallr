@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNet.SignalR;
+using Wallr.ImageQueue;
 
 namespace Wallr.UI.SignalR
 {
@@ -12,28 +13,19 @@ namespace Wallr.UI.SignalR
     public class ClientEventSender : IDisposable, IClientEventSender
     {
         private readonly IHubContext _hubContext;
+        private readonly IImageQueueEvents _imageQueueEvents;
         private List<IDisposable> _eventSubscriptions;
 
-        public ClientEventSender(IHubContext hubContext)
+        public ClientEventSender(IHubContext hubContext, IImageQueueEvents imageQueueEvents)
         {
             _hubContext = hubContext;
+            _imageQueueEvents = imageQueueEvents;
         }
 
         public void StartSendingEvents()
         {
             _eventSubscriptions = new List<IDisposable>();
-//            _eventSubscriptions.Add(_imageQueueUpdateEvents.ImageQueueUpdateRequested.Subscribe(i =>
-//            SendEvent("ImageQueueUpdate", new
-//                {
-//                    NumberOfImagesRequested = i
-//                })
-//            ));
-//            _eventSubscriptions.Add(_wallpaperUpdateEvents.UpdateImageRequested.Subscribe(i =>
-//                SendEvent("WallpaperUpdate", new
-//                {
-//                    TimeSinceLastUpdate = i
-//                })
-//            ));
+            _imageQueueEvents.ImageQueueChanges.Subscribe(e => SendEvent("QueueChanged", null));
         }
 
         private void SendEvent(string eventName, object eventArgs)

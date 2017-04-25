@@ -28,6 +28,20 @@ wallrModule.run(["connection", function (connection) {
 }]);
 
 
-wallrModule.factory("events", ['connection', function (connection) {
+wallrModule.factory("rawEvents", ['connection', function (connection) {
     return connection.events;
+}]);
+
+wallrModule.factory("events", ["rawEvents", function(events) {
+    return {
+        get queueChanged() {
+            return filterTo("QueueChanged");
+        }
+    };
+
+    function filterTo(eventName) {
+        return events
+            .filter(function(e) { return e.name === "QueueChanged"; })
+            .map(function(e) { return e.args; });
+    }
 }]);

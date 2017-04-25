@@ -4,7 +4,7 @@ angular.module("Wallr").factory("ImageQueueStore", ["$http", "ImageIdFactory", "
     function ($http, imageIdFactory, events) {
         var imageIds = [];
         var isFirstCall = true;
-        events.subscribe(loadImageIds); // TODO: This is bad, event should have the changes to the queue so shouldn't have to reload the whole thing
+        events.queueChanged.subscribe(loadImageIds); // TODO: This is bad, event should have the changes to the queue so shouldn't have to reload the whole thing
         return {
             get imageIds() {
                 if (isFirstCall) {
@@ -13,7 +13,7 @@ angular.module("Wallr").factory("ImageQueueStore", ["$http", "ImageIdFactory", "
                 }
                 return imageIds;
             }
-        }
+        };
 
         function loadImageIds() {
             $http.get("/imageQueue/images").then(function(response) {
