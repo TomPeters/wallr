@@ -24,6 +24,7 @@ namespace Wallr.UI.SignalR
 
         public void StartSendingEvents()
         {
+            _eventSubscriptions?.ForEach(s => s.Dispose());
             _eventSubscriptions = new List<IDisposable>();
             _imageQueueEvents.ImageQueueChanges.Subscribe(e => SendEvent("QueueChanged", null));
         }
@@ -35,7 +36,7 @@ namespace Wallr.UI.SignalR
 
         public void Dispose()
         {
-            _eventSubscriptions.ForEach(s => s.Dispose());
+            _eventSubscriptions?.ForEach(s => s.Dispose());
         }
     }
 }
