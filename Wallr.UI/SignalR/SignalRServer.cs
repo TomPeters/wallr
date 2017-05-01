@@ -14,9 +14,11 @@ namespace Wallr.UI.SignalR
     public class SignalRServer : ISignalRServer, IDisposable
     {
         // This ensures there is a reference to Owin.HttpListener & Owin.Security such that it will get copied on deployment 
-        // They is required because it is used reflectively
+        // They are required because they are used reflectively
+#pragma warning disable 169
         private OwinHttpListener _httpListener;
         private ICertificateValidator _certificateValidator;
+#pragma warning restore 169
 
         private readonly ILogger _logger;
         private readonly IClientEventSender _clientEventSender;
