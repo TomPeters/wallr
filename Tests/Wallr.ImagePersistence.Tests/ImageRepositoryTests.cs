@@ -2,9 +2,9 @@
 using System.IO;
 using System.Threading.Tasks;
 using FakeItEasy;
+using FluentAssertions;
 using Optional;
 using Serilog;
-using Shouldly;
 using Wallr.ImageSource;
 using Wallr.Platform;
 using Xunit;
@@ -36,16 +36,16 @@ namespace Wallr.ImagePersistence.Tests
             A.CallTo(() => _imagePersistence.SaveImage(_imageId.SourceId.Value, _imageId.ImageId.Value, getImageStream, A<ILogger>._))
                 .MustHaveHappened(Repeated.Exactly.Once);
 
-            savedImage.Id.ShouldBe(_imageId);
-            (await savedImage.GetStream()).ShouldBe(_imageStreamFromPersistence);
+            savedImage.Id.Should().Be(_imageId);
+            (await savedImage.GetStream()).Should().Be(_imageStreamFromPersistence);
         }
 
         [Fact]
         public async Task LoadImage_ReturnsImageThatCanBeFetchedFromPersistence()
         {
             var savedImage = _imageRepository.LoadImage(_imageId);
-            savedImage.Id.ShouldBe(_imageId);
-            (await savedImage.GetStream()).ShouldBe(_imageStreamFromPersistence);
+            savedImage.Id.Should().Be(_imageId);
+            (await savedImage.GetStream()).Should().Be(_imageStreamFromPersistence);
         }
     }
 }

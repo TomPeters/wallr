@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reactive;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using FakeItEasy;
+using FluentAssertions;
 using Microsoft.Reactive.Testing;
 using Serilog;
-using Shouldly;
 using Wallr.ImageSource;
 using Xunit;
 
@@ -91,7 +89,7 @@ namespace Wallr.ImagePersistence.Tests
 
             ITestableObserver<ISavedImage> savedImages = _testScheduler.Start(() => _sut.StartSavingImages(_imageSources), 0, 0, 10);
 
-            savedImages.Messages.Select(m => m.Value.Value).ShouldBe(expectedSavedImages);
+            savedImages.Messages.Select(m => m.Value.Value).Should().Equal(expectedSavedImages);
         }
 
         public void Dispose()

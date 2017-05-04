@@ -1,7 +1,5 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using FakeItEasy;
-using Shouldly;
 using Wallr.Platform;
 using Wallr.UI;
 using Wallr.UI.SignalR;
