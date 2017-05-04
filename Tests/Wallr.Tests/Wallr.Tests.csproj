@@ -39,6 +39,9 @@
     <Reference Include="FakeItEasy, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c">
       <HintPath>..\..\packages\FakeItEasy.3.2.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\..\packages\Serilog.2.4.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
     <Reference Include="Shouldly, Version=2.8.2.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941">
       <HintPath>..\..\packages\Shouldly.2.8.2\lib\net451\Shouldly.dll</HintPath>
     </Reference>
@@ -62,12 +65,25 @@
   <ItemGroup>
     <Compile Include="DependencyInjectionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WallrApplicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Wallr.ImagePersistence\Wallr.ImagePersistence.csproj">
+      <Project>{755b5fa0-9964-4cc9-8932-a90c0775862f}</Project>
+      <Name>Wallr.ImagePersistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wallr.ImageQueue\Wallr.ImageQueue.csproj">
+      <Project>{8dd9ab2b-ffcf-4f3f-a633-5f7f36294e84}</Project>
+      <Name>Wallr.ImageQueue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wallr.ImageSource\Wallr.ImageSource.csproj">
+      <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
+      <Name>Wallr.ImageSource</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Wallr.Platform\Wallr.Platform.csproj">
       <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
       <Name>Wallr.Platform</Name>
@@ -75,6 +91,10 @@
     <ProjectReference Include="..\..\Wallr.UI\Wallr.UI.csproj">
       <Project>{190808f0-09a0-4e49-9f42-029b980937a5}</Project>
       <Name>Wallr.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Wallr.WallpaperUpdates\Wallr.WallpaperUpdates.csproj">
+      <Project>{fb2b0829-e113-4e9a-95b9-d1d4b8d0eb4a}</Project>
+      <Name>Wallr.WallpaperUpdates</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Wallr\Wallr.csproj">
       <Project>{74562a83-dd36-44c9-9aee-a24298cd5f56}</Project>
