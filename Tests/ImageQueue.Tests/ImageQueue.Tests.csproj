@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{40B62659-16F1-4388-A2BC-49EE91F81167}</ProjectGuid>
+    <ProjectGuid>{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wallr.Tests</RootNamespace>
-    <AssemblyName>Wallr.Tests</AssemblyName>
+    <RootNamespace>ImageQueue.Tests</RootNamespace>
+    <AssemblyName>ImageQueue.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,9 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
-      <HintPath>..\..\packages\Autofac.4.5.0\lib\net45\Autofac.dll</HintPath>
-    </Reference>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SourceQualifiedImageIdConverterTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="FakeItEasy, Version=3.3.2.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c">
       <HintPath>..\..\packages\FakeItEasy.3.3.2\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
@@ -45,12 +46,6 @@
     <Reference Include="FluentAssertions.Core, Version=4.19.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a">
       <HintPath>..\..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
-      <HintPath>..\..\packages\Serilog.2.4.0\lib\net45\Serilog.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
@@ -67,12 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyInjectionTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WallrApplicationTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,22 +76,6 @@
     <ProjectReference Include="..\..\Wallr.ImageSource\Wallr.ImageSource.csproj">
       <Project>{390bdcb5-ba59-4c7e-aa2d-042b735fc805}</Project>
       <Name>Wallr.ImageSource</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wallr.Platform\Wallr.Platform.csproj">
-      <Project>{e5d7b4f2-f84d-4de8-a8f2-bae8151710f2}</Project>
-      <Name>Wallr.Platform</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wallr.UI\Wallr.UI.csproj">
-      <Project>{190808f0-09a0-4e49-9f42-029b980937a5}</Project>
-      <Name>Wallr.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wallr.WallpaperUpdates\Wallr.WallpaperUpdates.csproj">
-      <Project>{fb2b0829-e113-4e9a-95b9-d1d4b8d0eb4a}</Project>
-      <Name>Wallr.WallpaperUpdates</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Wallr\Wallr.csproj">
-      <Project>{74562a83-dd36-44c9-9aee-a24298cd5f56}</Project>
-      <Name>Wallr</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
