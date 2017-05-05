@@ -33,10 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="IImageQueue.cs" />
+    <Compile Include="IImageQueueEvents.cs" />
     <Compile Include="ImageQueue.cs" />
     <Compile Include="ImageQueueModule.cs" />
+    <Compile Include="IObservableImageQueue.cs" />
+    <Compile Include="IPersistingImageQueue.cs" />
+    <Compile Include="ObservableImageQueue.cs" />
     <Compile Include="Persistence\SourceQualifiedImageIdConverter.cs" />
     <Compile Include="Persistence\SSourceQualifiedImageId.cs" />
+    <Compile Include="PersistingImageQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wallr.Common\Wallr.Common.csproj">
