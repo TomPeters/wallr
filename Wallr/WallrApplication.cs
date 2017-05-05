@@ -22,7 +22,7 @@ namespace Wallr
         private readonly ISetup _setup;
         private readonly ILogger _logger;
         private readonly IEnumerable<IQuickUseOption> _quickUseOptions;
-        private readonly IImageQueue _imageQueue;
+        private readonly IObservableImageQueue _imageQueue;
         private readonly IImageRepository _imageRepository;
         private readonly IImageSourceConfigurations _imageSourceConfigurations;
         private readonly IImageSaver _saver;
@@ -32,7 +32,7 @@ namespace Wallr
 
         public WallrApplication(ISetup setup, ILogger logger,
             IEnumerable<IQuickUseOption> quickUseOptions,
-            IImageQueue imageQueue, IImageRepository imageRepository,
+            IObservableImageQueue imageQueue, IImageRepository imageRepository,
             IImageSourceConfigurations imageSourceConfigurations,
             IImageSaver saver, IImageSources imageSources,
             IWallpaperUpdater wallpaperUpdater,

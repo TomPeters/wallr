@@ -23,24 +23,26 @@ namespace Wallr.ImageQueue
         IObservable<ImageQueueChangedEvent> ImageQueueChanges { get; }
     }
 
-    public interface IImageQueue
+    public interface IObservableImageQueue : IImageQueue
     {
         void StartQueuingSavedImages(IObservable<ISavedImage> savedImages);
+    }
+
+    public interface IImageQueue
+    {
         Task Enqueue(ISavedImage savedImage);
         Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages);
         Task<Option<ISavedImage>> Dequeue();
         IEnumerable<SourceQualifiedImageId> QueuedImageIds { get; }
     }
 
-    public class ImageQueue : IImageQueue, IDisposable, IImageQueueEvents
+    public class ImageQueue : IImageQueue
     {
         private const string SettingsKey = "ImageQueue";
         private readonly IPersistence _persistence;
         private readonly ISourceQualifiedImageIdConverter _sourceQualifiedImageIdConverter;
         private readonly ILogger _logger;
         private Queue<ISavedImage> _queue = new Queue<ISavedImage>();
-        private readonly List<IDisposable> _savedImagesSubscriptions = new List<IDisposable>();
-        private readonly Subject<ImageQueueChangedEvent> _queueChanges = new Subject<ImageQueueChangedEvent>();
 
         public ImageQueue(IPersistence persistence, ISourceQualifiedImageIdConverter sourceQualifiedImageIdConverter,
             ILogger logger)
@@ -50,17 +52,11 @@ namespace Wallr.ImageQueue
             _logger = logger.ForContext<ImageQueue>();
         }
 
-        public void StartQueuingSavedImages(IObservable<ISavedImage> savedImages)
-        {
-            _savedImagesSubscriptions.Add(savedImages.SelectMany(i => Observable.FromAsync(t => Enqueue(i))).Subscribe());
-        }
-
         public async Task Enqueue(ISavedImage savedImage)
         {
             _logger.Information("Enqueuing image {ImageId} from source {SourceId}", savedImage.Id.ImageId.Value, savedImage.Id.SourceId.Value);
             _queue.Enqueue(savedImage);
             await PersistLatestQueueState();
-            _queueChanges.OnNext(new ImageQueueChangedEvent());
         }
 
         public async Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages)
@@ -72,7 +68,6 @@ namespace Wallr.ImageQueue
                 .Select(fetchSavedImages)
                 .Select(i => new Queue<ISavedImage>(i))
                 .ValueOr(new Queue<ISavedImage>());
-            _queueChanges.OnNext(new ImageQueueChangedEvent());
         }
 
         public async Task<Option<ISavedImage>> Dequeue()
@@ -81,7 +76,6 @@ namespace Wallr.ImageQueue
             ISavedImage image = _queue.Dequeue();
             await PersistLatestQueueState();
             _logger.Information("Dequeuing image {ImageId} from source {SourceId}", image.Id.ImageId.Value, image.Id.SourceId.Value);
-            _queueChanges.OnNext(new ImageQueueChangedEvent());
             return image.Some();
         }
 
@@ -95,6 +89,45 @@ namespace Wallr.ImageQueue
             await _persistence.SaveSettings(SettingsKey, JsonConvert.SerializeObject(sQueue));
             _logger.Information("Queue state persisted");
         }
+    }
+
+    public class ObservableImageQueue : IObservableImageQueue, IImageQueueEvents, IDisposable
+    {
+        private readonly IImageQueue _imageQueue;
+        private readonly List<IDisposable> _savedImagesSubscriptions = new List<IDisposable>();
+        private readonly Subject<ImageQueueChangedEvent> _queueChanges = new Subject<ImageQueueChangedEvent>();
+
+        public ObservableImageQueue(IImageQueue imageQueue)
+        {
+            _imageQueue = imageQueue;
+        }
+
+        public void StartQueuingSavedImages(IObservable<ISavedImage> savedImages)
+        {
+            _savedImagesSubscriptions.Add(savedImages.SelectMany(i => Observable.FromAsync(t => Enqueue(i))).Subscribe());
+        }
+
+        public async Task Enqueue(ISavedImage savedImage)
+        {
+            await _imageQueue.Enqueue(savedImage);
+            _queueChanges.OnNext(new ImageQueueChangedEvent());
+        }
+
+        public async Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages)
+        {
+            await _imageQueue.Rehydrade(fetchSavedImages);
+            _queueChanges.OnNext(new ImageQueueChangedEvent());
+        }
+
+        public async Task<Option<ISavedImage>> Dequeue()
+        {
+            Option<ISavedImage> dequeueImage = await _imageQueue.Dequeue();
+            dequeueImage.MatchSome(_ => _queueChanges.OnNext(new ImageQueueChangedEvent()));
+            return dequeueImage;
+        }
+
+        public IEnumerable<SourceQualifiedImageId> QueuedImageIds => _imageQueue.QueuedImageIds;
+        public IObservable<ImageQueueChangedEvent> ImageQueueChanges => _queueChanges;
 
         public void Dispose()
         {
@@ -102,7 +135,5 @@ namespace Wallr.ImageQueue
                 subscription.Dispose();
             _queueChanges.Dispose();
         }
-
-        public IObservable<ImageQueueChangedEvent> ImageQueueChanges => _queueChanges;
     }
 }

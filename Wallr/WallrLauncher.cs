@@ -15,9 +15,9 @@ namespace Wallr
             containerBuilder.RegisterModule(new WallrModule(platform));
             IContainer container = containerBuilder.Build();
 
+            await container.Resolve<IWallrApplication>().Setup();
             container.Resolve<ISignalRServer>().StartServer(); // TODO: Merge signalR and web server into composite server
             container.Resolve<IWallrUiServer>().StartServer();
-            await container.Resolve<IWallrApplication>().Setup();
 
             return new WallrApplicationEnvironment(container);
         }

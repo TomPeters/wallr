@@ -17,7 +17,7 @@ namespace Wallr.Tests
     {
         private readonly ISetup _setup;
         private readonly IEnumerable<IQuickUseOption> _quickUseOptions;
-        private readonly IImageQueue _imageQueue;
+        private readonly IObservableImageQueue _imageQueue;
         private readonly IImageSourceConfigurations _imageSourceConfigurations;
         private readonly IWallpaperUpdater _wallpaperUpdater;
         private readonly WallrApplication _wallrApplication;
@@ -27,7 +27,7 @@ namespace Wallr.Tests
         {
             _setup = A.Fake<ISetup>();
             _quickUseOptions = new[] {A.Fake<IQuickUseOption>(), A.Fake<IQuickUseOption>(), A.Fake<IQuickUseOption>() };
-            _imageQueue = A.Fake<IImageQueue>();
+            _imageQueue = A.Fake<IObservableImageQueue>();
             var imageRepository = A.Fake<IImageRepository>();
             _imageSourceConfigurations = A.Fake<IImageSourceConfigurations>();
             var imageSaver = A.Fake<IImageSaver>();
