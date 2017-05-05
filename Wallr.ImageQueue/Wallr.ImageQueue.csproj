@@ -36,6 +36,7 @@
     <Compile Include="IImageQueue.cs" />
     <Compile Include="IImageQueueEvents.cs" />
     <Compile Include="ImageQueue.cs" />
+    <Compile Include="ImageQueueConverter.cs" />
     <Compile Include="ImageQueueModule.cs" />
     <Compile Include="IObservableImageQueue.cs" />
     <Compile Include="IPersistingImageQueue.cs" />

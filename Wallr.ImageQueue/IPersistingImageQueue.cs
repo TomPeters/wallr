@@ -7,6 +7,6 @@ namespace Wallr.ImageQueue
 {
     public interface IPersistingImageQueue : IImageQueue
     {
-        Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages);
+        Task Rehydrade(Func<SourceQualifiedImageId, ISavedImage> fetchSavedImages);
     }
 }

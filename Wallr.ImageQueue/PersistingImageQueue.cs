@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Nito.AsyncEx;
 using Optional;
 using Optional.Linq;
 using Serilog;
@@ -16,35 +17,37 @@ namespace Wallr.ImageQueue
     {
         private const string SettingsKey = "ImageQueue";
         private readonly IPersistence _persistence;
-        private readonly ISourceQualifiedImageIdConverter _sourceQualifiedImageIdConverter;
+        private readonly IImageQueueConverter _imageQueueConverter;
         private readonly IImageQueue _queue;
         private readonly ILogger _logger;
 
         public PersistingImageQueue(IPersistence persistence,
-            ISourceQualifiedImageIdConverter sourceQualifiedImageIdConverter,
+            IImageQueueConverter imageQueueConverter,
             IImageQueue queue,
             ILogger logger)
         {
             _persistence = persistence;
-            _sourceQualifiedImageIdConverter = sourceQualifiedImageIdConverter;
+            _imageQueueConverter = imageQueueConverter;
             _queue = queue;
             _logger = logger.ForContext<PersistingImageQueue>();
         }
 
-        public async Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages)
+        public async Task Rehydrade(Func<SourceQualifiedImageId, ISavedImage> fetchSavedImages)
         {
             _logger.Information("Attempting to load queue");
             Option<string> persistedQueue = await _persistence.LoadSettings(SettingsKey);
-            persistedQueue.MatchNone(() => _logger.Information("Unable to load queue, image queue will be empty"));
-            persistedQueue.MatchSome(_ => _logger.Information("Loaded queue json"));
-            IEnumerable<ISavedImage> savedImages = persistedQueue
-                .Select(JsonConvert.DeserializeObject<IEnumerable<SSourceQualifiedImageId>>)
-                .Select(ids => ids.Select(_sourceQualifiedImageIdConverter.FromSerializationModel))
-                .Select(fetchSavedImages)
-                .ValueOr(Enumerable.Empty<ISavedImage>());
-            persistedQueue.MatchSome(_ => _logger.Information("Queue deserialized"));
-            await _queue.Clear();
-            await _queue.Enqueue(savedImages);
+            await persistedQueue.Match(async s =>
+            {
+                _logger.Information("Loaded queue json");
+                IEnumerable<SourceQualifiedImageId> deserializedQueue = _imageQueueConverter.Deserialize(s);
+                _logger.Information("Queue deserialized");
+                await _queue.Clear();
+                await _queue.Enqueue(deserializedQueue.Select(fetchSavedImages));
+            }, () =>
+            {
+                _logger.Information("Unable to load queue");
+                return TaskConstants.Completed;
+            });
         }
 
         public async Task Enqueue(IEnumerable<ISavedImage> savedImages)
@@ -70,8 +73,7 @@ namespace Wallr.ImageQueue
         {
             IEnumerable<SourceQualifiedImageId> sourceQualifiedImageIds = _queue.QueuedImageIds.ToList();
             _logger.Information("Persisting queue state: {@QueuedImageIds}", sourceQualifiedImageIds);
-            IEnumerable<SSourceQualifiedImageId> sQueue = sourceQualifiedImageIds.Select(_sourceQualifiedImageIdConverter.ToSerializationModel);
-            await _persistence.SaveSettings(SettingsKey, JsonConvert.SerializeObject(sQueue));
+            await _persistence.SaveSettings(SettingsKey, _imageQueueConverter.Serialize(sourceQualifiedImageIds));
             _logger.Information("Queue state persisted");
         }
 

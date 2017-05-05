@@ -30,7 +30,7 @@ namespace Wallr.ImageQueue
             _queueChanges.OnNext(new ImageQueueChangedEvent());
         }
 
-        public async Task Rehydrade(Func<IEnumerable<SourceQualifiedImageId>, IEnumerable<ISavedImage>> fetchSavedImages)
+        public async Task Rehydrade(Func<SourceQualifiedImageId, ISavedImage> fetchSavedImages)
         {
             await _imageQueue.Rehydrade(fetchSavedImages);
             _queueChanges.OnNext(new ImageQueueChangedEvent());

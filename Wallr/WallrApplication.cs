@@ -60,7 +60,7 @@ namespace Wallr
             // Run the rest on a different thread to avoid any static environmental contexts (eg WindowsFormsSynchronizationContext) setup by the _setup.SetupQuickUseControl method
             await Task.Run(async () =>
             {
-                await _imageQueue.Rehydrade(ids => ids.Select(_imageRepository.LoadImage));
+                await _imageQueue.Rehydrade(_imageRepository.LoadImage);
                 _logger.Information("Image queue loaded from persistence");
                 _imageQueue.StartQueuingSavedImages(_saver.StartSavingImages(_imageSources));
                 _logger.Information("Image queue connecting to image sources");
