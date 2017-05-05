@@ -17,17 +17,17 @@ namespace Wallr.ImageQueue
     {
         private const string SettingsKey = "ImageQueue";
         private readonly IPersistence _persistence;
-        private readonly IImageQueueConverter _imageQueueConverter;
+        private readonly IImageQueueSerializer _imageQueueSerializer;
         private readonly IImageQueue _queue;
         private readonly ILogger _logger;
 
         public PersistingImageQueue(IPersistence persistence,
-            IImageQueueConverter imageQueueConverter,
+            IImageQueueSerializer imageQueueSerializer,
             IImageQueue queue,
             ILogger logger)
         {
             _persistence = persistence;
-            _imageQueueConverter = imageQueueConverter;
+            _imageQueueSerializer = imageQueueSerializer;
             _queue = queue;
             _logger = logger.ForContext<PersistingImageQueue>();
         }
@@ -39,7 +39,7 @@ namespace Wallr.ImageQueue
             await persistedQueue.Match(async s =>
             {
                 _logger.Information("Loaded queue json");
-                IEnumerable<SourceQualifiedImageId> deserializedQueue = _imageQueueConverter.Deserialize(s);
+                IEnumerable<SourceQualifiedImageId> deserializedQueue = _imageQueueSerializer.Deserialize(s);
                 _logger.Information("Queue deserialized");
                 await _queue.Clear();
                 await _queue.Enqueue(deserializedQueue.Select(fetchSavedImages));
@@ -73,7 +73,7 @@ namespace Wallr.ImageQueue
         {
             IEnumerable<SourceQualifiedImageId> sourceQualifiedImageIds = _queue.QueuedImageIds.ToList();
             _logger.Information("Persisting queue state: {@QueuedImageIds}", sourceQualifiedImageIds);
-            await _persistence.SaveSettings(SettingsKey, _imageQueueConverter.Serialize(sourceQualifiedImageIds));
+            await _persistence.SaveSettings(SettingsKey, _imageQueueSerializer.Serialize(sourceQualifiedImageIds));
             _logger.Information("Queue state persisted");
         }
 

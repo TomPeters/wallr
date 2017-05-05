@@ -20,7 +20,7 @@ namespace ImageQueue.Tests
         private readonly IPersistence _persistence;
         private readonly IEnumerable<SourceQualifiedImageId> _enqueuedImageIds;
         private Func<SourceQualifiedImageId, ISavedImage> _fetchSavedImages;
-        private readonly IImageQueueConverter _converter;
+        private readonly IImageQueueSerializer _serializer;
         private const string ImageQueuePersistenceKey = "ImageQueue";
         private const string EnqueuedImageIdsJson = "Some Json";
 
@@ -35,9 +35,9 @@ namespace ImageQueue.Tests
             _innerQueue = A.Fake<IImageQueue>();
             A.CallTo(() => _innerQueue.QueuedImageIds).Returns(_enqueuedImageIds);
             _persistence = A.Fake<IPersistence>();
-            _converter = A.Fake<IImageQueueConverter>();
-            A.CallTo(() => _converter.Serialize(A<IEnumerable<SourceQualifiedImageId>>.That.IsSameSequenceAs(_enqueuedImageIds))).Returns(EnqueuedImageIdsJson);
-            _sut = new PersistingImageQueue(_persistence, _converter, _innerQueue, A.Fake<ILogger>());
+            _serializer = A.Fake<IImageQueueSerializer>();
+            A.CallTo(() => _serializer.Serialize(A<IEnumerable<SourceQualifiedImageId>>.That.IsSameSequenceAs(_enqueuedImageIds))).Returns(EnqueuedImageIdsJson);
+            _sut = new PersistingImageQueue(_persistence, _serializer, _innerQueue, A.Fake<ILogger>());
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace ImageQueue.Tests
                 CreateImageId("2"),
                 CreateImageId("3")
             };
-            A.CallTo(() => _converter.Deserialize(someJson)).Returns(imageIds);
+            A.CallTo(() => _serializer.Deserialize(someJson)).Returns(imageIds);
             var savedImages = new[]
             {
                 A.Dummy<ISavedImage>(),

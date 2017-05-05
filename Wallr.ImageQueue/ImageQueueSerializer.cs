@@ -6,17 +6,17 @@ using Wallr.ImageQueue.Persistence;
 
 namespace Wallr.ImageQueue
 {
-    public interface IImageQueueConverter
+    public interface IImageQueueSerializer
     {
         string Serialize(IEnumerable<SourceQualifiedImageId> queue);
         IEnumerable<SourceQualifiedImageId> Deserialize(string queueJson);
     }
 
-    public class ImageQueueConverter : IImageQueueConverter
+    public class ImageQueueSerializer : IImageQueueSerializer
     {
         private readonly ISourceQualifiedImageIdConverter _converter;
 
-        public ImageQueueConverter(ISourceQualifiedImageIdConverter converter)
+        public ImageQueueSerializer(ISourceQualifiedImageIdConverter converter)
         {
             _converter = converter;
         }

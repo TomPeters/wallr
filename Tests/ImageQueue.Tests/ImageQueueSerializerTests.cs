@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ImageQueue.Tests
 {
-    public class ImageQueueConverterTests
+    public class ImageQueueSerializerTests
     {
         [Fact]
         public void RoundTrip_QueueValuesPreserved()
@@ -21,7 +21,7 @@ namespace ImageQueue.Tests
                 CreateImageId("3")
             };
 
-            var sut = new ImageQueueConverter(new SourceQualifiedImageIdConverter());
+            var sut = new ImageQueueSerializer(new SourceQualifiedImageIdConverter());
 
             var json = sut.Serialize(queuedIds);
             sut.Deserialize(json).Should().Equal(queuedIds);
