@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImagePersistence.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageQueue.Tests", "Tests\Wallr.ImageQueue.Tests\Wallr.ImageQueue.Tests.csproj", "{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageSource.Tests", "Tests\Wallr.ImageSource.Tests\Wallr.ImageSource.Tests.csproj", "{502A9374-3EB0-4CB0-B8AB-F541557A5B40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502A9374-3EB0-4CB0-B8AB-F541557A5B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502A9374-3EB0-4CB0-B8AB-F541557A5B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502A9374-3EB0-4CB0-B8AB-F541557A5B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502A9374-3EB0-4CB0-B8AB-F541557A5B40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,5 +115,6 @@ Global
 		{40B62659-16F1-4388-A2BC-49EE91F81167} = {CCC5CF08-4294-44B7-8372-43A0A7D8AF45}
 		{40487DE0-1BEF-44EE-BAF8-71D1D059F6A1} = {CCC5CF08-4294-44B7-8372-43A0A7D8AF45}
 		{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D} = {CCC5CF08-4294-44B7-8372-43A0A7D8AF45}
+		{502A9374-3EB0-4CB0-B8AB-F541557A5B40} = {CCC5CF08-4294-44B7-8372-43A0A7D8AF45}
 	EndGlobalSection
 EndGlobal
