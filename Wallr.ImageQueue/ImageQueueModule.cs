@@ -20,7 +20,7 @@ namespace Wallr.ImageQueue
                     => context.Resolve<ObservableImageQueue>(new TypedParameter(typeof(IPersistingImageQueue), inner)), "inner")
                 .As<IObservableImageQueue>().As<IPersistingImageQueue>().As<IImageQueue>().As<IImageQueueEvents>().SingleInstance();
 
-
+            builder.RegisterType<ImageQueueSerializer>().As<IImageQueueSerializer>();
             builder.RegisterType<SourceQualifiedImageIdConverter>().As<ISourceQualifiedImageIdConverter>();
         }
     }
