@@ -6,12 +6,11 @@ using FluentAssertions;
 using Optional;
 using Serilog;
 using Wallr.ImagePersistence;
-using Wallr.ImageQueue;
 using Wallr.ImageSource;
 using Wallr.Platform;
 using Xunit;
 
-namespace ImageQueue.Tests
+namespace Wallr.ImageQueue.Tests
 {
     public class PersistingImageQueueTests
     {

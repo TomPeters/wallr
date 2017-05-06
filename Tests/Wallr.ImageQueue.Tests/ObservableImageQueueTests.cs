@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Reactive;
 using System.Reactive.Concurrency;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.Reactive.Testing;
 using Optional;
 using Wallr.ImagePersistence;
-using Wallr.ImageQueue;
 using Xunit;
 
-namespace ImageQueue.Tests
+namespace Wallr.ImageQueue.Tests
 {
     public class ObservableImageQueueTests
     {

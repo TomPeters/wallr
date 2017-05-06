@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Wallr.ImagePersistence;
-using Wallr.ImageQueue;
 using Wallr.ImageQueue.Persistence;
 using Wallr.ImageSource;
 using Xunit;
 
-namespace ImageQueue.Tests
+namespace Wallr.ImageQueue.Tests
 {
     public class ImageQueueSerializerTests
     {

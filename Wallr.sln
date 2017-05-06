@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CCC5CF08
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImagePersistence.Tests", "Tests\Wallr.ImagePersistence.Tests\Wallr.ImagePersistence.Tests.csproj", "{40487DE0-1BEF-44EE-BAF8-71D1D059F6A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageQueue.Tests", "Tests\ImageQueue.Tests\ImageQueue.Tests.csproj", "{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallr.ImageQueue.Tests", "Tests\Wallr.ImageQueue.Tests\Wallr.ImageQueue.Tests.csproj", "{FDEAD6F2-65B4-4607-AF13-DF4C4B07587D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
